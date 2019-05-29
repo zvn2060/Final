@@ -4,6 +4,9 @@
 class AudioHelper {
 private:
 	AudioHelper() = default;
+	enum {
+	  SE_MENU_MOVE
+	} SE;
 public:
 	static float BGMVolume;
 	static float SFXVolume;

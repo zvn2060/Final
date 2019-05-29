@@ -30,3 +30,11 @@
 *.exe
 *.out
 *.app
+
+
+# visual studio
+C++_final/Debug/
+C++_final/C++_final.vcxproj
+C++_final/C++_final.vcxproj.filters
+C++_final/C++_final.vcxproj.user
+C++_final/packages.config

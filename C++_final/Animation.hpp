@@ -16,14 +16,7 @@ private:
   int framerate;
   bool loop;
 public:
-  Animation(map<string, vector<string>> spritesheetData) {
-	for (auto data : spritesheetData) {
-	  this->bmps_all[data.first] = vector<shared_ptr<ALLEGRO_BITMAP>>();
-	  for (vector<string>::iterator files = data.second.begin(); files != data.second.end(); files++) {
-		this->bmps_all[data.first].push_back( Engine::Resources::GetInstance().GetBitmap(*files) );
-	  }
-	}
-
+  Animation() {
 	this->bmps.push_back( Engine::Resources::GetInstance().GetBitmap("main/animation_not_loaded.png") );
 
 	this->frame = 0;
@@ -34,17 +27,17 @@ public:
   ~Animation() {
 
   }
-  void play(std::string name, bool loop, int framerate) {
+  void play(std::string name, bool loop = false, int framerate = 4) {
 	this->frame = 0;
 	this->count = 0;
 	this->bmps = this->bmps_all[name];
 	this->loop = loop;
 	this->framerate = framerate;
   }
-  void draw(Engine::Point* position, Engine::Point* anchor) {
+  void draw(Engine::Point position, Engine::Point anchor) {
 	al_draw_bitmap(this->bmps[this->frame].get(),
-	  position->x - anchor->x * al_get_bitmap_width(bmps[this->frame].get()),
-	  position->y - anchor->y * al_get_bitmap_height(bmps[this->frame].get()),
+	  position.x - anchor.x * al_get_bitmap_width(bmps[this->frame].get()),
+	  position.y - anchor.y * al_get_bitmap_height(bmps[this->frame].get()),
 	  0);
 
 	this->count = (this->count + 1) % this->framerate;
@@ -60,6 +53,12 @@ public:
 	  }
 	}
 
+  }
+
+  void add(string animationName, vector<string> files) {
+	for (vector<string>::iterator file = files.begin(); file != files.end(); file++) {
+	  this->bmps_all[animationName].push_back(Engine::Resources::GetInstance().GetBitmap(*file));
+	}
   }
 };
 

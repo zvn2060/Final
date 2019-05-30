@@ -27,11 +27,11 @@ public:
   void OnKeyDown(int keycode) override {
 	if (keycode == ALLEGRO_KEY_LEFT) {
 	  this->flag->setFlag(this->FLAG_KEY_LEFT);
-	  this->fighter->animation->play("move_left", false, 4);
+	  this->fighter->animation.play("move_left", false, 4);
 	}
 	if (keycode == ALLEGRO_KEY_RIGHT) {
 	  this->flag->setFlag(this->FLAG_KEY_RIGHT);
-	  this->fighter->animation->play("move_right", false, 4);
+	  this->fighter->animation.play("move_right", false, 4);
 	}
 	if (keycode == ALLEGRO_KEY_DOWN) {
 	  this->flag->setFlag(this->FLAG_KEY_DOWN);
@@ -39,20 +39,24 @@ public:
 	if (keycode == ALLEGRO_KEY_UP) {
 	  this->flag->setFlag(this->FLAG_KEY_UP);
 	}
+
+	if (keycode == ALLEGRO_KEY_LSHIFT) {
+	  this->fighter->animation_dot.play("show", false, 2);
+	}
   }
   void OnKeyUp(int keycode) override {
 	if (keycode == ALLEGRO_KEY_LEFT) {
 	  this->flag->clearFlag(this->FLAG_KEY_LEFT);
-	  this->fighter->animation->play("stand", true, 4);
+	  this->fighter->animation.play("stand", true, 4);
 	  if (this->flag->isFlagSet(this->FLAG_KEY_RIGHT)) {
-		this->fighter->animation->play("move_right", false, 4);
+		this->fighter->animation.play("move_right", false, 4);
 	  }
 	}
 	if (keycode == ALLEGRO_KEY_RIGHT) {
 	  this->flag->clearFlag(this->FLAG_KEY_RIGHT);
-	  this->fighter->animation->play("stand", true, 4);
+	  this->fighter->animation.play("stand", true, 4);
 	  if (this->flag->isFlagSet(this->FLAG_KEY_LEFT)) {
-		this->fighter->animation->play("move_left", false, 4);
+		this->fighter->animation.play("move_left", false, 4);
 	  }
 	}
 	if (keycode == ALLEGRO_KEY_DOWN) {
@@ -60,6 +64,10 @@ public:
 	}
 	if (keycode == ALLEGRO_KEY_UP) {
 	  this->flag->clearFlag(this->FLAG_KEY_UP);
+	}
+
+	if (keycode == ALLEGRO_KEY_LSHIFT) {
+	  this->fighter->animation_dot.play("hidden");
 	}
   }
 

@@ -2,6 +2,7 @@
 #include "GameEngine.hpp"
 #include "Label.hpp"
 #include "Flag.hpp"
+#include "Image.hpp"
 
 class TitleScene : public Engine::IScene {
 private:

@@ -16,12 +16,8 @@ int main(int argc, char **argv) {
 
 	game.AddNewScene("title", new TitleScene());
 	game.AddNewScene("main", new MainScene());
-
-	for (std::string it : FileHelper::GetFiles("D:\\Users\\srtm\\Desktop\\C++_final\\C++_final\\resources")) {
-	  std::cout << it << std::endl;
-	}
-
+	
 	game.Start("title", 60, 1280, 720);
-
+	
 	return 0;
 }

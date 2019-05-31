@@ -1,1 +1,81 @@
+<<<<<<< HEAD
 [INFO] read files error
+=======
+[INFO] Game Initializing...
+[INFO] Loaded Resource<image>: resources/images/icon.png
+[INFO] Loaded window icon from: icon.png
+[INFO] There are total 16 supported mouse buttons
+[INFO] Allegro5 initialized
+[INFO] Game begin
+[INFO] Loaded Resource<font>: resources/fonts/FOT-SkipStd-B.otf with size 48
+[INFO] Loaded Resource<font>: resources/fonts/FOT-SkipStd-B.otf with size 60
+[INFO] Game initialized
+[INFO] Game start event loop
+[INFO] Destroyed Resource<font>
+[INFO] Destroyed Resource<font>
+[INFO] Loaded Resource<image>: resources/images/main/animation_not_loaded.png
+[INFO] Loaded Resource<image>: resources/images/main/reimu-1.png
+[INFO] Loaded Resource<image>: resources/images/main/reimu-2.png
+[INFO] Loaded Resource<image>: resources/images/main/reimu-3.png
+[INFO] Loaded Resource<image>: resources/images/main/reimu-4.png
+[INFO] Loaded Resource<image>: resources/images/main/reimu-5.png
+[INFO] Loaded Resource<image>: resources/images/main/reimu-6.png
+[INFO] Loaded Resource<image>: resources/images/main/reimu-7.png
+[INFO] Loaded Resource<image>: resources/images/main/reimu-8.png
+[INFO] Loaded Resource<image>: resources/images/main/reimu-9.png
+[INFO] Loaded Resource<image>: resources/images/main/reimu-10.png
+[INFO] Loaded Resource<image>: resources/images/main/reimu-11.png
+[INFO] Loaded Resource<image>: resources/images/main/reimu-12.png
+[INFO] Loaded Resource<image>: resources/images/main/reimu-13.png
+[INFO] Loaded Resource<image>: resources/images/main/reimu-14.png
+[INFO] Loaded Resource<image>: resources/images/main/reimu-15.png
+[INFO] Loaded Resource<image>: resources/images/main/reimu-16.png
+[INFO] Loaded Resource<image>: resources/images/main/reimu-17.png
+[INFO] Loaded Resource<image>: resources/images/main/reimu-18.png
+[INFO] Loaded Resource<image>: resources/images/main/reimu-19.png
+[INFO] Loaded Resource<image>: resources/images/main/reimu-20.png
+[INFO] Loaded Resource<image>: resources/images/main/reimu-21.png
+[INFO] Loaded Resource<image>: resources/images/main/reimu-22.png
+[INFO] Loaded Resource<image>: resources/images/main/reimu-23.png
+[INFO] Loaded Resource<image>: resources/images/main/reimu-24.png
+[INFO] Loaded Resource<image>: resources/images/main/slow_dot-1.png
+[INFO] Loaded Resource<image>: resources/images/main/slow_dot-2.png
+[INFO] Loaded Resource<image>: resources/images/main/slow_dot-3.png
+[INFO] Loaded Resource<image>: resources/images/main/slow_dot-4.png
+[INFO] Loaded Resource<image>: resources/images/main/slow_dot-hidden.png
+[INFO] Changed to main scene
+[INFO] Game Terminating...
+[INFO] Game terminated
+[INFO] Game end
+[INFO] Destroyed Resource<image>
+[INFO] Destroyed Resource<image>
+[INFO] Destroyed Resource<image>
+[INFO] Destroyed Resource<image>
+[INFO] Destroyed Resource<image>
+[INFO] Destroyed Resource<image>
+[INFO] Destroyed Resource<image>
+[INFO] Destroyed Resource<image>
+[INFO] Destroyed Resource<image>
+[INFO] Destroyed Resource<image>
+[INFO] Destroyed Resource<image>
+[INFO] Destroyed Resource<image>
+[INFO] Destroyed Resource<image>
+[INFO] Destroyed Resource<image>
+[INFO] Destroyed Resource<image>
+[INFO] Destroyed Resource<image>
+[INFO] Destroyed Resource<image>
+[INFO] Destroyed Resource<image>
+[INFO] Destroyed Resource<image>
+[INFO] Destroyed Resource<image>
+[INFO] Destroyed Resource<image>
+[INFO] Destroyed Resource<image>
+[INFO] Destroyed Resource<image>
+[INFO] Destroyed Resource<image>
+[INFO] Destroyed Resource<image>
+[INFO] Destroyed Resource<image>
+[INFO] Destroyed Resource<image>
+[INFO] Destroyed Resource<image>
+[INFO] Destroyed Resource<image>
+[INFO] Destroyed Resource<image>
+[INFO] Destroyed Resource<image>
+>>>>>>> 255c0fa7c2516cc344eb4fc2b5c7ea21157a0792

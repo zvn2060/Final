@@ -22,6 +22,8 @@ void TitleScene::Initialize(){
 	AddNewObject(
 			new Engine::Label( "and maybe some effects", "FOT-SkipStd-B.otf", 60, 640, 360, 300, 240, 215, 150, 0.5,
 							   0.5 ) );
+	
+	AudioHelper::PlayBGM("BGM/title.ogg");
 }
 
 void TitleScene::OnKeyDown( int keycode ){

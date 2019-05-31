@@ -46,8 +46,10 @@
     * 其他(<a href="https://zh.wikipedia.org/wiki/彈幕射擊遊戲">wiki: 彈幕射擊遊戲</a>)
 7. 預想遊戲畫面
    * 主畫面
+      ![image](https://github.com/zvn2060/Final/blob/master/Preview%20Images/main.png)
    * 設定畫面
+
    * 戰鬥畫面
-      ![image](https://github.com/zvn2060/Final/blob/master/Preview%20Images/demo.png)
+      ![image](https://github.com/zvn2060/Final/blob/master/Preview%20Images/play.png)
    * 排行榜
    

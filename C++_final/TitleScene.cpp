@@ -9,7 +9,7 @@ void TitleScene::Initialize(){
 	this->flag = new Flag();
 	this->index = 0;
 	this->count = -1;
-	AddNewObject( new Engine::Image( "title/background.png", 0, 0, 1280, 720 ) );
+	AddNewObject( new Engine::Image( "background/title.png", 0, 0, 1280, 720 ) );
 	this->btn[ 0 ] = new Engine::Label( "start", "FOT-SkipStd-B.otf", 48, 200, 400, 255, 255, 255, 255, 0, 0 );
 	this->btn[ 1 ] = new Engine::Label( "replay", "FOT-SkipStd-B.otf", 48, 200, 460, 255, 255, 255, 150, 0, 0 );
 	this->btn[ 2 ] = new Engine::Label( "option", "FOT-SkipStd-B.otf", 48, 200, 520, 255, 255, 255, 150, 0, 0 );
@@ -20,8 +20,7 @@ void TitleScene::Initialize(){
 	AddNewObject(
 			new Engine::Label( "some background", "FOT-SkipStd-B.otf", 60, 640, 300, 240, 240, 215, 150, 0.5, 0.5 ) );
 	AddNewObject(
-			new Engine::Label( "and maybe some effects", "FOT-SkipStd-B.otf", 60, 640, 360, 300, 240, 215, 150, 0.5,
-							   0.5 ) );
+			new Engine::Label( "and maybe some effects", "FOT-SkipStd-B.otf", 60, 640, 360, 240, 240, 215, 150, 0.5, 0.5 ) );
 	
 	AudioHelper::PlayBGM("BGM/title.ogg");
 }
@@ -54,12 +53,12 @@ void TitleScene::OnKeyDown( int keycode ){
 
 void TitleScene::OnKeyUp( int keycode ){
 	if ( keycode == ALLEGRO_KEY_UP ) {
-		AudioHelper::PlayAudio( "btn_switch.ogg" );
+		
 		this->flag->clearFlag( this->FLAG_KEY_UP );
 		this->count = -1;
 	}
 	if ( keycode == ALLEGRO_KEY_DOWN ) {
-		AudioHelper::PlayAudio( "btn_switch.ogg" );
+		
 		this->flag->clearFlag( this->FLAG_KEY_DOWN );
 		this->count = -1;
 	}
@@ -70,6 +69,7 @@ void TitleScene::Update( float deltaTime ){
 		this->count = ( this->count + 1 ) % 10;
 		if ( this->count == 0 ) {
 			int prev = this->index;
+			AudioHelper::PlayAudio( "btn_switch.ogg" );
 			this->index = this->flag->isFlagSet( this->FLAG_KEY_DOWN ) ? ( this->index + 1 ) % this->btnNum :
 						  this->index - 1;
 			if ( this->index < 0 )

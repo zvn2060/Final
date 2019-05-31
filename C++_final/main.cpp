@@ -6,9 +6,9 @@
 #include <iterator>
 #include "GameEngine.hpp"
 #include "LOG.hpp"
-#include "FileHelper.hpp"
 #include "TitleScene.hpp"
 #include "MainScene.hpp"
+#include "SettingScene.hpp"
 
 int main(int argc, char **argv) {
 	Engine::LOG::SetConfig(true);
@@ -16,6 +16,7 @@ int main(int argc, char **argv) {
 
 	game.AddNewScene("title", new TitleScene());
 	game.AddNewScene("main", new MainScene());
+	game.AddNewScene("setting", new SettingScene());
 	
 	game.Start("title", 60, 1280, 720);
 	

@@ -42,6 +42,9 @@ void TitleScene::OnKeyDown( int keycode ){
 			case 0:
 				Engine::GameEngine::GetInstance().ChangeScene( "main" );
 				break;
+			case 2:
+				Engine::GameEngine::GetInstance().ChangeScene( "setting" );
+				break;
 			case 3:
 				exit( 0 );
 				break;

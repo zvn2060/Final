@@ -6,12 +6,15 @@
 #include "Image.hpp"
 #include "Slider.hpp"
 #include "Flag.hpp"
+#include "TextButton.hpp"
 
 
 class SettingScene : public Engine::IScene{
 private:
+	enum Tags{Audio, Language, Display};
 	ALLEGRO_SAMPLE_INSTANCE * bgmInstance;
 	void ConstructUI();
+	
 public:
 	SettingScene() = default;
 	void Initialize() override;

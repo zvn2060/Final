@@ -24,9 +24,7 @@ void TitleScene::Initialize(){
 			new Engine::Label( "and maybe some effects", "FOT-SkipStd-B.otf", 60, 640, 360, 240, 240, 215, 150, 0.5, 0.5 ) );
 	
 	AudioHelper::PlayBGM("BGM/title.ogg");
-	Engine::TextButton* txtbtn;
-	txtbtn = new Engine::TextButton("test", "FOT-SkipStd-B.otf", 48, 600, 600, 0xff, 0xff, 0xff, 0, 0);
-	AddNewControlObject(txtbtn);
+
 }
 
 void TitleScene::OnKeyDown( int keycode ){

@@ -36,12 +36,14 @@ namespace Engine {
 				it = fonts.erase(it);
 			} else ++it;
 		}
+
 		for (auto it = samples.begin(); it != samples.end();) {
 			if (it->second.use_count() == 1) {
 				LOG(INFO) << "Destroyed Resource<audio>";
 				it = samples.erase(it);
 			} else ++it;
 		}
+
 	}
 
 	std::shared_ptr<ALLEGRO_BITMAP> Resources::GetBitmap(std::string name) {

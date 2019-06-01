@@ -20,4 +20,7 @@ namespace Engine {
 	int Label::GetTextHeight() const {
 		return al_get_font_line_height(font.get());
 	}
+	void Label::ChangeColor( const char r, const char g, const char b, const char a ){
+		Color = al_map_rgba(r, g, b, a);
+	}
 }

@@ -3,6 +3,7 @@
 #include "Label.hpp"
 #include "Flag.hpp"
 #include "Image.hpp"
+#include "TextButton.hpp"
 
 class TitleScene : public Engine::IScene {
 private:

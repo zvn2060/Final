@@ -50,6 +50,11 @@ namespace Engine {
 		/// </summary>
 		/// <returns>Height of the text.</returns>
 		int GetTextHeight() const;
+		/// <summary>
+		/// Change text color
+		/// </summary>
+		/// <returns>None.</returns>
+		void ChangeColor(const char r, const char g, const char b, const char a);
 	};
 }
 

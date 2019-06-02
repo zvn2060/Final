@@ -188,6 +188,7 @@ namespace Engine {
 		this->fps = fps;
 		this->screenW = screenW;
 		this->screenH = screenH;
+	
 		this->reserveSamples = reserveSamples;
 		this->title = title;
 		this->icon = icon;

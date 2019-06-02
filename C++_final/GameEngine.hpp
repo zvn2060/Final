@@ -16,6 +16,7 @@ namespace Engine {
 	private:
 		// Allegro5 settings, frames per second, screen width, screen height, maximum simultaneous audio samples.
 		int fps{}, screenW{}, screenH{}, reserveSamples{};
+	
 		// All scenes are stored in hash table for easy access.
 		// Reference: Data Structure - Hash table
 		std::unordered_map<std::string, IScene*> scenes;

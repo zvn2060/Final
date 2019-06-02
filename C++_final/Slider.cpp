@@ -1,11 +1,11 @@
 #include "Slider.hpp"
 #include <algorithm>
 
-Slider::Slider( float x, float y, float w, float h ) : ImageButton( "stage-select/slider.png",
-																	"stage-select/slider-blue.png", x, y ),
-													   Bar( "stage-select/bar.png", x, y, w, h ),
-													   End1( "stage-select/end.png", x, y + h / 2, 0, 0, 0.5, 0.5 ),
-													   End2( "stage-select/end.png", x + w, y + h / 2, 0, 0, 0.5, 0.5 ){
+Slider::Slider( float x, float y, float w, float h ) : ImageButton( "slider/slider.png",
+																	"slider/slider-blue.png", x, y ),
+													   Bar( "slider/bar.png", x, y, w, h ),
+													   End1( "slider/end.png", x, y + h / 2, 0, 0, 0.5, 0.5 ),
+													   End2( "slider/end.png", x + w, y + h / 2, 0, 0, 0.5, 0.5 ){
 	Position.x += w;
 	Position.y += h / 2;
 	Anchor = Engine::Point( 0.5, 0.5 );
@@ -43,9 +43,11 @@ void Slider::OnMouseUp( int button, int mx, int my ){
 }
 
 void Slider::OnMouseMove( int mx, int my ){
+	
 	mouseIn = Engine::Collider::IsPointInBitmap(
 			Engine::Point( ( mx - Position.x ) * GetBitmapWidth() / Size.x + Anchor.x * GetBitmapWidth(),
 						   ( my - Position.y ) * GetBitmapHeight() / Size.y + Anchor.y * GetBitmapHeight() ), bmp );
+	
 	if ( ( !mouseIn || !Enabled ) && !Down )
 		bmp = imgOut;
 	else {
@@ -60,5 +62,7 @@ void Slider::OnMouseMove( int mx, int my ){
 			}
 		}
 	}
+	
 	SetValue( ( Position.x - End1.Position.x ) / ( End2.Position.x - End1.Position.x ) );
+
 }

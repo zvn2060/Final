@@ -19,6 +19,7 @@ private:
 	std::list<Engine::IObject*>* ConsDisplayTag();
 	std::list <Engine::IObject*>* ConsAudioTag();
 	void SetBGMValue( float value);
+	void SetSFXValue(float value);
 public:
 	SettingScene() = default;
 	void Initialize() override;

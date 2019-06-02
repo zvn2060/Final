@@ -10,7 +10,6 @@ void Fragment::EmbedAt( Engine::IScene * scene ){
 void Fragment::AddNewFragemt(
 		const std::string & name, const std::function < std::list < Engine::IObject * > * (  ) >& Construct ){
 		auto ls = Construct();
-		Engine::LOG(Engine::DEBUG)<<"A";
 		for(auto & l : *ls){
 			l->Visible = false;
 		}

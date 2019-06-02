@@ -1,11 +1,11 @@
 #include "Slider.hpp"
 #include <algorithm>
 
-Slider::Slider( float x, float y, float w, float h ) : ImageButton( "slider/slider.png",
-																	"slider/slider-blue.png", x, y ),
-													   Bar( "slider/bar.png", x, y, w, h ),
-													   End1( "slider/end.png", x, y + h / 2, 0, 0, 0.5, 0.5 ),
-													   End2( "slider/end.png", x + w, y + h / 2, 0, 0, 0.5, 0.5 ){
+Slider::Slider( float x, float y, float w, float h ) :
+ImageButton( "slider/slider.png", "slider/slider-blue.png", x, y ),
+Bar( "slider/bar.png", x + w / 2, y + h / 2, w, h , 0.5, 0.5),
+End1( "slider/end.png", x, y + h / 2, 0, 0, 0.5, 0.5 ),
+End2( "slider/end.png", x + w, y + h / 2, 0, 0, 0.5, 0.5 ){
 	Position.x += w;
 	Position.y += h / 2;
 	Anchor = Engine::Point( 0.5, 0.5 );
@@ -27,6 +27,7 @@ void Slider::SetOnValueChangedCallback( std::function < void( float value ) > on
 void Slider::SetValue( float value ){
 	if ( value != this->value ) {
 		Position.x = value * ( End2.Position.x - End1.Position.x ) + End1.Position.x;
+		this->value = value;
 		OnValueChangedCallback( value );
 	}
 }
@@ -38,8 +39,11 @@ void Slider::OnMouseDown( int button, int mx, int my ){
 }
 
 void Slider::OnMouseUp( int button, int mx, int my ){
-	if ( ( button & 1 ) && !mouseIn )
+	if ( ( button & 1 ) && !mouseIn ){
+		SetValue( ( Position.x - End1.Position.x ) / ( End2.Position.x - End1.Position.x ) );
 		Down = false;
+	}
+
 }
 
 void Slider::OnMouseMove( int mx, int my ){
@@ -63,6 +67,6 @@ void Slider::OnMouseMove( int mx, int my ){
 		}
 	}
 	
-	SetValue( ( Position.x - End1.Position.x ) / ( End2.Position.x - End1.Position.x ) );
+	
 
 }

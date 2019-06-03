@@ -19,8 +19,8 @@ void Fragment::AddNewFragemt(
 void Fragment::ChangeFragment( const std::string & name ){
 	
 	auto it = Map.find(activefrag);
-	auto ls = it->second;
 	if(!activefrag.empty()) {
+		auto ls = it->second;
 		for (auto & l : *ls) {
 			l->Visible = false;
 		}
@@ -29,6 +29,7 @@ void Fragment::ChangeFragment( const std::string & name ){
 	activefrag = name;
 	it = Map.find(activefrag);
 	if(it != Map.end()){
+		auto ls = it->second;
 		ls = it->second;
 		for(auto & l : *ls){
 			l->Visible = true;

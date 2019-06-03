@@ -14,6 +14,7 @@ void Fragment::AddNewFragemt(
 			l->Visible = false;
 		}
 		Map[name] = ls;
+		activefrag = name;
 }
 
 void Fragment::ChangeFragment( const std::string & name ){

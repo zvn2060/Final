@@ -16,6 +16,7 @@ namespace Engine {
 	private:
 		char r, g, b;
 		int x, y;
+		std::string audiopath;
 	protected:
 		// Determines whether mouse is in the button.
 		bool mouseIn = false;
@@ -56,6 +57,12 @@ namespace Engine {
 		/// <param name="mx">Mouse x coordinate in window space.</param>
 		/// <param name="my">Mouse y coordinate in window space.</param>
 		void OnMouseMove(int mx, int my) override;
+		/// <summary>
+		/// Set the audio when mouse on it
+		/// </summary>
+		/// <param name="path">The filepath of the audio.</param>
+		void SetMouseInSFX(const std::string& path);
+		
 	};
 }
 #endif //TEXTBUTTON_HPP

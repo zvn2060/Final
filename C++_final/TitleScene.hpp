@@ -9,7 +9,7 @@ class TitleScene : public Engine::IScene {
 private:
   ALLEGRO_SAMPLE_INSTANCE * bgmInstance;
   static const int btnNum = 4;
-  Engine::Label* btn[btnNum];
+  Engine::TextButton* btn[btnNum];
   Flag* flag;
   const int FLAG_KEY_DOWN = 0x1;
   const int FLAG_KEY_UP = 0x2;
@@ -19,9 +19,7 @@ private:
 public:
   explicit TitleScene() = default;
   void Initialize() override;
-  void OnKeyDown(int keycode) override;
-  void OnKeyUp(int keycode) override;
-  void Update(float deltaTime) override;
+  void Onclick(int btnnum);
   void Terminate() override {
 	delete this->flag;
 	IScene::Terminate();

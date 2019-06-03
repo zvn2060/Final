@@ -70,6 +70,7 @@ std::list<Engine::IObject*>* SettingScene::ConsAudioTag(){
 
 std::list<Engine::IObject*>* SettingScene::ConsLangTag(){
 	auto ls = new std::list<Engine::IObject*>;
+	
 	return ls;
 }
 

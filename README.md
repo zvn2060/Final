@@ -42,7 +42,7 @@ Final Project Note
     * .gitignore
     * README.md
 # TODO
-- [ ] 聲音設定                (use template)
+- [X] 聲音設定                (use template)
 - [ ] 存取檔案                (By Allegro FileIO)
 - [ ] 允許全螢幕模式       
 - [ ] 雙語言 / Unicode 化     (By Allegro Unicode)

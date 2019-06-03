@@ -1,4 +1,5 @@
 #include <cmath>
+#include <iostream>
 #include "Point.hpp"
 
 namespace Engine {
@@ -38,5 +39,10 @@ namespace Engine {
 	};
 	Point operator*(const float& lhs, const Point& rhs) {
 		return rhs * lhs;
+	}
+
+	std::ostream& operator<<(std::ostream& os, Engine::Point p) {
+		os << "(" << p.x << ", " << p.y << ")";
+		return os;
 	}
 }

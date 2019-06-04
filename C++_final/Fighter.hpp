@@ -1,8 +1,12 @@
+#ifndef FIGHTER_HPP
+#define FIGHTER_HPP
+
 #include <memory>
 #include <map>
 #include <vector>
 #include <string>
 #include <allegro5/allegro.h>
+#include <allegro5/allegro_primitives.h>
 #include "Flag.hpp"
 #include "Point.hpp"
 #include "Resources.hpp"
@@ -19,14 +23,17 @@ public:
 	Animation animation;
 	Animation animation_dot;
 	Engine::Point velocity;
+	int radius;
 	const float velocity_normal = 280;
 	const float velocity_slow_normal_ratio = 0.464;
+	//const float velocity_slow_normal_ratio = 0.05;  // for testing bullet's collision shape accurately
 	bool slow = false;
 
 	Fighter() {
 		this->position = Engine::Point(250, 600);
 		this->anchor = Engine::Point(0.5, 0.5);
 		this->velocity = Engine::Point(0, 0);
+		this->radius = 2;
 		//map<string, vector<string>> animationMap = {
 		//  { "stand", vector<string>{"main/reimu-1.png", "main/reimu-2.png", "main/reimu-3.png", "main/reimu-4.png", "main/reimu-5.png", "main/reimu-6.png", "main/reimu-7.png", "main/reimu-8.png"} },
 		//  { "move_left", vector<string>{"main/reimu-9.png", "main/reimu-10.png", "main/reimu-11.png", "main/reimu-12.png", "main/reimu-13.png", "main/reimu-14.png", "main/reimu-15.png", "main/reimu-16.png"} },
@@ -41,6 +48,8 @@ public:
 		this->animation_dot.add("show", vector<string>{"main/slow_dot-1.png", "main/slow_dot-2.png", "main/slow_dot-3.png", "main/slow_dot-4.png"});
 		this->animation_dot.add("hidden", vector<string>{"main/slow_dot-hidden.png"});
 		this->animation_dot.play("hidden");
+
+		this->reset();
 	}
 	~Fighter() {
 
@@ -51,12 +60,17 @@ public:
 		this->position.y = 600;
 	}
 
-	void draw() {
-		this->animation.draw(this->position, this->anchor);
-		this->animation_dot.draw(this->position, this->anchor);
-	}
-	void update(float deltaTime) {
+	void update(float& deltaTime) {
 		this->position.x += this->slow ? this->velocity.x * deltaTime * this->velocity_slow_normal_ratio : this->velocity.x * deltaTime;
 		this->position.y += this->slow ? this->velocity.y * deltaTime * this->velocity_slow_normal_ratio : this->velocity.y * deltaTime;
 	}
+	void draw() {
+		this->animation.draw(this->position, this->anchor);
+		this->animation_dot.draw(this->position, this->anchor);
+
+		// testing for discriminating the difference between position & anchor(image)
+		al_draw_filled_circle(this->position.x, this->position.y, 1.5, al_map_rgb(10, 10, 10));
+	}
 };
+
+#endif

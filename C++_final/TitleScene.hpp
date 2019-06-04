@@ -1,3 +1,6 @@
+#ifndef TITLESCENE_HPP
+#define TITLESCENE_HPP
+
 #include "IScene.hpp"
 #include "GameEngine.hpp"
 #include "Label.hpp"
@@ -25,3 +28,5 @@ public:
 	IScene::Terminate();
   }
 };
+
+#endif

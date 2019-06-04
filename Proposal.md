@@ -51,5 +51,4 @@
       ![image](https://github.com/zvn2060/Final/blob/master/Preview%20Images/set-audio.PNG)
    * 戰鬥畫面
       ![image](https://github.com/zvn2060/Final/blob/master/Preview%20Images/play.png)
-   * 排行榜
    

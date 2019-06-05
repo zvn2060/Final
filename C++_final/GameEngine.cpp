@@ -32,7 +32,7 @@ namespace Engine {
 		// Install peripherals.
 		if (!al_install_keyboard()) throw Allegro5Exception("failed to install keyboard");
 		if (!al_install_mouse()) throw Allegro5Exception("failed to install mouse");
-		MultiLang::ReadLangFile("zh-TW");
+		MultiLang::ReadLangFile("en-US");
 		// Setup game display.
 		display = al_create_display(screenW, screenH);
 		if (!display) throw Allegro5Exception("failed to create display");

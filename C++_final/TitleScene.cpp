@@ -7,9 +7,6 @@
 
 void TitleScene::Initialize(){
 	
-	flag = new Flag();
-	index = 0;
-	count = -1;
 	AddNewObject( new Engine::Image( "background/title.png", 0, 0, 1280, 720 ) );
 	
 	btn[ 0 ] = new Engine::TextButton( MultiLang::TitleScene_play, "FOT-SkipStd-B.otf", 48, 200, 400, 0xff, 0xff, 0xff, 0, 0 );

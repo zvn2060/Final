@@ -8,7 +8,7 @@ public:
   }
 
   bool isFlagSet(int target) {
-	return this->flags & target ? true : false;
+	return ( this->flags & target ) != 0;
   }
 
   // return true if the target flag has change

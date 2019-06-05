@@ -21,7 +21,6 @@ namespace MultiLang{
 		const string LangPath = "resources/lang/" + lang;
 		string pair, key, value;
 		ifstream fin(LangPath);
-
 		
 		while(getline(fin, pair)){
 			regex_match(pair, sm, keyvaluePair);

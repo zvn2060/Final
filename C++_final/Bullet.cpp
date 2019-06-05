@@ -14,7 +14,6 @@ Bullet::Bullet(Fighter* fighter) {
 	this->raa = 0;
 	this->alive = false;
 	this->fighter = fighter;
-	this->v  ;
 	this->vIndex = 0;
 }
 //

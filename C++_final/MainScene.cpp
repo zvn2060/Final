@@ -34,8 +34,7 @@ void MainScene::OnKeyDown(int keycode) {
 		this->flag->setFlag(this->FLAG_KEY_SHIFT);
 		this->fighter->animation_dot.play("show", false, 2);
 		this->fighter->slow = true;
-
-
+		
 		this->bulletMgr->shot(Engine::Point(150, 150), 0);
 	}
 }

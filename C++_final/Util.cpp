@@ -26,14 +26,14 @@ bool Collision::outOfWorldBound(Engine::Point p) {
 	return p.x < 40 || p.x > 440 || p.y < 40 || p.y > 680;
 }
 
-json Util::readJsonData(std::string fileName) {
+json Util::readJsonData(const std::string& fileName) {
 	std::ifstream fileInputStream;
 	fileInputStream.open(fileName);
 	json j;
 	fileInputStream >> j;
 	return j;
 }
-vector<vector< vector<map<string, float>> >> Util::readBulletData(string fileName) {
+vector<vector< vector<map<string, float>> >> Util::readBulletData(const string& fileName) {
 	json bulletData = Util::readJsonData(fileName);
 
 	// rebuild bullet data to conform with C++ type;

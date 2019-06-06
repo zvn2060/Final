@@ -14,9 +14,9 @@ using namespace std;
 void BulletManager::init(MainScene* mainScene) {
 	this->mainScene = mainScene;
 	this->bulletPoolSize = 2000;
-	this->bulletPool.push_back(Bullet(this->mainScene->fighter));
+	this->bulletPool.emplace_back(this->mainScene->fighter);
 	for (int i = 0; i < this->bulletPoolSize; ++i) {
-		this->bulletPool.push_back(Bullet(this->mainScene->fighter));
+		this->bulletPool.emplace_back(this->mainScene->fighter);
 	}
 
 	this->bulletData = Util::readBulletData("resources/data/bullet.json");
@@ -37,7 +37,7 @@ Bullet* BulletManager::getFirstDead() {
 		}
 		next();
 	}
-	return NULL;
+	return nullptr;
 }
 void BulletManager::next() {
 	this->firstDead++;
@@ -47,7 +47,7 @@ void BulletManager::next() {
 
 void BulletManager::shot(Engine::Point p, int data){
 	// for every bullet
-	for (vector<map<string, float>> bullet : bulletData[data]) {
+	for (const vector<map<string, float>>& bullet : bulletData[data]) {
 		Bullet* b = getFirstDead();
 		if (!b) {
 			cout << "bulletPool not enough" << endl;
@@ -93,9 +93,9 @@ void BulletManager::update(float deltaTime) {
 	}
 }
 void BulletManager::_update(float deltaTime) {
-	for (auto i = bulletPool.begin(); i != bulletPool.end(); i++) {
-		if (i->alive) {
-			i->update(deltaTime);
+	for (auto & i : bulletPool) {
+		if (i.alive) {
+			i.update(deltaTime);
 		}
 	}
 	//for (auto& b : this->bulletPool) {

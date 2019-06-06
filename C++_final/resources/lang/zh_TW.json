@@ -1,0 +1,19 @@
+{
+  "TitleScene":{
+    "play":"開始遊戲",
+    "replay":"重播",
+    "option":"選項",
+    "exit":"離開"
+  },
+
+  "SettingScene":{
+    "audio":{
+      "tag":"聲音",
+      "BGM":"音樂",
+      "SFX":"音效"
+    },
+    "language":"語言",
+    "display":"顯示",
+    "back":"回到標題"
+  }
+}

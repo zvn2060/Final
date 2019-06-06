@@ -38,7 +38,7 @@ namespace Engine {
 		/// <param name="h">Height of the image, 0 indicates original size.</param>
 		/// <param name="anchorX">The centerX of the object. (0, 0) means top-left, while (1, 0) means top-right.</param>
 		/// <param name="anchorY">The centerY of the object. (0, 1) means bottom-left, while (1, 1) means bottom-right.</param>
-		explicit TextButton( const std::string& text, const std::string& font, const int size, float x, float y, const char r = 255, const char g = 255,const char b = 255, float anchorX = 0, float anchorY = 0);
+		explicit TextButton( const std::string& text, const std::string& font, int size, float x, float y, char r = 255, char g = 255,char b = 255, float anchorX = 0, float anchorY = 0);
 		/// <summary>
 		/// Set the callback function when clicked.
 		/// </summary>
@@ -61,7 +61,7 @@ namespace Engine {
 		/// Set the audio when mouse on it
 		/// </summary>
 		/// <param name="path">The filepath of the audio.</param>
-		void SetMouseInSFX(const std::string& path);
+		//void SetMouseInSFX(const std::string& path);
 		
 	};
 }

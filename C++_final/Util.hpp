@@ -22,8 +22,8 @@ namespace Collision {
 }
 
 namespace Util {
-	json readJsonData(std::string fileName);
-	std::vector<std::vector< std::vector<std::map<std::string, float>> >> readBulletData(std::string fileName);
+	json readJsonData(const std::string& fileName);
+	std::vector<std::vector< std::vector<std::map<std::string, float>> >> readBulletData(const std::string& fileName);
 }
 
 //#endif

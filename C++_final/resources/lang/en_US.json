@@ -1,0 +1,19 @@
+{
+  "TitleScene":{
+    "play":"play",
+    "replay":"replay",
+    "option":"option",
+    "exit":"exit"
+  },
+
+  "SettingScene":{
+    "audio":{
+      "tag":"audio",
+      "BGM":"BGM",
+      "SFX":"SFX"
+    },
+    "language":"language",
+    "display":"display",
+    "back":"back"
+  }
+}

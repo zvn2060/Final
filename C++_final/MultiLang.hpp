@@ -1,19 +1,18 @@
 #ifndef MULTILANGUAGE_HPP
 #define MULTILANGUAGE_HPP
 
-#include <map>
-#include <regex>
+#include "Util.hpp"
 
 namespace MultiLang{
 	using namespace std;
-	extern map<string, string> table;
-	extern string TitleScene_play;
-	extern string TitleScene_replay;
-	extern string TitleScene_option;
-	extern string TitleScene_exit;
-	
-	void ReadLangFile(const string& lang);
-	void SetLang();
+	extern json Langjson;
+	extern string TitleScene_play, TitleScene_replay, TitleScene_option, TitleScene_exit;
+    extern string SettingScene_audio, SettingScene_language, SettingScene_display, SettingScene_back;
+	extern void ReadLangFile(const string& lang);
+	extern void SetLang();
+	extern void SetTitleLang();
+	extern void SetSettingLang();
+
 }
 
 #endif //FINALPROJECT_LANGUAGE_HPP

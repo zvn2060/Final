@@ -1,0 +1,24 @@
+{
+  "display":{
+    "width":1280,
+    "height": 720,
+    "fps": 60,
+    "FullScreen": false
+  },
+
+  "audio":{
+    "BGMVolume": 1.0,
+    "SFXVolume": 1.0
+  },
+
+  "text": {
+    "local": "zh_TW",
+    "font": "FOT-SkipStd-B.otf",
+    "font-size": "Medium"
+  },
+
+  "other": {
+    "Enable_record": true,
+    "Enable_debug_mode": true
+  }
+}

@@ -30,8 +30,8 @@ public:
 	vector<map<string, float>> v;
 	int vIndex;
 
-	Bullet(Fighter* fighter);
-	~Bullet() {};
+	explicit Bullet(Fighter* fighter);
+	~Bullet() = default;;
 	//void setColor(string genre, int color);
 	void setGenre(int genre, int color);
 	void reset(float x, float y, vector<map<string, float>> v);

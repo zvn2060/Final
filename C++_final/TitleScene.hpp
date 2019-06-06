@@ -10,23 +10,14 @@
 
 class TitleScene : public Engine::IScene {
 private:
-  ALLEGRO_SAMPLE_INSTANCE * bgmInstance;
-  static const int btnNum = 4;
-  Engine::TextButton* btn[btnNum];
-  Flag* flag;
-  const int FLAG_KEY_DOWN = 0x1;
-  const int FLAG_KEY_UP = 0x2;
-  int index;
 
-  int count;
+  static const int btnNum = 4;
+  Engine::TextButton* btn[btnNum]{};
+  
 public:
   explicit TitleScene() = default;
   void Initialize() override;
   void Onclick(int btnnum);
-  void Terminate() override {
-	delete this->flag;
-	IScene::Terminate();
-  }
 };
 
 #endif

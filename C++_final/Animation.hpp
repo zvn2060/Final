@@ -25,10 +25,8 @@ public:
 		this->framerate = 4;
 		this->loop = true;
 	}
-	~Animation() {
-
-	}
-	void play(std::string name, bool loop = false, int framerate = 4) {
+	~Animation() = default;
+	void play(const std::string& name, bool loop = false, int framerate = 4) {
 		this->frame = 0;
 		this->count = 0;
 		this->bmps = this->bmps_all[name];
@@ -58,9 +56,9 @@ public:
 
 	}
 
-	void add(string animationName, vector<string> files) {
-		for (vector<string>::iterator file = files.begin(); file != files.end(); file++) {
-			this->bmps_all[animationName].push_back(Engine::Resources::GetInstance().GetBitmap(*file));
+	void add(const string& animationName, const vector<string>& files) {
+		for (auto & file : files) {
+			this->bmps_all[animationName].push_back(Engine::Resources::GetInstance().GetBitmap(file));
 		}
 	}
 };

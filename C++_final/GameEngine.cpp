@@ -11,6 +11,8 @@
 #include "Allegro5Exception.hpp"
 #include "Point.hpp"
 #include "IScene.hpp"
+#include "MultiLang.hpp"
+
 
 namespace Engine {
 	void GameEngine::initAllegro5() {
@@ -30,7 +32,7 @@ namespace Engine {
 		// Install peripherals.
 		if (!al_install_keyboard()) throw Allegro5Exception("failed to install keyboard");
 		if (!al_install_mouse()) throw Allegro5Exception("failed to install mouse");
-
+		MultiLang::ReadLangFile("en-US");
 		// Setup game display.
 		display = al_create_display(screenW, screenH);
 		if (!display) throw Allegro5Exception("failed to create display");

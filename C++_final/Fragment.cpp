@@ -31,7 +31,6 @@ void Fragment::ChangeFragment( const std::string & name ){
 	it = Map.find(activefrag);
 	if(it != Map.end()){
 		auto ls = it->second;
-		ls = it->second;
 		for(auto & l : *ls){
 			l->Visible = true;
 		}

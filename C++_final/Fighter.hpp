@@ -51,9 +51,7 @@ public:
 
 		this->reset();
 	}
-	~Fighter() {
-
-	}
+	~Fighter() = default;
 
 	void reset() {
 		this->position.x = 250;

@@ -13,7 +13,7 @@ namespace Engine {
 		/// Throw Allegro5 error with char array message.
 		/// </summary>
 		/// <param name="message">The error message.</param>
-		explicit Allegro5Exception(char const* const message) noexcept;
+		explicit Allegro5Exception(char const* message) noexcept;
 		/// <summary>
 		/// Throw Allegro5 error with std::string message.
 		/// </summary>

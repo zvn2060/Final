@@ -56,3 +56,8 @@ C++_final/C++_final.rc
 CmakeLists.txt
 /.idea/
 /allegro5/
+
+
+# thirdparty
+/thirdparty/
+/C++_final/include/

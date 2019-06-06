@@ -1,6 +1,7 @@
 
 #include "Bullet.hpp"
 #include "Util.hpp"
+#include "Resources.hpp"
 #include <allegro5/allegro_primitives.h>
 
 Bullet::Bullet(Fighter* fighter) {
@@ -85,14 +86,18 @@ void Bullet::update(float deltaTime) {
 		break;
 	}
 
+	if (Collision::outOfWorldBound(this->position)) {
+		this->alive = false;
+	}
 	this->count++;
+	//if (this->count > 600) this->alive = false;
 }
 
 void Bullet::draw() const {
 	al_draw_rotated_bitmap(bmp.get(),
-		this->anchor.x * this->bitmapWidth, this->anchor.y * this->bitmapHeight,
-		this->position.x, this->position.y,
-		Math::toRadian(-this->angle + 180), 0);
+		anchor.x * bitmapWidth, anchor.y * bitmapHeight,
+		position.x, position.y,
+		Math::toRadian(-angle + 180), 0);
 	// what the fuck is that allegro's rotating direction, which sees clockwise as positive angle, is different with cmath, which uses the coordinate view of real math
 
 	// testing for discriminating the difference between position & anchor(image)

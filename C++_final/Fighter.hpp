@@ -61,15 +61,43 @@ public:
 	}
 
 	void update(float& deltaTime) {
+		if (deltaTime < 3) {
+			_update(deltaTime);
+		}
+		else if (deltaTime < 6) {
+			_update(deltaTime / 2);
+			_update(deltaTime / 2);
+		}
+		else if (deltaTime < 9) {
+			_update(deltaTime / 3);
+			_update(deltaTime / 3);
+			_update(deltaTime / 3);
+		}
+		else {
+			_update(deltaTime / 4);
+			_update(deltaTime / 4);
+			_update(deltaTime / 4);
+			_update(deltaTime / 4);
+		}
+	}
+	void _update(float deltaTime) {
 		this->position.x += this->slow ? this->velocity.x * deltaTime * this->velocity_slow_normal_ratio : this->velocity.x * deltaTime;
 		this->position.y += this->slow ? this->velocity.y * deltaTime * this->velocity_slow_normal_ratio : this->velocity.y * deltaTime;
+		checkWorldBound();
+	}
+
+	void checkWorldBound() {
+		if (this->position.x > 440) this->position.x = 440;
+		if (this->position.x < 40) this->position.x = 40;
+		if (this->position.y > 680) this->position.y = 680;
+		if (this->position.y < 40) this->position.y = 40;
 	}
 	void draw() {
 		this->animation.draw(this->position, this->anchor);
 		this->animation_dot.draw(this->position, this->anchor);
 
 		// testing for discriminating the difference between position & anchor(image)
-		al_draw_filled_circle(this->position.x, this->position.y, 1.5, al_map_rgb(10, 10, 10));
+		al_draw_filled_circle(this->position.x, this->position.y, 1.5, al_map_rgb(10, 10, 240));
 	}
 };
 

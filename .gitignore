@@ -46,6 +46,10 @@ C++_final/packages.config
 Debug/
 packages/
 C++_final.sln
+# visual studio Additional Include Directory
+C++_final/resource.h
+C++_final/C++_final.aps
+C++_final/C++_final.rc
 
 # Clion
 /cmake-build-debug/

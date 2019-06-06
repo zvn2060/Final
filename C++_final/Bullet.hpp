@@ -2,9 +2,7 @@
 #define BULLET_HPP
 #include <string>
 #include "Point.hpp"
-#include "Resources.hpp"
 #include "Image.hpp"
-#include "Resources.hpp"
 #include "Fighter.hpp"
 
 using namespace std;

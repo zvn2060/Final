@@ -1,28 +1,29 @@
-#ifndef UTIL_HPP
-#define UTIL_HPP
+//#ifndef UTIL_HPP
+//#define UTIL_HPP
 #include <cmath>
+#include <iostream>
+#include <fstream>
 #include "Point.hpp"
+#include "nlohmann/json.hpp"
+
+
+using json = nlohmann::json;
 
 namespace Math {
-	const float pi = 3.141592653589793;
-	float toRadian(float angle) {
-		return angle * pi / 180;
-	}
-
-	float cos(float angle) {
-		return std::cos(toRadian(angle));
-	}
-
-	float sin(float angle) {
-		return std::sin(toRadian(angle));
-	}
+	float toRadian(float angle);
+	float cos(float angle);
+	float sin(float angle);
 
 }
 
 namespace Collision {
-	bool circleOverlap(Engine::Point p1, float r1, Engine::Point p2, float r2) {
-		return (p1 - p2).Magnitude() < r1 + r2;
-	}
+	bool circleOverlap(Engine::Point p1, float r1, Engine::Point p2, float r2);
+	bool outOfWorldBound(Engine::Point p);
 }
 
-#endif
+namespace Util {
+	json readJsonData(std::string fileName);
+	std::vector<std::vector< std::vector<std::map<std::string, float>> >> rebuildBulletData(json bd);
+}
+
+//#endif

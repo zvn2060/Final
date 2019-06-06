@@ -4,6 +4,7 @@
 #include <vector>
 #include <string>
 #include "Bullet.hpp"
+
 class MainScene;
 
 using namespace std;
@@ -25,6 +26,7 @@ public:
 	void shot(Engine::Point p, int data);// TODO: [int data] wiil be replaced with enemy's shot data
 
 	void update(float deltaTime);
+	void _update(float deltaTime);
 	void draw();
 
 };

@@ -33,7 +33,11 @@ json Util::readJsonData(std::string fileName) {
 	fileInputStream >> j;
 	return j;
 }
-vector<vector< vector<map<string, float>> >> Util::rebuildBulletData(json bulletData) {
+vector<vector< vector<map<string, float>> >> Util::readBulletData(string fileName) {
+	json bulletData = Util::readJsonData(fileName);
+
+	// rebuild bullet data to conform with C++ type;
+
 	vector<vector< vector<map<string, float>> >> bulletData_t;
 	bulletData_t.reserve(bulletData.size());
 

@@ -13,7 +13,7 @@ namespace Math {
 	float toRadian(float angle);
 	float cos(float angle);
 	float sin(float angle);
-
+	
 }
 
 namespace Collision {

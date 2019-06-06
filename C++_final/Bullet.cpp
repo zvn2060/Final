@@ -17,14 +17,6 @@ Bullet::Bullet(Fighter* fighter) {
 	this->fighter = fighter;
 	this->vIndex = 0;
 }
-//
-//void Bullet::setColor(string genre, int color) {
-//	switch (color) {
-//	case 0:
-//		this->bmp = Engine::Resources::GetInstance().GetBitmap(genre + "-0.png");
-//		break;
-//	}
-//}
 
 void Bullet::setGenre(int genre, int color) {
 	switch (genre) {
@@ -65,6 +57,26 @@ void Bullet::reset(float x, float y, vector<map<string, float>> v) {
 	this->raa = v[0]["raa"];
 }
 
+bool Bullet::checkMovingVectorChange() {
+	if (this->vIndex >= this->v.size() - 1) {
+		return false;
+	}
+	if (this->count >= this->v[vIndex + 1]["count"]) {
+		return true;
+	}
+	return false;
+}
+void Bullet::changeMovingVector(int index) {
+	//std::cout << "r: " << this->speed << " ra: " << this->ra << std::endl;
+
+	this->speed = this->v[index]["r"];
+	this->angle = this->v[index]["angle"];
+	this->wa = this->v[index]["wa"];
+	this->ra = this->v[index]["ra"];
+	this->raa = this->v[index]["raa"];
+	this->vIndex = index;
+}
+
 void Bullet::update(float deltaTime) {
 	this->position.x += this->speed * Math::cos(this->angle - 90) * deltaTime;
 	this->position.y += this->speed * (-Math::sin(this->angle - 90)) * deltaTime;
@@ -88,8 +100,10 @@ void Bullet::update(float deltaTime) {
 	if (Collision::outOfWorldBound(this->position)) {
 		this->alive = false;
 	}
+	if (this->checkMovingVectorChange())
+		this->changeMovingVector(this->vIndex + 1);
+
 	this->count++;
-	//if (this->count > 600) this->alive = false;
 }
 
 void Bullet::draw() const {

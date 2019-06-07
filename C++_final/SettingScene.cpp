@@ -44,11 +44,11 @@ std::list<Engine::IObject*>* SettingScene::ConsAudioTag(){
 	
 	
 	Engine::Label* label;
-	label = new Engine::Label("BGM", "FOT-SkipStd-B.otf", 48, halfw - 400, halfh - 75, 0xff, 0xff, 0xff, 255, 0.5, 0.5);
+	label = new Engine::Label(MultiLang::SettingScene_audio_BGM, "FOT-SkipStd-B.otf", 48, halfw - 400, halfh - 75, 0xff, 0xff, 0xff, 255, 0.5, 0.5);
 	AddNewObject(label);
 	ls->emplace_back(label);
 	
-	label = new Engine::Label("SFX", "FOT-SkipStd-B.otf", 48, halfw - 400, halfh + 125, 0xff, 0xff, 0xff, 255, 0.5, 0.5);
+	label = new Engine::Label(MultiLang::SettingScene_audio_SFX, "FOT-SkipStd-B.otf", 48, halfw - 400, halfh + 125, 0xff, 0xff, 0xff, 255, 0.5, 0.5);
 	AddNewObject(label);
 	ls->emplace_back(label);
 	

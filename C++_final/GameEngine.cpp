@@ -15,7 +15,17 @@
 
 
 namespace Engine {
-	void GameEngine::initAllegro5() {
+    void GameEngine::readConfig() {
+        config = Util::readJsonData("resources/config.json");
+
+        screenH = config["display"].value("height", 720);
+        screenW = config["display"].value("width", 1280);
+        fps = config["display"].value("fps", 60);
+
+
+    }
+
+    void GameEngine::initAllegro5() {
 		if (!al_init()) throw Allegro5Exception("failed to initialize allegro");
 
 		// Initialize add-ons.
@@ -33,7 +43,8 @@ namespace Engine {
 		if (!al_install_keyboard()) throw Allegro5Exception("failed to install keyboard");
 		if (!al_install_mouse()) throw Allegro5Exception("failed to install mouse");
 
-		MultiLang::ReadLangFile("zh_TW");
+		readConfig();
+		MultiLang::ReadLangFile(config["text"].value("local", "en_US"));
 		MultiLang::SetLang();
 
 		// Setup game display.
@@ -186,14 +197,10 @@ namespace Engine {
 		activeScene->Initialize();
 		LOG(INFO) << "Changed to " << name << " scene";
 	}
-	void GameEngine::Start(const std::string& firstSceneName, int fps, int screenW, int screenH,
+	void GameEngine::Start(const std::string& firstSceneName,
 		int reserveSamples, const char* title, const char* icon) {
 		LOG(INFO) << "Game Initializing...";
 		// Update Allegro5 configs.
-		this->fps = fps;
-		this->screenW = screenW;
-		this->screenH = screenH;
-	
 		this->reserveSamples = reserveSamples;
 		this->title = title;
 		this->icon = icon;

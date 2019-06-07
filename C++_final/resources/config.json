@@ -1,24 +1,21 @@
 {
-  "display":{
-    "width":1280,
-    "height": 720,
-    "fps": 60,
-    "FullScreen": false
-  },
-
-  "audio":{
-    "BGMVolume": 1.0,
-    "SFXVolume": 1.0
-  },
-
-  "text": {
-    "local": "zh_TW",
-    "font": "FOT-SkipStd-B.otf",
-    "font-size": "Medium"
-  },
-
-  "other": {
-    "Enable_record": true,
-    "Enable_debug_mode": true
-  }
+    "audio": {
+        "BGMVolume": 1.0,
+        "SFXVolume": 1.0
+    },
+    "display": {
+        "FullScreen": false,
+        "fps": 60,
+        "height": 720,
+        "width": 1280
+    },
+    "other": {
+        "Enable_debug_mode": true,
+        "Enable_record": true
+    },
+    "text": {
+        "font": "FOT-SkipStd-B.otf",
+        "font-size": "Medium",
+        "local": "zh_TW"
+    }
 }

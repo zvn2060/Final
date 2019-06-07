@@ -1,5 +1,6 @@
 #include <vector>
 #include <map>
+#include <iomanip>
 #include "LOG.hpp"
 #include "Util.hpp"
 
@@ -31,8 +32,18 @@ json Util::readJsonData(const std::string& fileName) {
 	fileInputStream.open(fileName);
 	json j;
 	fileInputStream >> j;
+	fileInputStream.close();
 	return j;
 }
+
+void Util::writeJsonData(const std::string& filename, const json& js){
+    std::ofstream fileOutputStream;
+    fileOutputStream.open(filename);
+    fileOutputStream<<std::setw(4)<<js<<std::endl;
+    fileOutputStream.close();
+    return;
+}
+
 vector<vector< vector<map<string, float>> >> Util::readBulletData(const string& fileName) {
 	json bulletData = Util::readJsonData(fileName);
 

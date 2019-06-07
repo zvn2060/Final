@@ -6,7 +6,7 @@
 namespace MultiLang{
     json Langjson;
     string TitleScene_play, TitleScene_replay, TitleScene_option, TitleScene_exit;
-    string SettingScene_audio, SettingScene_language, SettingScene_display, SettingScene_back;
+    string SettingScene_audio, SettingScene_audio_BGM, SettingScene_audio_SFX, SettingScene_language, SettingScene_display, SettingScene_back;
 
 	void ReadLangFile( const string & lang ){
 		const string LangPath = "resources/lang/" + lang + ".json";
@@ -19,25 +19,20 @@ namespace MultiLang{
 	}
 
     void SetTitleLang() {
-        auto it = Langjson.find("TitleScene")->find("play");
-        TitleScene_play = *it;
-        it = Langjson.find("TitleScene")->find("replay");
-        TitleScene_replay = *it;
-        it = Langjson.find("TitleScene")->find("option");
-        TitleScene_option = *it;
-        it = Langjson.find("TitleScene")->find("exit");
-        TitleScene_exit = *it;
+
+        TitleScene_play = Langjson["TitleScene"].value("play", "play");
+        TitleScene_replay = Langjson["TitleScene"].value("replay", "replay");
+        TitleScene_option = Langjson["TitleScene"].value("option", "option");
+        TitleScene_exit = Langjson["TitleScene"].value("exit", "exit");
     }
 
     void SetSettingLang() {
-        auto it = Langjson.find("SettingScene")->find("audio")->find("tag");
-        SettingScene_audio = *it;
-        it = Langjson.find("SettingScene")->find("language");
-        SettingScene_language = *it;
-        it = Langjson.find("SettingScene")->find("display");
-        SettingScene_display = *it;
-        it = Langjson.find("SettingScene")->find("back");
-        SettingScene_back = *it;
+        SettingScene_audio = Langjson["SettingScene"]["audio"].value("tag", "audio");
+        SettingScene_audio_BGM = Langjson["SettingScene"]["audio"].value("BGM", "BGM");
+        SettingScene_audio_SFX = Langjson["SettingScene"]["audio"].value("SFX", "SFX");
+        SettingScene_language = Langjson["SettingScene"].value("language", "language");
+        SettingScene_display = Langjson["SettingScene"].value("display", "display");
+        SettingScene_back = Langjson["SettingScene"].value("back", "back");
     }
 
 }

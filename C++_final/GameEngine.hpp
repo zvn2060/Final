@@ -4,6 +4,7 @@
 #include <allegro5/allegro.h>
 #include "IScene.hpp"
 #include "Point.hpp"
+#include "Util.hpp"
 
 /// <summary>
 /// All general classes are under this namespace for clarity.
@@ -16,7 +17,7 @@ namespace Engine {
 	private:
 		// Allegro5 settings, frames per second, screen width, screen height, maximum simultaneous audio samples.
 		int fps{}, screenW{}, screenH{}, reserveSamples{};
-	
+		json config{};
 		// All scenes are stored in hash table for easy access.
 		// Reference: Data Structure - Hash table
 		std::unordered_map<std::string, IScene*> scenes;
@@ -34,7 +35,11 @@ namespace Engine {
 		const char* icon{};
 		// The scene to change to at next update.
 		std::string nextScene{};
-
+		/// <summary>
+		/// Read the configuration file.
+		/// if cant, set the fallback config.
+		/// </summary>
+        void readConfig();
 		/// <summary>
 		/// Initialize allegro5 library. Creates game window & event queue,
 		/// install peripherals and initialize add-ons.
@@ -90,7 +95,7 @@ namespace Engine {
 		/// <param name="reserveSamples">Maximum simultaneous audio samples.</param>
 		/// <param name="title">Window's title text.</param>
 		/// <param name="icon">Window's icon image path.</param>
-		void Start(const std::string& firstSceneName, int fps = 60, int screenW = 800, int screenH = 600, int reserveSamples = 10,
+		void Start(const std::string& firstSceneName, int reserveSamples = 10,
 				   const char* title = "Tower Defense (I2P(II)_2019 Mini Project 2))",
 				   const char* icon = "icon.png");
 		/// <summary>

@@ -18,7 +18,7 @@ int main(int argc, char **argv) {
 	game.AddNewScene("main", new MainScene());
 	game.AddNewScene("setting", new SettingScene());
 	
-	game.Start("title", 60, 1280, 720);
+	game.Start("title");
 	
 	return 0;
 }

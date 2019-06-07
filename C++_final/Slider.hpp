@@ -1,19 +1,21 @@
 #ifndef SLIDER_HPP
 #define SLIDER_HPP
 #include "ImageButton.hpp"
+#include "Label.hpp"
 
 class Slider : public Engine::ImageButton {
 private:
 	Image Bar;
 	Image End1;
 	Image End2;
+	Engine::Label Tag;
 	std::function<void(float value)> OnValueChangedCallback;
 	float value = 0;
 public:
 	const float Min = 0;
 	const float Max = 1;
 	bool Down = false;
-	Slider(float x, float y, float w, float h);
+	Slider(const std::string& tag, const std::string& font, int size, float x, float y, float w, float h, char r, char g, char b, char a);
 	void Draw() const override;
 	void SetOnValueChangedCallback(std::function<void(float value)> onValueChangedCallback);
 	void SetValue(float value);

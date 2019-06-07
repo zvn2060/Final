@@ -1,27 +1,32 @@
+#include <utility>
+
+#include <utility>
+
 #include "Slider.hpp"
 #include <algorithm>
 
-Slider::Slider( float x, float y, float w, float h ) :
+Slider::Slider( const std::string& tag, const std::string& font, int size, float x, float y, float w, float h , char r, char g, char b, char a) :
 ImageButton( "slider/slider.png", "slider/slider-blue.png", x, y ),
 Bar( "slider/bar.png", x + w / 2, y + h / 2, w, h , 0.5, 0.5),
 End1( "slider/end.png", x, y + h / 2, 0, 0, 0.5, 0.5 ),
-End2( "slider/end.png", x + w, y + h / 2, 0, 0, 0.5, 0.5 ){
+End2( "slider/end.png", x + w, y + h / 2, 0, 0, 0.5, 0.5 ),
+Tag(tag, font, size, x - w / 3, y + h / 2 + 20, r, g, b, a, 0.5, 0.5){
 	Position.x += w;
 	Position.y += h / 2;
 	Anchor = Engine::Point( 0.5, 0.5 );
 }
-
 
 void Slider::Draw() const {
 
 	Bar.Draw();
 	End1.Draw();
 	End2.Draw();
+	Tag.Draw();
 	ImageButton::Draw();
 }
 
 void Slider::SetOnValueChangedCallback( std::function < void( float value ) > onValueChangedCallback ){
-	OnValueChangedCallback = onValueChangedCallback;
+	OnValueChangedCallback = std::move(onValueChangedCallback);
 }
 
 void Slider::SetValue( float value ){

@@ -5,23 +5,23 @@
 #include <allegro5/allegro_primitives.h>
 
 Bullet::Bullet(Fighter* fighter) {
-	this->setGenre(1, 6);  // TODO: this is hard coded
+	this->setGenre(0, 0);
 	this->position = Engine::Point(100, 100);
 	this->count = 0;
 	this->speed = 100;
 	this->angle = 0;
-	this->wa = 0;
+	this->w = 0;
 	this->ra = 0;
 	this->raa = 0;
 	this->alive = false;
 	this->fighter = fighter;
 	this->vIndex = 0;
+	this->grazed = false;
 }
 
 void Bullet::setGenre(int genre, int color) {
 	switch (genre) {
 	case 0:
-		//this->setColor("main/bullet0", color);
 		this->bmp = Engine::Resources::GetInstance().GetBitmap("main/bullet0-" + to_string(color) + ".png");
 		this->anchor = Engine::Point(0.45, 0.45);
 		this->shape = SHAPE_CIRCLE;
@@ -42,23 +42,21 @@ void Bullet::setGenre(int genre, int color) {
 	this->bitmapHeight = al_get_bitmap_height(bmp.get());
 }
 
-void Bullet::reset(float x, float y, vector<map<string, float>> v) {
+void Bullet::reset(float x, float y, vector<map<string, float>>& v, float baseAngle) {
 	this->alive = true;
 	this->position.x = x;
 	this->position.y = y;
+	this->grazed = false;
 
 	this->v = v;
-	this->vIndex = 0;
 	this->count = 0;
-	this->speed = v[0]["r"];
-	this->angle = v[0]["angle"];
-	this->wa = v[0]["wa"];
-	this->ra = v[0]["ra"];
-	this->raa = v[0]["raa"];
+	this->changeMovingVector(0);
+
+	this->angle += baseAngle;
 }
 
 bool Bullet::checkMovingVectorChange() {
-	if (this->vIndex >= this->v.size() - 1) {
+	if (this->vIndex >= (int)this->v.size() - 1) {
 		return false;
 	}
 	if (this->count >= this->v[vIndex + 1]["count"]) {
@@ -68,10 +66,24 @@ bool Bullet::checkMovingVectorChange() {
 }
 void Bullet::changeMovingVector(int index) {
 	//std::cout << "r: " << this->speed << " ra: " << this->ra << std::endl;
+	if (this->v[index]["r"] == 999) {  // inheritance current speed
+		this->speed = this->speed;
+	}
+	else {
+		this->speed = this->v[index]["r"];
+	}
 
-	this->speed = this->v[index]["r"];
-	this->angle = this->v[index]["angle"];
-	this->wa = this->v[index]["wa"];
+	if (this->v[index]["toPlayer"]) {
+		this->angle = Math::angleBetween(this->position.x, this->position.y, this->fighter->position.x, this->fighter->position.y);
+	}
+	else if(this->v[index]["angle"] == 999) {  // inheritance current angle
+		this->angle = this->angle;
+	}
+	else {
+		this->angle = this->v[index]["angle"];
+	}
+
+	this->w = this->v[index]["w"];
 	this->ra = this->v[index]["ra"];
 	this->raa = this->v[index]["raa"];
 	this->vIndex = index;
@@ -82,13 +94,20 @@ void Bullet::update(float deltaTime) {
 	this->position.y += this->speed * (-Math::sin(this->angle - 90)) * deltaTime;
 	this->speed += this->ra;
 	this->ra += this->raa;
-	this->angle += this->wa;
+	this->angle += this->w;
 
-	// TODO bullet is killed once out of world bound
+	if (this->speed < 0) {
+		speed = -speed;
+		angle = -angle;
+	}
+
 	switch (this->shape) {
 	case SHAPE_CIRCLE:
 		if (Collision::circleOverlap(this->position, this->radius, this->fighter->position, this->fighter->radius)) {
 			this->fighter->reset();
+		}
+		if (Collision::circleOverlap(this->position, this->radius, this->fighter->position, this->fighter->grazeRadius)) {
+			this->fighter->graze++;
 		}
 		break;
 	case SHAPE_POLYGON:
@@ -106,7 +125,7 @@ void Bullet::update(float deltaTime) {
 	this->count++;
 }
 
-void Bullet::draw() const {
+void Bullet::draw() {
 	al_draw_rotated_bitmap(bmp.get(),
 		anchor.x * bitmapWidth, anchor.y * bitmapHeight,
 		position.x, position.y,

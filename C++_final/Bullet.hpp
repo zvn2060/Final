@@ -1,10 +1,11 @@
 #ifndef BULLET_HPP
 #define BULLET_HPP
 #include <string>
+#include <vector>
 #include "Point.hpp"
-#include "Image.hpp"
 #include "Fighter.hpp"
 
+class Fighter;
 using namespace std;
 
 class Bullet {
@@ -19,26 +20,26 @@ public:
 	int count;
 	float speed; // Speed
 	float angle; // Angle
-	float wa;    // Angular Acceleration
+	float w;     // Angular Acceleration
 	float ra;    // Acceleration
 	float raa;   // Jerk
-	// float waa;
+	// float wa;
 	int shape;
 	float radius;
 	bool alive;
 	Fighter* fighter;
 	vector<map<string, float>> v;
 	int vIndex;
+	bool grazed;
 
 	explicit Bullet(Fighter* fighter);
 	~Bullet() = default;;
-	//void setColor(string genre, int color);
 	void setGenre(int genre, int color);
-	void reset(float x, float y, vector<map<string, float>> v);
+	void reset(float x, float y, vector<map<string, float>>& v, float baseAngle);
 	bool checkMovingVectorChange();
 	void changeMovingVector(int index);
 	void update(float deltaTime);
-	void draw() const;
+	void draw();
 
 };
 

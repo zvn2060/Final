@@ -6,7 +6,7 @@
 #include "Bullet.hpp"
 
 class MainScene;
-
+class Bullet;
 using namespace std;
 
 class BulletManager {
@@ -18,12 +18,13 @@ private:
 	vector< vector< vector<map<string, float>> > > bulletData;  // second vector's size = bullet quantity
 public:
 	BulletManager() {};
+	~BulletManager() = default;
 	void init(MainScene* main);
 
 	Bullet* getFirstDead();
 	void next();
 
-	void shot(Engine::Point p, int data);// TODO: [int data] wiil be replaced with enemy's shot data
+	void shot(Engine::Point& p, int data, int genre, int color, bool aiming, float randomRange, float randomRangeForEach, float offset_r, float offset_t);
 
 	void update(float deltaTime);
 	void _update(float deltaTime);

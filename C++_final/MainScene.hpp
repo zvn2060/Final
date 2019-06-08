@@ -6,8 +6,9 @@
 #include "Label.hpp"
 #include "Flag.hpp"
 #include "Fighter.hpp"
-#include "Bullet.hpp"
 #include "BulletManager.hpp"
+#include "EnemyManager.hpp"
+
 
 class MainScene : public Engine::IScene {
 private:
@@ -19,11 +20,16 @@ private:
 	const int FLAG_KEY_UP      = 0x8;
 	const int FLAG_KEY_SHIFT   = 0x10;
 
-	int count;
 public:
-
+	int count;
 	Fighter* fighter;
 	BulletManager* bulletMgr;
+	EnemyManager* enemyMgr;
+
+	static float fieldX1;
+	static float fieldX2;
+	static float fieldY1;
+	static float fieldY2;
 
 	explicit MainScene() = default;
 	void Initialize() override;
@@ -38,5 +44,6 @@ public:
 	void Terminate() override;
 
 };
+
 
 #endif

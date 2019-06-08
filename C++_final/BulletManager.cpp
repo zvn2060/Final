@@ -9,8 +9,6 @@
 
 #include <typeinfo>
 
-using namespace std;
-
 void BulletManager::init(MainScene* mainScene) {
 	this->mainScene = mainScene;
 	this->bulletPoolSize = 2000;
@@ -45,15 +43,28 @@ void BulletManager::next() {
 		this->firstDead = this->bulletPool.begin();
 }
 
-void BulletManager::shot(Engine::Point p, int data){
+void BulletManager::shot(Engine::Point& p, int bullet, int genre, int color, bool aiming, float randomRange, float randomRangeForEach, float offset_r, float offset_t){
+	float baseAngle = 0;
+	if (aiming) {
+		baseAngle = Math::angleBetween(p.x, p.y, this->mainScene->fighter->position.x, this->mainScene->fighter->position.y);
+	}
+	if (randomRange) {
+		baseAngle += Math::random(-randomRange, randomRange);
+	}
+
 	// for every bullet
-	for (const vector<map<string, float>>& bullet : bulletData[data]) {
+	for (vector<map<string, float>>& bullet : bulletData[bullet]) {
 		Bullet* b = getFirstDead();
 		if (!b) {
 			cout << "bulletPool not enough" << endl;
 			return;
 		}
-		b->reset(p.x, p.y, bullet);
+		b->setGenre(genre, color);
+
+		if (randomRangeForEach) {
+			baseAngle += Math::random(-randomRangeForEach, randomRangeForEach);
+		}
+		b->reset(p.x + offset_r * Math::cos(offset_t - 90), p.y + offset_r * -Math::sin(offset_t - 90), bullet, baseAngle);
 	}
 }
 
@@ -98,11 +109,6 @@ void BulletManager::_update(float deltaTime) {
 			i.update(deltaTime);
 		}
 	}
-	//for (auto& b : this->bulletPool) {
-	//	if (b.alive) {
-	//		b.update(deltaTime);
-	//	}
-	//}
 }
 
 

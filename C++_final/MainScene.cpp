@@ -1,13 +1,20 @@
-
 #include "MainScene.hpp"
+
+float MainScene::fieldX1 = 60.0f;
+float MainScene::fieldX2 = 540.0f;
+float MainScene::fieldY1 = 40.0f;
+float MainScene::fieldY2 = 680.0f;
 
 void MainScene::Initialize() {
 	this->fighter = new Fighter();
 	this->bulletMgr = new BulletManager();
+	this->enemyMgr = new EnemyManager();
 	this->flag = new Flag();
 	this->count = 0;
 
 	this->bulletMgr->init(this);
+	this->enemyMgr->init(this);
+
 }
 
 void MainScene::OnKeyDown(int keycode) {
@@ -35,7 +42,8 @@ void MainScene::OnKeyDown(int keycode) {
 		this->fighter->animation_dot.play("show", false, 2);
 		this->fighter->slow = true;
 		
-		this->bulletMgr->shot(Engine::Point(150, 150), 0);
+		Engine::Point p(300, 150);
+		this->bulletMgr->shot(p, 0, 0, 4, true, 0, 0, 0, 0);
 	}
 }
 
@@ -83,15 +91,19 @@ void MainScene::OnKeyUp(int keycode) {
 void MainScene::Update(float deltaTime) {
 	this->fighter->update(deltaTime);
 	this->bulletMgr->update(deltaTime);
+	this->enemyMgr->update(deltaTime);
+	this->count++;
 }
 void MainScene::Draw() const {
 	IScene::Draw();
+	this->enemyMgr->draw();
 	this->fighter->draw();
 	this->bulletMgr->draw();
 }
 
 void MainScene::Terminate() {
 	delete this->flag;
-	delete this->fighter;
+	this->fighter->~Fighter();
+	this->bulletMgr->~BulletManager();
 	IScene::Terminate();
 }

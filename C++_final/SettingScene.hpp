@@ -11,7 +11,9 @@
 
 class SettingScene : public Engine::IScene{
 private:
-	Fragment* fragment;
+    int halfh{};
+    int halfw{};
+	Fragment* fragment{};
 	enum Tags{Audio, Language, Display};
 	ALLEGRO_SAMPLE_INSTANCE * bgmInstance;
 	void ConstructUI();
@@ -23,8 +25,8 @@ private:
 public:
 	SettingScene() = default;
 	void Initialize() override;
-	void Onclick(int option);
-	
+	void SlideOnclick(int unit);
+	void OnclickOption(int unit);
 };
 
 

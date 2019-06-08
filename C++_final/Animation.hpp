@@ -12,7 +12,7 @@ class Animation {
 private:
 	vector<shared_ptr<ALLEGRO_BITMAP>> bmps;
 	map<string, vector<shared_ptr<ALLEGRO_BITMAP>> > bmps_all;
-	int frame;
+	unsigned int frame;
 	int count;
 	int framerate;
 	bool loop;

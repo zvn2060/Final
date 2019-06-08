@@ -3,11 +3,15 @@
 #include "TextButton.hpp"
 #include "LOG.hpp"
 #include "MultiLang.hpp"
+#include "OptionSwitch.hpp"
+#include "FileHelper.hpp"
 
 
 void SettingScene::Initialize(){
 
 	AudioHelper::PlayBGM("BGM/title.ogg");
+	halfh = Engine::GameEngine::GetInstance().GetScreenHeight() / 2;
+	halfw = Engine::GameEngine::GetInstance().GetScreenWidth() / 2;
 	ConstructUI();
 	fragment = new Fragment();
 	fragment->EmbedAt(this);
@@ -22,16 +26,16 @@ void SettingScene::ConstructUI() {
 	AddNewObject( new Engine::Image( "background/title.png", 0, 0, 1280, 720 ) );
     Engine::TextButton* btn;
     btn = new Engine::TextButton(MultiLang::SettingScene_audio, "FOT-SkipStd-B.otf", 48, 50 , 60, 0xff, 0xff, 0xff, 0, 0);
-    btn->SetOnClickCallback(std::bind(&SettingScene::Onclick, this, Audio));
+    btn->SetOnClickCallback(std::bind(&SettingScene::SlideOnclick, this, Audio));
     AddNewControlObject(btn);
     btn = new Engine::TextButton(MultiLang::SettingScene_language, "FOT-SkipStd-B.otf", 48, 50 , 220, 0xff, 0xff, 0xff, 0, 0);
-    btn->SetOnClickCallback(std::bind(&SettingScene::Onclick, this, Language));
+    btn->SetOnClickCallback(std::bind(&SettingScene::SlideOnclick, this, Language));
     AddNewControlObject(btn);
     btn = new Engine::TextButton(MultiLang::SettingScene_display, "FOT-SkipStd-B.otf", 48, 50 , 380, 0xff, 0xff, 0xff, 0, 0);
-    btn->SetOnClickCallback(std::bind(&SettingScene::Onclick, this, Display));
+    btn->SetOnClickCallback(std::bind(&SettingScene::SlideOnclick, this, Display));
     AddNewControlObject(btn);
     btn = new Engine::TextButton(MultiLang::SettingScene_back, "FOT-SkipStd-B.otf", 48, 50 , 600, 0xff, 0xff, 0xff, 0, 0);
-    btn->SetOnClickCallback(std::bind(&SettingScene::Onclick, this, 4));
+    btn->SetOnClickCallback(std::bind(&SettingScene::SlideOnclick, this, 4));
     AddNewControlObject(btn);
 
 }
@@ -39,8 +43,6 @@ void SettingScene::ConstructUI() {
 std::list<Engine::IObject*>* SettingScene::ConsAudioTag(){
 	
 	auto ls = new std::list<Engine::IObject*>;
-	int halfw = Engine::GameEngine::GetInstance().GetScreenWidth() / 2;
-	int halfh = Engine::GameEngine::GetInstance().GetScreenHeight() / 2;
 
 	Slider* BGMSlider, *SFXSlider;
 	BGMSlider = new Slider(MultiLang::SettingScene_audio_BGM, "FOT-SkipStd-B.otf", 48,
@@ -64,7 +66,11 @@ std::list<Engine::IObject*>* SettingScene::ConsAudioTag(){
 
 std::list<Engine::IObject*>* SettingScene::ConsLangTag(){
 	auto ls = new std::list<Engine::IObject*>;
-	
+	Engine::OptionSwitch* btn;
+	btn = new Engine::OptionSwitch(halfw + 100, halfh - 50, FileHelper::GetFiles("resources/lang/"));
+	btn->SetOnClickCallback();
+	AddNewControlObject(btn);
+	ls->emplace_back(btn);
 	return ls;
 }
 
@@ -73,9 +79,9 @@ std::list<Engine::IObject*>* SettingScene::ConsDisplayTag(){
 	return ls;
 }
 
-void SettingScene::Onclick(int option) {
+void SettingScene::SlideOnclick(int unit) {
 	AudioHelper::PlayAudio( "btn_switch.ogg" );
-	switch (option){
+	switch (unit){
         case Audio:
         	fragment->ChangeFragment("audio");
             break;
@@ -91,6 +97,17 @@ void SettingScene::Onclick(int option) {
             break;
 		default:
 			;
+    }
+}
+
+void SettingScene::OnclickOption(int unit) {
+    switch (unit){
+        case 0:
+            break;
+        case 1:
+            break;
+        default:
+            ;
     }
 }
 

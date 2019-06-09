@@ -18,7 +18,7 @@ void MainScene::Initialize() {
 	// original single thread
 	preload();
 
-    SetBackGround("background/play.png");
+    IScene::SetBackGround("background/play.png");
 	this->fighter = new Fighter();
 	this->bulletMgr = new BulletManager();
 	this->enemyMgr = new EnemyManager();

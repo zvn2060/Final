@@ -30,9 +30,15 @@ float Math::random(float a, float b) {
 float Math::abs(float x) {
 	return x > 0 ? x : -x;
 }
+float Math::distanceBetween(Engine::Point& p1, Engine::Point& p2) {
+	float dy = p1.y - p2.y;
+	float dx = p1.x - p2.x;
+	return std::sqrt(dx * dx + dy * dy);
+}
+
 
 bool Collision::circleOverlap(Engine::Point& p1, float r1, Engine::Point& p2, float r2) {
-	return (p1 - p2).Magnitude() < r1 + r2;
+	return Math::distanceBetween(p1, p2) < r1 + r2;
 }
 
 bool Collision::outOfWorldBound(Engine::Point& p) {
@@ -81,7 +87,7 @@ vector<vector< vector<map<string, float>> >> Util::readBulletData(const string& 
 
 			// push all moving vector
 			for (auto& v : bullet) {
-				cout << v << endl;
+				//cout << v << endl;
 				map<string, float> v_t;
 				// push all moving vector property
 				for (auto it = v.begin(); it != v.end(); it++) {

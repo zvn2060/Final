@@ -6,7 +6,8 @@
 #include "Allegro5Exception.hpp"
 #include "Resources.hpp"
 
-// #include "Resources.hpp"
+#include <mutex>
+std::mutex reMutex;
 
 namespace Engine {
 	const std::string Resources::bitmapPathPrefix = "resources/images/";
@@ -47,14 +48,27 @@ namespace Engine {
 	}
 
 	std::shared_ptr<ALLEGRO_BITMAP> Resources::GetBitmap(std::string name) {
-		if (bitmaps.count(name) != 0)
+		std::unique_lock<std::mutex> lock(reMutex);
+		if (bitmaps.count(name) != 0) {
 			return bitmaps[name];
+		}
 		std::string bitmapPath = bitmapPathPrefix + name;
 		ALLEGRO_BITMAP* bmp = al_load_bitmap(bitmapPath.c_str());
 		if (!bmp) throw Allegro5Exception(("failed to load image: " + bitmapPath).c_str());
 		LOG(INFO) << "Loaded Resource<image>: " << bitmapPath;
 		bitmaps[name] = std::shared_ptr<ALLEGRO_BITMAP>(bmp, al_destroy_bitmap);
 		return bitmaps[name];
+	}
+	void Resources::LoadBitmap(std::string name) {
+		std::unique_lock<std::mutex> lock(reMutex);
+		if (bitmaps.count(name) != 0) {
+			return ;
+		}
+		std::string bitmapPath = bitmapPathPrefix + name;
+		ALLEGRO_BITMAP* bmp = al_load_bitmap(bitmapPath.c_str());
+		if (!bmp) throw Allegro5Exception(("failed to load image: " + bitmapPath).c_str());
+		LOG(INFO) << "Loaded Resource<image>: " << bitmapPath;
+		bitmaps.insert({ name, std::shared_ptr<ALLEGRO_BITMAP>(bmp, al_destroy_bitmap) });
 	}
 	std::shared_ptr<ALLEGRO_BITMAP> Resources::GetBitmap(std::string name, int width, int height) {
 		std::string idx = name + '?' + std::to_string(width) + 'x' + std::to_string(height);
@@ -103,6 +117,7 @@ namespace Engine {
 		return samples[name];
 	}
 	Resources& Resources::GetInstance() {
+		//std::unique_lock<std::mutex> lock(reMutex);
 		// The classic way to lazy initialize a Singleton.
 		static Resources instance;
 		return instance;

@@ -24,7 +24,7 @@ public:
 	Bullet* getFirstDead();
 	void next();
 
-	void shot(Engine::Point& p, int data, int genre, int color, bool aiming, float randomRange, float randomRangeForEach, float offset_r, float offset_t);
+	void shot(Engine::Point& p, int data, int genre, int color, float aiming, float randomRange, float offset_r, float offset_t);
 
 	void update(float deltaTime);
 	void _update(float deltaTime);

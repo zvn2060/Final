@@ -46,6 +46,11 @@ void Bullet::reset(float x, float y, vector<map<string, float>>& v, float baseAn
 	this->alive = true;
 	this->position.x = x;
 	this->position.y = y;
+	if (v[0]["offset_r"]) {
+		this->position.x += v[0]["offset_r"] * Math::cos(v[0]["offset_t"] - 90);
+		this->position.y += v[0]["offset_r"] * -Math::sin(v[0]["offset_t"] - 90);
+	}
+		
 	this->grazed = false;
 
 	this->v = v;
@@ -73,7 +78,7 @@ void Bullet::changeMovingVector(int index) {
 		this->speed = this->v[index]["r"];
 	}
 
-	if (this->v[index]["toPlayer"]) {
+	if (this->v[index]["aiming"]) {
 		this->angle = Math::angleBetween(this->position.x, this->position.y, this->fighter->position.x, this->fighter->position.y);
 	}
 	else if(this->v[index]["angle"] == 999) {  // inheritance current angle

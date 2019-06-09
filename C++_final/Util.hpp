@@ -20,6 +20,7 @@ namespace Math {
 	static std::mt19937 ge(rd());
 	float random(float a, float b);
 	float abs(float x);
+	float distanceBetween(Engine::Point& p1, Engine::Point& p2);
 	
 }
 

@@ -73,8 +73,7 @@ void Enemy::shot(int index) {
 		(*shot)["genre"], 
 		(*shot)["color"], 
 		(*shot)["aiming"], 
-		(*shot)["rr"], 
-		(*shot)["re"],
+		(*shot)["random"],
 		(*shot)["offset_r"],
 		(*shot)["offset_t"]
 	);

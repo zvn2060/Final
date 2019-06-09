@@ -30,20 +30,10 @@ void Fighter::update(float deltaTime) {
 	if (deltaTime < 3) {
 		_update(deltaTime);
 	}
-	else if (deltaTime < 6) {
-		_update(deltaTime / 2);
-		_update(deltaTime / 2);
-	}
-	else if (deltaTime < 9) {
-		_update(deltaTime / 3);
-		_update(deltaTime / 3);
-		_update(deltaTime / 3);
-	}
 	else {
-		_update(deltaTime / 4);
-		_update(deltaTime / 4);
-		_update(deltaTime / 4);
-		_update(deltaTime / 4);
+		cout << "Fighter: update divided" << endl;
+		_update(deltaTime / 2);
+		_update(deltaTime / 2);
 	}
 }
 void Fighter::_update(float deltaTime) {

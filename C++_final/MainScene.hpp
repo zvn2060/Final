@@ -19,6 +19,7 @@ private:
 	const int FLAG_KEY_DOWN    = 0x4;
 	const int FLAG_KEY_UP      = 0x8;
 	const int FLAG_KEY_SHIFT   = 0x10;
+	Engine::Label* label_fps;
 
 public:
 	int count;
@@ -30,6 +31,9 @@ public:
 	static float fieldX2;
 	static float fieldY1;
 	static float fieldY2;
+
+	bool loadCompleted;
+	void preload();
 
 	explicit MainScene() = default;
 	void Initialize() override;

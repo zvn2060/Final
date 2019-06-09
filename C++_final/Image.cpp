@@ -6,7 +6,7 @@
 #include "Image.hpp"
 
 namespace Engine {
-	Image::Image(std::string img, float x, float y, float w, float h, float anchorX, float anchorY) :
+	Image::Image(const std::string& img, float x, float y, float w, float h, float anchorX, float anchorY) :
 		IObject(x, y, w, h, anchorX, anchorY) {
 		if (Size.x == 0 && Size.y == 0) {
 			bmp = Resources::GetInstance().GetBitmap(img);

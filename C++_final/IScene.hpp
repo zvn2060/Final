@@ -27,7 +27,7 @@ namespace Engine {
 		/// <summary>
 		/// The default virtual destructor to support polymorphism destruction.
 		/// </summary>
-		virtual ~IScene() = default;
+		~IScene() override = default;
 		/// <summary>
 		/// Put all initialize code here instead of constructor to make change scene more simple.
 		/// </summary>

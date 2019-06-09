@@ -1,4 +1,6 @@
 #include <cmath>
+
+#include <cmath>
 #include <iostream>
 #include "Point.hpp"
 
@@ -35,8 +37,8 @@ namespace Engine {
 		return x * x + y * y;
 	}
 	float Point::Magnitude() const {
-		return sqrt(MagnitudeSquared());
-	};
+		return std::sqrt(MagnitudeSquared());
+	}
 	Point operator*(const float& lhs, const Point& rhs) {
 		return rhs * lhs;
 	}

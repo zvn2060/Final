@@ -1,4 +1,5 @@
 #include "MainScene.hpp"
+#include "Image.hpp"
 
 float MainScene::fieldX1 = 60.0f;
 float MainScene::fieldX2 = 540.0f;
@@ -6,6 +7,7 @@ float MainScene::fieldY1 = 40.0f;
 float MainScene::fieldY2 = 680.0f;
 
 void MainScene::Initialize() {
+    AddNewObject( new Engine::Image( "background/play.png", 0, 0, 1280, 720 ) );
 	this->fighter = new Fighter();
 	this->bulletMgr = new BulletManager();
 	this->enemyMgr = new EnemyManager();

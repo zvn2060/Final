@@ -4,7 +4,7 @@
 #include "MainScene.hpp"
 #include <allegro5/allegro_primitives.h>
 
-Enemy::Enemy(string sprite, float x, float y, float hp, vector<map<string, float>>& v, vector<map<string, float>>& s, MainScene* mainScene, EnemyManager* em) {
+Enemy::Enemy(const string& sprite, float x, float y, float hp, vector<map<string, float>>& v, vector<map<string, float>>& s, MainScene* mainScene, EnemyManager* em) {
 	this->setSprite(sprite);
 	this->position = Engine::Point(x + MainScene::fieldX1, y + MainScene::fieldY1);
 	this->anchor = Engine::Point(0.5, 0.5);
@@ -20,7 +20,7 @@ Enemy::Enemy(string sprite, float x, float y, float hp, vector<map<string, float
 	this->hp = hp;
 	this->enemyMgr = em;
 }
-void Enemy::setSprite(string fileName) {
+void Enemy::setSprite(const string& fileName) {
 	this->bmp = Engine::Resources::GetInstance().GetBitmap("main/" + fileName);
 	this->bitmapWidth = al_get_bitmap_width(bmp.get());
 	this->bitmapHeight = al_get_bitmap_height(bmp.get());
@@ -30,10 +30,7 @@ bool Enemy::checkMovingVectorChange() {
 	if (this->vIndex >= (int)this->v.size() - 1) {
 		return false;
 	}
-	if (this->count >= this->v[vIndex + 1]["count"]) {
-		return true;
-	}
-	return false;
+    return this->count >= this->v[vIndex + 1]["count"];
 }
 void Enemy::changeMovingVector(int index) {
 	if (this->v[index]["r"] == 999) {  // inheritance current speed
@@ -60,10 +57,7 @@ bool Enemy::checkShot() {
 	if (this->sIndex >= (int)this->s.size() - 1) {
 		return false;
 	}
-	if (this->count >= this->s[sIndex + 1]["count"]) {
-		return true;
-	}
-	return false;
+    return this->count >= this->s[sIndex + 1]["count"];
 }
 
 void Enemy::shot(int index) {

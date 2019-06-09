@@ -13,12 +13,13 @@ namespace Engine {
         Engine::Label current;
         std::vector<std::string> options;
         int idx = 0;
+        std::function <void(void)> OnClickCallback;
         void SwipeOption(bool right);
     public:
-        explicit OptionSwitch(float x, float y, const std::vector<std::string>& options);
-
+        explicit OptionSwitch(float x, float y, const std::vector<std::string>& options, const std::string& init);
+        std::string GetCurrentOption();
         void Draw() const override;
-        void SetOnClickCallback();
+        void SetOnClickCallback(std::function<void(void)> onClickCallback);
         void OnMouseDown(int button, int mx, int my) override;
         void OnMouseMove(int mx, int my) override;
         void UpDate();

@@ -7,6 +7,7 @@
 #include "Slider.hpp"
 #include "TextButton.hpp"
 #include "Fragment.hpp"
+#include "OptionSwitch.hpp"
 
 
 class SettingScene : public Engine::IScene{
@@ -20,6 +21,7 @@ private:
 	std::list<Engine::IObject*>* ConsLangTag();
 	std::list<Engine::IObject*>* ConsDisplayTag();
 	std::list <Engine::IObject*>* ConsAudioTag();
+	Engine::OptionSwitch* btn;
 	void SetBGMValue( float value);
 	void SetSFXValue(float value);
 public:

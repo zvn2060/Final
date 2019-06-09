@@ -17,12 +17,9 @@
 namespace Engine {
     void GameEngine::readConfig() {
         config = Util::readJsonData("resources/config.json");
-
         screenH = config["display"].value("height", 720);
         screenW = config["display"].value("width", 1280);
         fps = config["display"].value("fps", 60);
-
-
     }
 
     void GameEngine::initAllegro5() {
@@ -265,4 +262,15 @@ namespace Engine {
 		static GameEngine instance;
 		return instance;
 	}
+
+    void GameEngine::ChangeLang(const std::string& lang) {
+        config["text"]["local"] = lang;
+        MultiLang::ReadLangFile(config["text"]["local"]);
+        MultiLang::SetLang();
+        Util::writeJsonData("resources/config.json", config);
+    }
+
+    std::string GameEngine::GetLang() {
+        return config["text"]["local"];
+    }
 }

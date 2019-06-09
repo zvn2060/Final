@@ -66,9 +66,8 @@ std::list<Engine::IObject*>* SettingScene::ConsAudioTag(){
 
 std::list<Engine::IObject*>* SettingScene::ConsLangTag(){
 	auto ls = new std::list<Engine::IObject*>;
-	Engine::OptionSwitch* btn;
-	btn = new Engine::OptionSwitch(halfw + 100, halfh - 50, FileHelper::GetFiles("resources/lang/"));
-	btn->SetOnClickCallback();
+	btn = new Engine::OptionSwitch(halfw + 100, halfh - 50, FileHelper::GetFiles("resources/lang/"), Engine::GameEngine::GetInstance().GetLang());
+	btn->SetOnClickCallback(std::bind(&SettingScene::OnclickOption, this, 0));
 	AddNewControlObject(btn);
 	ls->emplace_back(btn);
 	return ls;
@@ -103,6 +102,7 @@ void SettingScene::SlideOnclick(int unit) {
 void SettingScene::OnclickOption(int unit) {
     switch (unit){
         case 0:
+            Engine::GameEngine::GetInstance().ChangeLang(btn->GetCurrentOption());
             break;
         case 1:
             break;

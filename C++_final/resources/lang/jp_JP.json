@@ -1,0 +1,19 @@
+{
+  "TitleScene":{
+    "play":"スタート",
+    "replay":"replay",
+    "option":"オプション",
+    "exit":"ゲーム終わる"
+  },
+
+  "SettingScene":{
+    "audio":{
+      "tag":"サウンド",
+      "BGM":"BGM",
+      "SFX":"効果音"
+    },
+    "language":"ランゲージ",
+    "display":"ディスプレー",
+    "back":"戻る"
+  }
+}

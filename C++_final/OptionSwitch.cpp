@@ -1,14 +1,15 @@
 #include <utility>
 
+#include <utility>
+
 #include "OptionSwitch.hpp"
 namespace Engine {
-    OptionSwitch::OptionSwitch(float x, float y, const std::vector<std::string>& options) :
+    OptionSwitch::OptionSwitch(float x, float y, const std::vector<std::string>& options, const std::string& init) :
      Lswitch("optionswitch/left.png", "optionswitch/left_in.png", x - 200, y, 153, 111, 0.5, 0.5),
      Rswitch("optionswitch/right.png", "optionswitch/right_in.png", x + 200, y, 153, 111, 0.5, 0.5),
-     current("", "FOT-SkipStd-B.otf", 48, x, y + 20, 255, 255, 255, 255, 0.5, 0.5)
+     current(init, "FOT-SkipStd-B.otf", 48, x, y + 20, 255, 255, 255, 255, 0.5, 0.5)
      {
         this->options = options;
-        current = Label(options.at(0), "FOT-SkipStd-B.otf", 48, x, y + 20, 255, 255, 255, 255, 0.5, 0.5);
      }
 
     void OptionSwitch::Draw() const {
@@ -17,7 +18,8 @@ namespace Engine {
         current.Draw();
     }
 
-    void OptionSwitch::SetOnClickCallback() {
+    void OptionSwitch::SetOnClickCallback(std::function<void(void)> onClickCallback) {
+        OnClickCallback = std::move(onClickCallback);
         Lswitch.SetOnClickCallback(std::bind(&OptionSwitch::SwipeOption, this, false));
         Rswitch.SetOnClickCallback(std::bind(&OptionSwitch::SwipeOption, this, true));
     }
@@ -49,5 +51,12 @@ namespace Engine {
             }
         }
         UpDate();
+        if(OnClickCallback){
+            OnClickCallback();
+        }
+    }
+
+    std::string OptionSwitch::GetCurrentOption() {
+        return options.at(idx);
     }
 }

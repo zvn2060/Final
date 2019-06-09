@@ -64,10 +64,13 @@ bool Bullet::checkMovingVectorChange() {
 	if (this->vIndex >= (int)this->v.size() - 1) {
 		return false;
 	}
-	if (this->count >= this->v[vIndex + 1]["count"]) {
-		return true;
-	}
-	return false;
+	/*
+	 * if (this->count >= this->v[vIndex + 1]["count"]) {
+	 * return true;
+	 * }
+	 */
+
+    return this->count >= this->v[vIndex + 1]["count"];
 }
 void Bullet::changeMovingVector(int index) {
 	//std::cout << "r: " << this->speed << " ra: " << this->ra << std::endl;

@@ -17,7 +17,8 @@ namespace Engine {
 	private:
 		// Allegro5 settings, frames per second, screen width, screen height, maximum simultaneous audio samples.
 		int fps{}, screenW{}, screenH{}, reserveSamples{};
-		json config{};
+		bool fullScreen{};
+		json config;
 		// All scenes are stored in hash table for easy access.
 		// Reference: Data Structure - Hash table
 		std::unordered_map<std::string, IScene*> scenes;
@@ -111,6 +112,11 @@ namespace Engine {
 		/// </summary>
 		/// <param name="name">The name of the scene you want to change to.</param>
 		void ChangeScene(const std::string& name);
+        /// <summary>
+        /// Change to another language. The language will be changed at next update.
+        /// </summary>
+        /// <param name="name">The name of the language you want to change to.</param>
+		void ChangeLang(const std::string& lang);
 		/// <summary>
 		/// Get the pointer of the active scene.
 		/// </summary>
@@ -122,6 +128,7 @@ namespace Engine {
 		/// <param name="name">The scene's name.</param>
 		/// <returns>Pointer to scene.</returns>
 		IScene* GetScene(const std::string& name);
+		std::string GetLang();
 		/// <summary>
 		/// Get screen size.
 		/// </summary>
@@ -152,6 +159,7 @@ namespace Engine {
 		/// </summary>
 		/// <returns>The Singleton instance of GameEngine.</returns>
 		static GameEngine& GetInstance();
+		void ToggleFullScreen();
 	};
 }
 #endif // GAMEENGINE_HPP

@@ -55,7 +55,7 @@ namespace Engine {
 		/// <summary>
 		/// The default virtual destructor to support polymorphism destruction.
 		/// </summary>
-		virtual ~Group();
+		~Group() override;
 		/// <summary>
 		/// Remove all children (objects and controls).
 		/// </summary>

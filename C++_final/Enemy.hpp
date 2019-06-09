@@ -35,11 +35,11 @@ public:
 	float hp;
 	EnemyManager* enemyMgr;
 
-	explicit Enemy(string sprite, float x, float y, float hp, 
+	explicit Enemy(const string& sprite, float x, float y, float hp,
 		vector<map<string, float>>& v, vector<map<string, float>>& s,
 		MainScene* mainScene, EnemyManager* em);
 	~Enemy() = default;;
-	void setSprite(string fileName);
+	void setSprite(const string& fileName);
 	bool checkMovingVectorChange();
 	void changeMovingVector(int index);
 	bool checkShot();

@@ -17,12 +17,10 @@
 namespace Engine {
     void GameEngine::readConfig() {
         config = Util::readJsonData("resources/config.json");
-
         screenH = config["display"].value("height", 720);
         screenW = config["display"].value("width", 1280);
         fps = config["display"].value("fps", 60);
-
-
+        fullScreen = config["display"]["FullScreen"];
     }
 
     void GameEngine::initAllegro5() {
@@ -48,6 +46,13 @@ namespace Engine {
 		MultiLang::SetLang();
 
 		// Setup game display.
+		if(fullScreen){
+		    ALLEGRO_DISPLAY_MODE displayMode;
+            al_get_display_mode(al_get_num_display_modes() - 1, &displayMode);
+            al_set_new_display_flags(ALLEGRO_FULLSCREEN);
+            screenH = displayMode.height;
+            screenW = displayMode.width;
+		}
 		display = al_create_display(screenW, screenH);
 		if (!display) throw Allegro5Exception("failed to create display");
 		al_set_window_title(display, title);
@@ -265,4 +270,30 @@ namespace Engine {
 		static GameEngine instance;
 		return instance;
 	}
+
+    void GameEngine::ChangeLang(const std::string& lang) {
+        config["text"]["local"] = lang;
+        MultiLang::ReadLangFile(config["text"]["local"]);
+        MultiLang::SetLang();
+        Util::writeJsonData("resources/config.json", config);
+    }
+
+    std::string GameEngine::GetLang() {
+        return config["text"]["local"];
+    }
+
+    void GameEngine::ToggleFullScreen() {
+        al_set_display_flag(display, ALLEGRO_FULLSCREEN_WINDOW, !(al_get_display_flags(display) & ALLEGRO_FULLSCREEN_WINDOW));
+        fullScreen = !fullScreen;
+        if(fullScreen){
+            ALLEGRO_DISPLAY_MODE displayMode;
+            al_get_display_mode(al_get_num_display_modes() - 1, &displayMode);
+            al_set_new_display_flags(ALLEGRO_FULLSCREEN);
+            screenH = displayMode.height;
+            screenW = displayMode.width;
+        }else{
+            screenH = 720;
+            screenW = 1280;
+        }
+    }
 }

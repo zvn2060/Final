@@ -48,7 +48,7 @@ void EnemyManager::checkAndSpawnEnemy() {
 			this
 		));
 	}
-	catch (json::exception e) {
+	catch (json::exception& e) {
 		cout << "enemy index: " << this->eIndex << " | create enemy failed" << endl;
 	}
 }

@@ -33,7 +33,7 @@ namespace Util {
 	json readJsonData(const std::string& fileName);
 	void writeJsonData(const std::string& filename, const json& js);
 	std::vector<std::vector< std::vector<std::map<std::string, float>> >> readBulletData(const std::string& fileName);
-	std::vector<json> readEnemyData(std::string fileName);
+	std::vector<json> readEnemyData(const std::string& fileName);
 }
 
 #endif

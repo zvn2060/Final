@@ -2,6 +2,7 @@
 #include <cmath>
 #include <thread>
 #include <future>
+#include "Image.hpp"
 
 float MainScene::fieldX1 = 60.0f;
 float MainScene::fieldX2 = 540.0f;
@@ -9,7 +10,7 @@ float MainScene::fieldY1 = 40.0f;
 float MainScene::fieldY2 = 680.0f;
 
 void MainScene::Initialize() {
-
+	
 	this->loadCompleted = false;
 	// Multithread unsuccessful (performance issue)
 	//future<void> task = async(launch::async, &MainScene::preload, this);
@@ -17,6 +18,7 @@ void MainScene::Initialize() {
 	// original single thread
 	preload();
 
+    SetBackGround("background/play.png");
 	this->fighter = new Fighter();
 	this->bulletMgr = new BulletManager();
 	this->enemyMgr = new EnemyManager();

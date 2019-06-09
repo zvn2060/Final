@@ -52,7 +52,7 @@ json Util::readJsonData(const std::string& fileName) {
 	try {
 		fileInputStream >> j;
 	}
-	catch (json::exception e) {
+	catch (json::exception& e) {
 		Engine::LOG(Engine::ERROR) << fileName << ": input stream to json failed, (1) the file doesn't exist (2) the other causes \n";
 	}
 	fileInputStream.close();
@@ -64,7 +64,6 @@ void Util::writeJsonData(const std::string& filename, const json& js){
     fileOutputStream.open(filename);
     fileOutputStream<<std::setw(4)<<js<<std::endl;
     fileOutputStream.close();
-    return;
 }
 
 vector<vector< vector<map<string, float>> >> Util::readBulletData(const string& fileName) {
@@ -110,7 +109,7 @@ vector<vector< vector<map<string, float>> >> Util::readBulletData(const string& 
 	return bulletData_t;
 }
 
-vector<json> Util::readEnemyData(std::string fileName) {
+vector<json> Util::readEnemyData(const std::string& fileName) {
 	json enemyDataBundle = readJsonData(fileName);
 	vector<json> enemyData;
 	enemyData.reserve(enemyDataBundle.size());

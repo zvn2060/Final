@@ -27,11 +27,12 @@ namespace Engine {
 		/// <summary>
 		/// The default virtual destructor to support polymorphism destruction.
 		/// </summary>
-		virtual ~IScene() = default;
+		~IScene() override = default;
 		/// <summary>
 		/// Put all initialize code here instead of constructor to make change scene more simple.
 		/// </summary>
 		virtual void Initialize() = 0;
+		void SetBackGround(const std::string& background);
 		/// <summary>
 		/// Put all terminate code here instead of destructor to make change scene more simple.
 		/// </summary>

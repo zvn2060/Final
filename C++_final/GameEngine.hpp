@@ -17,6 +17,7 @@ namespace Engine {
 	private:
 		// Allegro5 settings, frames per second, screen width, screen height, maximum simultaneous audio samples.
 		int fps{}, screenW{}, screenH{}, reserveSamples{};
+		bool fullScreen{};
 		json config;
 		// All scenes are stored in hash table for easy access.
 		// Reference: Data Structure - Hash table
@@ -158,6 +159,7 @@ namespace Engine {
 		/// </summary>
 		/// <returns>The Singleton instance of GameEngine.</returns>
 		static GameEngine& GetInstance();
+		void ToggleFullScreen();
 	};
 }
 #endif // GAMEENGINE_HPP

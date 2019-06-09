@@ -2,9 +2,14 @@
 #include "IObject.hpp"
 #include "IControl.hpp"
 #include "IScene.hpp"
+#include "GameEngine.hpp"
+#include "Image.hpp"
 
 namespace Engine {
-	void IScene::Terminate() {
+    void IScene::SetBackGround(const std::string& background) {
+        AddNewObject(new Engine::Image(background, 0, 0, Engine::GameEngine::GetInstance().GetScreenWidth(), Engine::GameEngine::GetInstance().GetScreenHeight()));
+    }
+    void IScene::Terminate() {
 		Clear();
 	}
 	void IScene::Draw() const {

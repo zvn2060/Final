@@ -8,7 +8,7 @@
 
 
 void SettingScene::Initialize(){
-
+    SetBackGround("background/title.png");
 	AudioHelper::PlayBGM("BGM/title.ogg");
 	halfh = Engine::GameEngine::GetInstance().GetScreenHeight() / 2;
 	halfw = Engine::GameEngine::GetInstance().GetScreenWidth() / 2;
@@ -22,8 +22,6 @@ void SettingScene::Initialize(){
 }
 
 void SettingScene::ConstructUI() {
-	
-	AddNewObject( new Engine::Image( "background/title.png", 0, 0, 1280, 720 ) );
     Engine::TextButton* btn;
     btn = new Engine::TextButton(MultiLang::SettingScene_audio, "FOT-SkipStd-B.otf", 48, 50 , 60, 0xff, 0xff, 0xff, 0, 0);
     btn->SetOnClickCallback(std::bind(&SettingScene::SlideOnclick, this, Audio));
@@ -89,6 +87,7 @@ void SettingScene::SlideOnclick(int unit) {
 			break;
         case Display:
 			fragment->ChangeFragment("display");
+            Engine::GameEngine::GetInstance().ToggleFullScreen();
 			break;
         case 4:
         	fragment->Terminate();

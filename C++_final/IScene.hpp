@@ -32,6 +32,7 @@ namespace Engine {
 		/// Put all initialize code here instead of constructor to make change scene more simple.
 		/// </summary>
 		virtual void Initialize() = 0;
+		void SetBackGround(const std::string& background);
 		/// <summary>
 		/// Put all terminate code here instead of destructor to make change scene more simple.
 		/// </summary>

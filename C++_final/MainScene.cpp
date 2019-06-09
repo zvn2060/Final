@@ -7,7 +7,7 @@ float MainScene::fieldY1 = 40.0f;
 float MainScene::fieldY2 = 680.0f;
 
 void MainScene::Initialize() {
-    AddNewObject( new Engine::Image( "background/play.png", 0, 0, 1280, 720 ) );
+    SetBackGround("background/play.png");
 	this->fighter = new Fighter();
 	this->bulletMgr = new BulletManager();
 	this->enemyMgr = new EnemyManager();

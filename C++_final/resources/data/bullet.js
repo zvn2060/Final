@@ -42,7 +42,7 @@ for(let i = 1; i <= 5; i++){
 for(let i = 1; i <= 12; i++){
   bulletData[2].push([
     { count:    0, r:   30, angle:    0, ra:    1, w:    0, raa:    0, offset_r: 25, offset_t: 30*i },
-    { count:   70, r:  999, angle:  999, ra:    0, w:    0, raa:    0, offset_r: 25, offset_t: 30*i }
+    { count:   70, r:  999, angle:  999, ra:    0, w:    0, raa:    0 }
   ])
 }
 

@@ -136,27 +136,31 @@ void Bullet::update(float deltaTime) {
         angle = -angle;
     }
 
-    switch (this->shape) {
-    case SHAPE_CIRCLE:
-        if (Collision::circleOverlap(this->position, this->radius, this->fighter->position, this->fighter->grazeRadius)) {
-            this->fighter->graze++;
 
-            if (Collision::circleOverlap(this->position, this->radius, this->fighter->position, this->fighter->radius)) {
-                this->fighter->reset();
-            }
-        }
-        break;
-    case SHAPE_POLYGON:
-        if (Collision::overlap_circle_polygon(this->fighter->position, this->fighter->grazeRadius, this->polygon)) {
-            this->fighter->graze++;
+    // collision check
+    if (Math::distanceBetween(this->position, this->fighter->position) < 80) {
+        switch (this->shape) {
+        case SHAPE_CIRCLE:
+            if (Collision::circleOverlap(this->position, this->radius, this->fighter->position, this->fighter->grazeRadius)) {
+                this->fighter->graze++;
 
-            if (Collision::overlap_circle_polygon(this->fighter->position, this->fighter->radius, this->polygon)) {
-                this->fighter->reset();
+                if (Collision::circleOverlap(this->position, this->radius, this->fighter->position, this->fighter->radius)) {
+                    this->fighter->reset();
+                }
             }
+            break;
+        case SHAPE_POLYGON:
+            if (Collision::overlap_circle_polygon(this->fighter->position, this->fighter->grazeRadius, this->polygon)) {
+                this->fighter->graze++;
+
+                if (Collision::overlap_circle_polygon(this->fighter->position, this->fighter->radius, this->polygon)) {
+                    this->fighter->reset();
+                }
+            }
+            break;
+        default:
+            break;
         }
-        break;
-    default:
-        break;
     }
 
     if (Collision::outOfWorldBound(this->position)) {

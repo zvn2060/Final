@@ -12,22 +12,22 @@ using namespace std;
 
 class EnemyManager {
 private:
-	MainScene* mainScene;
-	vector<json> enemyData;
-	int eIndex;
+    MainScene* mainScene;
+    vector<json> enemyData;
+    int eIndex;
 public:
-	set<Enemy*> enemyArray;
-	set<Enemy*> enemyArrayClear;  // enemies who ended their lifespan, need to be erased from enemyArray
+    set<Enemy*> enemyArray;
+    set<Enemy*> enemyArrayClear;  // enemies who ended their lifespan, need to be erased from enemyArray
 
-	EnemyManager() {};
-	~EnemyManager() = default;
-	void init(MainScene* main);
+    EnemyManager() {};
+    ~EnemyManager() = default;
+    void init(MainScene* main);
 
-	void checkAndSpawnEnemy();
+    void checkAndSpawnEnemy();
 
-	void update(float deltaTime);
-	void _update(float deltaTime);
-	void draw();
+    void update(float deltaTime);
+    void _update(float deltaTime);
+    void draw();
 
 };
 

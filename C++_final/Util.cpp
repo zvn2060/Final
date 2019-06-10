@@ -4,6 +4,7 @@
 #include "LOG.hpp"
 #include "Util.hpp"
 #include "MainScene.hpp"
+#include "Polygon.hpp"
 
 using namespace std;
 
@@ -44,6 +45,27 @@ bool Collision::circleOverlap(Engine::Point& p1, float r1, Engine::Point& p2, fl
 bool Collision::outOfWorldBound(Engine::Point& p) {
 	return p.x < MainScene::fieldX1 || p.x > MainScene::fieldX2 || p.y < MainScene::fieldY1 || p.y > MainScene::fieldY2;
 }
+
+
+bool Collision::overlap_circle_polygon(Engine::Point& c, float r, Polygon* polygon) {
+	polygon->updateVertics();
+	polygon->updateNorms();
+	float c_mid;
+	float c_max;
+	float c_min;
+	float p_max;
+	float p_min;
+	for (auto it = polygon->norms.begin(); it != polygon->norms.end(); it++) {
+		polygon->getProjectedMinMax(&p_max, &p_min, *it);
+		c_mid = c.projectLengthOnto(*it);
+		c_min = c_mid - r;
+		c_max = c_mid + r;
+		if (c_min > p_max || p_min > c_max) return false;
+	}
+	return true;
+}
+
+
 
 json Util::readJsonData(const std::string& fileName) {
 	std::ifstream fileInputStream;

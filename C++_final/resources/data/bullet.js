@@ -5,7 +5,19 @@ var bulletData =
   // 1: showcase
   [],
   // 2: showcase
-  []
+  [],
+  // 3: testing for separate axis
+  [
+    [
+      { count:    0, r:  15, angle:  -10, ra:  0, w:   0, raa:  0, offset_r: 0, offset_t: 0 }
+    ],
+    [
+      { count:    0, r:  15, angle:  -10, ra:  0, w:   0, raa:  0, offset_r: 80, offset_t: -90 }
+    ],
+    [
+      { count:    0, r:  15, angle:  -10, ra:  0, w:   0, raa:  0, offset_r: 80, offset_t: 90 }
+    ]
+  ]
 
 ];
 

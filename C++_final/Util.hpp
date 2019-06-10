@@ -7,6 +7,7 @@
 #include "Point.hpp"
 #include "nlohmann/json.hpp"
 
+class Polygon;
 
 using json = nlohmann::json;
 
@@ -27,6 +28,7 @@ namespace Math {
 namespace Collision {
 	bool circleOverlap(Engine::Point& p1, float r1, Engine::Point& p2, float r2);
 	bool outOfWorldBound(Engine::Point& p);
+	bool overlap_circle_polygon(Engine::Point& c, float r, Polygon* polygon);
 }
 
 namespace Util {

@@ -5,7 +5,7 @@
 void EnemyManager::init(MainScene* mainScene) {
 	this->mainScene = mainScene;
 	this->enemyData = Util::readEnemyData("resources/data/enemy.json");
-	this->eIndex = -1;
+	this->eIndex = 5;
 }
 
 void EnemyManager::checkAndSpawnEnemy() {

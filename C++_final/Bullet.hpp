@@ -4,6 +4,7 @@
 #include <vector>
 #include "Point.hpp"
 #include "Fighter.hpp"
+#include "Polygon.hpp"
 
 class Fighter;
 using namespace std;
@@ -26,6 +27,7 @@ public:
 	// float wa;
 	int shape;
 	float radius;
+	Polygon* polygon;
 	bool alive;
 	Fighter* fighter;
 	vector<map<string, float>> v;
@@ -40,6 +42,8 @@ public:
 	void changeMovingVector(int index);
 	void update(float deltaTime);
 	void draw();
+
+	Engine::Point* polygon_vertex_for_testing[10];
 
 };
 

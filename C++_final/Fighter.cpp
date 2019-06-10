@@ -54,7 +54,7 @@ void Fighter::draw() {
 	this->animation_dot.draw(this->position, this->anchor);
 
 	// testing for discriminating the difference between position & anchor(image)
-	al_draw_filled_circle(this->position.x, this->position.y, 1.5, al_map_rgb(10, 10, 240));
+	//al_draw_filled_circle(this->position.x, this->position.y, 1.5, al_map_rgb(10, 10, 240));
 	al_draw_filled_circle(this->position.x, 40, 5, al_map_rgb(240, 240, 240));
 	al_draw_filled_circle(this->position.x, 680, 5, al_map_rgb(240, 240, 240));
 	al_draw_filled_circle(60, this->position.y, 5, al_map_rgb(240, 240, 240));

@@ -71,6 +71,10 @@ namespace Engine {
 		/// </summary>
 		/// <returns>Magnitude of vector.</returns>
 		float Magnitude() const;
+
+		// right normal vector
+		Point normalR();
+		float projectLengthOnto(Point& p);
 	};
 	Point operator*(const float& lhs, const Point& rhs);
 

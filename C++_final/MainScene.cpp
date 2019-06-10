@@ -18,7 +18,7 @@ void MainScene::Initialize() {
 	// original single thread
 	preload();
 
-    IScene::SetBackGround("background/play.png");
+    //IScene::SetBackGround("background/play.png");
 	this->fighter = new Fighter();
 	this->bulletMgr = new BulletManager();
 	this->enemyMgr = new EnemyManager();
@@ -66,8 +66,17 @@ void MainScene::OnKeyDown(int keycode) {
 		this->fighter->animation_dot.play("show", false, 2);
 		this->fighter->slow = true;
 		
-		Engine::Point p(300, 150);
-		this->bulletMgr->shot(p, 0, 0, 4, true, 0, 0, 0);
+		if (!this->testSeparateAcis) {
+			Engine::Point p(300, 300);
+			this->bulletMgr->shot(p, 3, 2, 0, false, 0, 0, 0);
+			p.y = 350;
+			this->bulletMgr->shot(p, 3, 3, 0, false, 0, 0, 0);
+			//this->testSeparateAcis = true;
+		}
+		else {
+
+		}
+
 	}
 }
 
@@ -115,7 +124,7 @@ void MainScene::OnKeyUp(int keycode) {
 void MainScene::Update(float deltaTime) {
 	if (this->count % 20 == 0) {
 		string s = "fps: " + to_string(1.0 / deltaTime);
-		label_fps->Text = s.substr(0, 10);
+		label_fps->Text = s.substr(0, 9);
 	}
 	this->fighter->update(deltaTime);
 	if (!this->loadCompleted) return;

@@ -4,8 +4,8 @@
 #include "Resources.hpp"
 #include <allegro5/allegro_primitives.h>
 
+
 Bullet::Bullet(Fighter* fighter) {
-	this->setGenre(0, 0);
 	this->position = Engine::Point(100, 100);
 	this->count = 0;
 	this->speed = 100;
@@ -17,29 +17,56 @@ Bullet::Bullet(Fighter* fighter) {
 	this->fighter = fighter;
 	this->vIndex = 0;
 	this->grazed = false;
+	this->polygon = nullptr;
+	this->setGenre(0, 0);
 }
 
 void Bullet::setGenre(int genre, int color) {
 	switch (genre) {
 	case 0:
 		this->bmp = Engine::Resources::GetInstance().GetBitmap("main/bullet0-" + to_string(color) + ".png");
-		this->anchor = Engine::Point(0.45, 0.45);
 		this->shape = SHAPE_CIRCLE;
 		this->radius = 2;
 		break;
 	case 1:
 		this->bmp = Engine::Resources::GetInstance().GetBitmap("main/bullet1-" + to_string(color) + ".png");
-		this->anchor = Engine::Point(0.5, 0.5);
 		this->shape = SHAPE_CIRCLE;
 		this->radius = 4;
 		break;
 	case 2:
+		this->bmp = Engine::Resources::GetInstance().GetBitmap("main/bullet2-" + to_string(color) + ".png");
+		this->shape = SHAPE_POLYGON;
+		this->radius = 100;
+		this->polygon = new Polygon(this, {
+			Engine::Point(-10, 20), Engine::Point(-10, -20), Engine::Point(10, -20), Engine::Point(10, 20)
+			});
+		break;
+	case 3:
+		this->bmp = Engine::Resources::GetInstance().GetBitmap("main/bullet3-" + to_string(color) + ".png");
+		this->shape = SHAPE_POLYGON;
+		this->radius = 100;
+		this->polygon = new Polygon(this, {
+			Engine::Point(0, 10), Engine::Point(-8, 2), Engine::Point(-12, -6), Engine::Point(12, -6), Engine::Point(8, 2)
+			});
 		break;
 	default:
 		break;
 	}
+	// anchor should be (0.5, 0.5) to work with Polygon's separate-axis calculation
+	this->anchor = Engine::Point(0.5, 0.5);
 	this->bitmapWidth = al_get_bitmap_width(bmp.get());
 	this->bitmapHeight = al_get_bitmap_height(bmp.get());
+
+
+	for (int i = 0; i < 10; i++) {
+		this->polygon_vertex_for_testing[i] = nullptr;
+	}
+	if (this->polygon) {
+		auto it = this->polygon->vertex_real.begin();
+		for (int i = 0; it != this->polygon->vertex_real.end(); it++, i++) {
+			this->polygon_vertex_for_testing[i] = &*it;
+		}
+	}
 }
 
 void Bullet::reset(float x, float y, vector<map<string, float>>& v, float baseAngle) {
@@ -111,14 +138,22 @@ void Bullet::update(float deltaTime) {
 
 	switch (this->shape) {
 	case SHAPE_CIRCLE:
-		if (Collision::circleOverlap(this->position, this->radius, this->fighter->position, this->fighter->radius)) {
-			this->fighter->reset();
-		}
 		if (Collision::circleOverlap(this->position, this->radius, this->fighter->position, this->fighter->grazeRadius)) {
 			this->fighter->graze++;
+
+			if (Collision::circleOverlap(this->position, this->radius, this->fighter->position, this->fighter->radius)) {
+				this->fighter->reset();
+			}
 		}
 		break;
 	case SHAPE_POLYGON:
+		if (Collision::overlap_circle_polygon(this->fighter->position, this->fighter->grazeRadius, this->polygon)) {
+			this->fighter->graze++;
+
+			if (Collision::overlap_circle_polygon(this->fighter->position, this->fighter->radius, this->polygon)) {
+				this->fighter->reset();
+			}
+		}
 		break;
 	default:
 		break;
@@ -142,4 +177,10 @@ void Bullet::draw() {
 
 	// testing for discriminating the difference between position & anchor(image)
 	al_draw_filled_circle(this->position.x, this->position.y, 1.5, al_map_rgb(10, 200, 10));
+
+	for (int i = 0; i < 10; i++) {
+		if (this->polygon_vertex_for_testing[i]) {
+			al_draw_filled_circle(this->polygon_vertex_for_testing[i]->x, this->polygon_vertex_for_testing[i]->y, 2, al_map_rgb(10, 200, 10));
+		}
+	}
 }

@@ -43,6 +43,13 @@ namespace Engine {
 		return rhs * lhs;
 	}
 
+	Point Point::normalR() {
+		return Point(y, -x);
+	}
+	float Point::projectLengthOnto(Point& p) {
+		return (x * p.x + y * p.y) / p.Magnitude();
+	}
+
 	std::ostream& operator<<(std::ostream& os, Engine::Point p) {
 		os << "(" << p.x << ", " << p.y << ")";
 		return os;

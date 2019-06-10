@@ -18,30 +18,30 @@ using namespace std;
 class Fighter {
 private:
 public:
-	Flag flag;
-	Engine::Point position;
-	Engine::Point anchor;
-	Animation animation;
-	Animation animation_dot;
-	Engine::Point velocity;
-	float radius;
-	float grazeRadius;
-	int graze;
-	const float velocity_normal = 280;
-	//const float velocity_slow_normal_ratio = 0.464;
-	const float velocity_slow_normal_ratio = 0.05;  // for testing bullet's collision shape accurately
-	bool slow = false;
+    Flag flag;
+    Engine::Point position;
+    Engine::Point anchor;
+    Animation animation;
+    Animation animation_dot;
+    Engine::Point velocity;
+    float radius;
+    float grazeRadius;
+    int graze;
+    const float velocity_normal = 280;
+    //const float velocity_slow_normal_ratio = 0.464;
+    const float velocity_slow_normal_ratio = 0.05;  // for testing bullet's collision shape accurately
+    bool slow = false;
 
-	Fighter();
-	~Fighter() = default;
+    Fighter();
+    ~Fighter() = default;
 
-	void reset();
+    void reset();
 
-	void update(float deltaTime);
-	void _update(float deltaTime);
+    void update(float deltaTime);
+    void _update(float deltaTime);
 
-	void checkWorldBound();
-	void draw();
+    void checkWorldBound();
+    void draw();
 };
 
 #endif

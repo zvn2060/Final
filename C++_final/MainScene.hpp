@@ -12,42 +12,42 @@
 
 class MainScene : public Engine::IScene {
 private:
-	ALLEGRO_SAMPLE_INSTANCE * bgmInstance;
-	Flag* flag;
-	const int FLAG_KEY_LEFT    = 0x1;
-	const int FLAG_KEY_RIGHT   = 0x2;
-	const int FLAG_KEY_DOWN    = 0x4;
-	const int FLAG_KEY_UP      = 0x8;
-	const int FLAG_KEY_SHIFT   = 0x10;
-	Engine::Label* label_fps;
+    ALLEGRO_SAMPLE_INSTANCE * bgmInstance;
+    Flag* flag;
+    const int FLAG_KEY_LEFT    = 0x1;
+    const int FLAG_KEY_RIGHT   = 0x2;
+    const int FLAG_KEY_DOWN    = 0x4;
+    const int FLAG_KEY_UP      = 0x8;
+    const int FLAG_KEY_SHIFT   = 0x10;
+    Engine::Label* label_fps;
 
 public:
-	int count;
-	Fighter* fighter;
-	BulletManager* bulletMgr;
-	EnemyManager* enemyMgr;
+    int count;
+    Fighter* fighter;
+    BulletManager* bulletMgr;
+    EnemyManager* enemyMgr;
 
-	static float fieldX1;
-	static float fieldX2;
-	static float fieldY1;
-	static float fieldY2;
+    static float fieldX1;
+    static float fieldX2;
+    static float fieldY1;
+    static float fieldY2;
 
-	bool testSeparateAcis = false;
+    bool testSeparateAcis = false;
 
-	bool loadCompleted;
-	void preload();
+    bool loadCompleted;
+    void preload();
 
-	explicit MainScene() = default;
-	void Initialize() override;
+    explicit MainScene() = default;
+    void Initialize() override;
 
-	void OnKeyDown(int keycode) override;
-	void OnKeyUp(int keycode) override;
+    void OnKeyDown(int keycode) override;
+    void OnKeyUp(int keycode) override;
 
-	void Update(float deltaTime) override;
+    void Update(float deltaTime) override;
 
-	void Draw() const override;
+    void Draw() const override;
 
-	void Terminate() override;
+    void Terminate() override;
 
 };
 

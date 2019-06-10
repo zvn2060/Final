@@ -10,14 +10,13 @@
 
 class TitleScene : public Engine::IScene {
 private:
-
-  static const int btnNum = 4;
-  Engine::TextButton* btn[btnNum]{};
+    static const int btnNum = 4;
+    Engine::TextButton* btn[btnNum]{};
   
 public:
-  explicit TitleScene() = default;
-  void Initialize() override;
-  void Onclick(int btnnum);
+    explicit TitleScene() = default;
+    void Initialize() override;
+    void Onclick(int btnnum);
 };
 
 #endif

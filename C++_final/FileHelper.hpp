@@ -8,7 +8,7 @@ class FileHelper{
 private:
 
 public:
-	static std::vector<std::string> GetFiles(const std::string& dir);
+    static std::vector<std::string> GetFiles(const std::string& dir);
 };
 
 

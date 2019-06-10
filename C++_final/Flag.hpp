@@ -4,23 +4,23 @@
 class Flag {
 public:
   Flag() {
-	this->flags = 0;
+    this->flags = 0;
   }
 
   bool isFlagSet(int target) {
-	return ( this->flags & target ) != 0;
+    return ( this->flags & target ) != 0;
   }
 
   // return true if the target flag has change
   bool setFlag(int target) {
-	bool pre = this->isFlagSet(target);
-	this->flags |= target;
-	return !pre;
+    bool pre = this->isFlagSet(target);
+    this->flags |= target;
+    return !pre;
   }
   bool clearFlag(int target) {
-	bool pre = this->isFlagSet(target);
-	this->flags &= ~target;
-	return pre;
+    bool pre = this->isFlagSet(target);
+    this->flags &= ~target;
+    return pre;
   }
 private:
   // at most 32 types of flag

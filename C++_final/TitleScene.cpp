@@ -6,33 +6,33 @@
 
 
 void TitleScene::Initialize(){
-	SetBackGround("background/title.png");
+    SetBackGround("background/title.png");
 
-	btn[ 0 ] = new Engine::TextButton( MultiLang::TitleScene_play, "FOT-SkipStd-B.otf", 48, 200, 400, 0xff, 0xff, 0xff, 0, 0 );
-	btn[ 1 ] = new Engine::TextButton( MultiLang::TitleScene_replay, "FOT-SkipStd-B.otf", 48, 200, 460, 0xff, 0xff, 0xff, 0, 0  );
-	btn[ 2 ] = new Engine::TextButton( MultiLang::TitleScene_option, "FOT-SkipStd-B.otf", 48, 200, 520, 0xff, 0xff, 0xff, 0, 0  );
-	btn[ 3 ] = new Engine::TextButton( MultiLang::TitleScene_exit, "FOT-SkipStd-B.otf", 48, 200, 580, 0xff, 0xff, 0xff, 0, 0  );
-	for ( int i = 0 ; i < btnNum ; i++ ) {
-		btn[i]->SetOnClickCallback(std::bind(&TitleScene::Onclick, this, i));
-		AddNewControlObject( btn[i] );
-	}
-	AudioHelper::PlayBGM("BGM/title.ogg");
+    btn[ 0 ] = new Engine::TextButton( MultiLang::TitleScene_play, "FOT-SkipStd-B.otf", 48, 200, 400, 0xff, 0xff, 0xff, 0, 0 );
+    btn[ 1 ] = new Engine::TextButton( MultiLang::TitleScene_replay, "FOT-SkipStd-B.otf", 48, 200, 460, 0xff, 0xff, 0xff, 0, 0  );
+    btn[ 2 ] = new Engine::TextButton( MultiLang::TitleScene_option, "FOT-SkipStd-B.otf", 48, 200, 520, 0xff, 0xff, 0xff, 0, 0  );
+    btn[ 3 ] = new Engine::TextButton( MultiLang::TitleScene_exit, "FOT-SkipStd-B.otf", 48, 200, 580, 0xff, 0xff, 0xff, 0, 0  );
+    for ( int i = 0 ; i < btnNum ; i++ ) {
+        btn[i]->SetOnClickCallback(std::bind(&TitleScene::Onclick, this, i));
+        AddNewControlObject( btn[i] );
+    }
+    AudioHelper::PlayBGM("BGM/title.ogg");
 }
 
 void TitleScene::Onclick(int btnnum) {
-	switch (btnnum){
-		case 0 :
-			Engine::GameEngine::GetInstance().ChangeScene("main");
-			break;
-		case 1 :
+    switch (btnnum){
+        case 0 :
+            Engine::GameEngine::GetInstance().ChangeScene("main");
+            break;
+        case 1 :
             //Engine::GameEngine::GetInstance().ChangeScene("replay");
-			break;
-		case 2 :
-			Engine::GameEngine::GetInstance().ChangeScene("setting");
-			break;
-		case 3 :
-			exit(0);
-		default:
-			;
-	}
+            break;
+        case 2 :
+            Engine::GameEngine::GetInstance().ChangeScene("setting");
+            break;
+        case 3 :
+            exit(0);
+        default:
+            ;
+    }
 }

@@ -8,15 +8,15 @@ namespace MultiLang{
     string TitleScene_play, TitleScene_replay, TitleScene_option, TitleScene_exit;
     string SettingScene_audio, SettingScene_audio_BGM, SettingScene_audio_SFX, SettingScene_language, SettingScene_display, SettingScene_back;
 
-	void ReadLangFile( const string & lang ){
-		const string LangPath = "resources/lang/" + lang + ".json";
-		Langjson = Util::readJsonData(LangPath);
-	}
-	
-	void SetLang(){
-		SetTitleLang();
-		SetSettingLang();
-	}
+    void ReadLangFile( const string & lang ){
+        const string LangPath = "resources/lang/" + lang + ".json";
+        Langjson = Util::readJsonData(LangPath);
+    }
+    
+    void SetLang(){
+        SetTitleLang();
+        SetSettingLang();
+    }
 
     void SetTitleLang() {
 

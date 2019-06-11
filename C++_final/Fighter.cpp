@@ -1,12 +1,12 @@
 #include "Fighter.hpp"
 #include "MainScene.hpp"
 
-Fighter::Fighter() {
+Fighter::Fighter(MainScene* mainScene) {
     this->position = Engine::Point(300, 600);
     this->anchor = Engine::Point(0.5, 0.5);
     this->velocity = Engine::Point(0, 0);
     this->radius = 2;
-    this->grazeRadius = 10;
+    this->grazeRadius = 12;
     this->graze = 0;
     this->animation = Animation();
     this->animation.add("stand", vector<string>{"main/reimu-1.png", "main/reimu-2.png", "main/reimu-3.png", "main/reimu-4.png", "main/reimu-5.png", "main/reimu-6.png", "main/reimu-7.png", "main/reimu-8.png"});
@@ -18,6 +18,7 @@ Fighter::Fighter() {
     this->animation_dot.add("hidden", vector<string>{"main/slow_dot-hidden.png"});
     this->animation_dot.play("hidden");
 
+    this->mainScene = mainScene;
     this->reset();
 }
 
@@ -53,10 +54,12 @@ void Fighter::draw() {
     this->animation.draw(this->position, this->anchor);
     this->animation_dot.draw(this->position, this->anchor);
 
-    // testing for discriminating the difference between position & anchor(image)
-    //al_draw_filled_circle(this->position.x, this->position.y, 1.5, al_map_rgb(10, 10, 240));
-    al_draw_filled_circle(this->position.x, 40, 5, al_map_rgb(240, 240, 240));
-    al_draw_filled_circle(this->position.x, 680, 5, al_map_rgb(240, 240, 240));
-    al_draw_filled_circle(60, this->position.y, 5, al_map_rgb(240, 240, 240));
-    al_draw_filled_circle(540, this->position.y, 5, al_map_rgb(240, 240, 240));
+    if (this->mainScene->testMode) {
+        al_draw_circle(this->position.x, this->position.y, this->radius, al_map_rgb(49, 42, 252), 2);
+        al_draw_circle(this->position.x, this->position.y, this->grazeRadius, al_map_rgb(42, 252, 49), 2);
+        al_draw_filled_circle(this->position.x, 40, 5, al_map_rgb(240, 240, 240));
+        al_draw_filled_circle(this->position.x, 680, 5, al_map_rgb(240, 240, 240));
+        al_draw_filled_circle(60, this->position.y, 5, al_map_rgb(240, 240, 240));
+        al_draw_filled_circle(540, this->position.y, 5, al_map_rgb(240, 240, 240));
+    }
 }

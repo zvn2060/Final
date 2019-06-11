@@ -12,9 +12,9 @@
 void BulletManager::init(MainScene* mainScene) {
     this->mainScene = mainScene;
     this->bulletPoolSize = 2000;
-    this->bulletPool.emplace_back(this->mainScene->fighter);
+    this->bulletPool.emplace_back(mainScene);
     for (int i = 0; i < this->bulletPoolSize; ++i) {
-        this->bulletPool.emplace_back(this->mainScene->fighter);
+        this->bulletPool.emplace_back(mainScene);
     }
 
     this->bulletData = Util::readBulletData("resources/data/bullet.json");

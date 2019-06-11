@@ -10,10 +10,10 @@ using namespace std;
 
 
 float Math::toRadian(float angle) {
-    return angle * 0.0174533f; // 0.0174533 = pi / 180
+    return angle * 0.0174533f;  // 0.0174533 = pi / 180
 }
 float Math::toAngle(float radian) {
-    return radian / 0.0174533f;
+    return radian * 57.295755f;  // 57.295755 = 1 / 0.0174533
 }
 float Math::cos(float angle) {
     return std::cos(toRadian(angle));

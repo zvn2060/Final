@@ -6,6 +6,7 @@
 #include "Fighter.hpp"
 #include "Polygon.hpp"
 
+class MainScene;
 class Fighter;
 using namespace std;
 
@@ -29,21 +30,22 @@ public:
     float radius;
     Polygon* polygon;
     bool alive;
-    Fighter* fighter;
     vector<map<string, float>> v;
     int vIndex;
     bool grazed;
 
-    explicit Bullet(Fighter* fighter);
-    ~Bullet() = default;;
+    // link
+    Fighter* fighter;
+    MainScene* mainScene;
+
+    explicit Bullet(MainScene*);
+    ~Bullet() = default;
     void setGenre(int genre, int color);
     void reset(float x, float y, vector<map<string, float>>& v, float baseAngle);
     bool checkMovingVectorChange();
     void changeMovingVector(int index);
     void update(float deltaTime);
     void draw();
-
-    Engine::Point* polygon_vertex_for_testing[10];
 
 };
 

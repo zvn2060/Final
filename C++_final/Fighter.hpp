@@ -28,11 +28,14 @@ public:
     float grazeRadius;
     int graze;
     const float velocity_normal = 280;
-    //const float velocity_slow_normal_ratio = 0.464;
-    const float velocity_slow_normal_ratio = 0.05;  // for testing bullet's collision shape accurately
+    const float velocity_slow_normal_ratio = 0.464;
+    //const float velocity_slow_normal_ratio = 0.05;  // for testing bullet's collision shape accurately
     bool slow = false;
 
-    Fighter();
+    // link
+    MainScene* mainScene;
+
+    Fighter(MainScene*);
     ~Fighter() = default;
 
     void reset();

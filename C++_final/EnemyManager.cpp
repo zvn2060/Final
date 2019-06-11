@@ -44,8 +44,7 @@ void EnemyManager::checkAndSpawnEnemy() {
             ed["hp"].get<float>(),
             vs,
             ss,
-            this->mainScene,
-            this
+            this->mainScene
         ));
     }
     catch (json::exception& e) {
@@ -70,12 +69,12 @@ void EnemyManager::_update(float deltaTime) {
         enemy->update(deltaTime);
     }
 
-    if (!this->enemyArrayClear.empty()) {
-        for (auto& enemy : this->enemyArrayClear) {
+    if (!this->enemyVanished.empty()) {
+        for (auto& enemy : this->enemyVanished) {
             enemy->~Enemy();
             this->enemyArray.erase(enemy);
         }
-        this->enemyArrayClear.clear();
+        this->enemyVanished.clear();
     }
 }
 

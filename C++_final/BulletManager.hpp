@@ -13,11 +13,13 @@ class BulletManager {
 private:
     vector<Bullet> bulletPool;
     vector<Bullet>::iterator firstDead;
-    MainScene* mainScene;
     int bulletPoolSize;
     vector< vector< vector<map<string, float>> > > bulletData;  // second vector's size = bullet quantity
+    
+    // link
+    MainScene* mainScene;
 public:
-    BulletManager() {};
+    BulletManager() = default;
     ~BulletManager() = default;
     void init(MainScene* main);
 

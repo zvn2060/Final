@@ -11,13 +11,13 @@ var enemyData =
     s: [
       // boolean in s is now supported
       { count: 100, genre: 0, color: 0, bullet: 0, aiming:  999, random: 5, offset_r: 0, offset_t: 0 },
-      { count: 120, genre: 0, color: 1, bullet: 0, aiming:  999, random: 5, offset_r: 0, offset_t: 0 },
-      { count: 140, genre: 0, color: 2, bullet: 0, aiming:  999, random: 5, offset_r: 0, offset_t: 0 },
-      { count: 160, genre: 0, color: 3, bullet: 0, aiming:  999, random: 5, offset_r: 0, offset_t: 0 },
-      { count: 180, genre: 0, color: 4, bullet: 0, aiming:  999, random: 5, offset_r: 0, offset_t: 0 },
-      { count: 200, genre: 0, color: 5, bullet: 0, aiming:  999, random: 5, offset_r: 0, offset_t: 0 },
-      { count: 220, genre: 0, color: 6, bullet: 0, aiming:  999, random: 5, offset_r: 0, offset_t: 0 },
-      { count: 240, genre: 0, color: 7, bullet: 0, aiming:  999, random: 5, offset_r: 0, offset_t: 0 }
+      { count: 120, genre: 0, color: 0, bullet: 0, aiming:  999, random: 5, offset_r: 0, offset_t: 0 },
+      { count: 140, genre: 0, color: 0, bullet: 0, aiming:  999, random: 5, offset_r: 0, offset_t: 0 },
+      { count: 160, genre: 0, color: 0, bullet: 0, aiming:  999, random: 5, offset_r: 0, offset_t: 0 },
+      { count: 180, genre: 0, color: 0, bullet: 0, aiming:  999, random: 5, offset_r: 0, offset_t: 0 },
+      { count: 200, genre: 0, color: 0, bullet: 0, aiming:  999, random: 5, offset_r: 0, offset_t: 0 },
+      { count: 220, genre: 0, color: 0, bullet: 0, aiming:  999, random: 5, offset_r: 0, offset_t: 0 },
+      { count: 240, genre: 0, color: 0, bullet: 0, aiming:  999, random: 5, offset_r: 0, offset_t: 0 }
     ],
     v: [
       { count:    0, r:  60, angle:   0, ra:   0, w:   0, raa:   0 },
@@ -99,7 +99,7 @@ var enemyData =
     v: [
       { count:    0, r:  60, angle:   0, ra:   0, w:   0, raa:   0 },
       { count:  120, r:   0, angle:   0, ra:   0, w:   0, raa:   0 },
-      { count:  290, r:  60, angle: 180, ra:   0, w:   0, raa:   0 }
+      { count:  400, r:  60, angle: 180, ra:   0, w:   0, raa:   0 }
     ]
   }
 ];

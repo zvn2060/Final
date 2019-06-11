@@ -4,7 +4,7 @@
 #include "MainScene.hpp"
 #include <allegro5/allegro_primitives.h>
 
-Enemy::Enemy(const string& sprite, float x, float y, float hp, vector<map<string, float>>& v, vector<map<string, float>>& s, MainScene* mainScene, EnemyManager* em) {
+Enemy::Enemy(const string& sprite, float x, float y, float hp, vector<map<string, float>>& v, vector<map<string, float>>& s, MainScene* mainScene) {
     this->setSprite(sprite);
     this->position = Engine::Point(x + MainScene::fieldX1, y + MainScene::fieldY1);
     this->anchor = Engine::Point(0.5, 0.5);
@@ -13,12 +13,12 @@ Enemy::Enemy(const string& sprite, float x, float y, float hp, vector<map<string
     this->s = s;
     this->sIndex = -1;
     this->changeMovingVector(0);
-    this->mainScene = mainScene;
-    this->radius_fighterBullet = this->bitmapWidth;
+    this->radius_fighterBullet = this->bitmapWidth / 2;
     this->radius_fighter = 2;
     this->lifespan = 1000;
     this->hp = hp;
-    this->enemyMgr = em;
+    this->mainScene = mainScene;
+    this->enemyMgr = mainScene->enemyMgr;
 }
 void Enemy::setSprite(const string& fileName) {
     this->bmp = Engine::Resources::GetInstance().GetBitmap("main/" + fileName);
@@ -61,15 +61,16 @@ bool Enemy::checkShot() {
 }
 
 void Enemy::shot(int index) {
-    map<string, float>* shot = &this->s[index];
-    this->mainScene->bulletMgr->shot(this->position, 
-        (*shot)["bullet"], 
-        (*shot)["genre"], 
-        (*shot)["color"], 
-        (*shot)["aiming"], 
-        (*shot)["random"],
-        (*shot)["offset_r"],
-        (*shot)["offset_t"]
+    map<string, float>& shot = this->s[index];
+    this->mainScene->bulletMgr->shot(
+        this->position, 
+        shot["bullet"], 
+        shot["genre"], 
+        shot["color"], 
+        shot["aiming"], 
+        shot["random"],
+        shot["offset_r"],
+        shot["offset_t"]
     );
     this->sIndex = index;
 }
@@ -98,10 +99,15 @@ void Enemy::update(float deltaTime) {
 
     this->count++;
     if (this->count > this->lifespan) {
-        this->enemyMgr->enemyArrayClear.insert(this);
+        this->enemyMgr->enemyVanished.insert(this);
     }
 }
 
 void Enemy::draw() {
     al_draw_bitmap(bmp.get(), position.x - anchor.x * bitmapWidth, position.y - anchor.y * bitmapHeight, 0);
+
+    if (this->mainScene->testMode) {
+        al_draw_circle(this->position.x, this->position.y, this->radius_fighter, al_map_rgb(49, 42, 252), 2);
+        al_draw_circle(this->position.x, this->position.y, this->radius_fighterBullet, al_map_rgb(252, 42, 42), 2);
+    }
 }

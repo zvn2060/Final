@@ -47,8 +47,10 @@ namespace Engine {
 
 	}
 
+    // accessed by main thread
+    // should be mutual exclusive because Resources is a singleton
 	std::shared_ptr<ALLEGRO_BITMAP> Resources::GetBitmap(std::string name) {
-		std::unique_lock<std::mutex> lock(reMutex);
+        std::unique_lock<std::mutex> lock(reMutex);
 		if (bitmaps.count(name) != 0) {
 			return bitmaps[name];
 		}
@@ -59,17 +61,42 @@ namespace Engine {
 		bitmaps[name] = std::shared_ptr<ALLEGRO_BITMAP>(bmp, al_destroy_bitmap);
 		return bitmaps[name];
 	}
+
+    // accessed by preload thread (second thread)
 	void Resources::LoadBitmap(std::string name) {
 		std::unique_lock<std::mutex> lock(reMutex);
 		if (bitmaps.count(name) != 0) {
 			return ;
 		}
 		std::string bitmapPath = bitmapPathPrefix + name;
+
+        // method 1
+        //ALLEGRO_BITMAP* bmp = al_load_bitmap_flags(bitmapPath.c_str(), ALLEGRO_MEMORY_BITMAP);
+        // method 2
 		ALLEGRO_BITMAP* bmp = al_load_bitmap(bitmapPath.c_str());
+
 		if (!bmp) throw Allegro5Exception(("failed to load image: " + bitmapPath).c_str());
 		LOG(INFO) << "Loaded Resource<image>: " << bitmapPath;
 		bitmaps.insert({ name, std::shared_ptr<ALLEGRO_BITMAP>(bmp, al_destroy_bitmap) });
 	}
+    void Resources::convertBitmap(bool* bitmapConvertCompleted) {
+        // method 1
+        for (auto it = this->bitmaps.begin(); it != this->bitmaps.end(); it++) {
+            it->second = std::shared_ptr<ALLEGRO_BITMAP>(al_clone_bitmap(it->second.get()), al_destroy_bitmap);
+        }
+
+        // method 2
+        //for (auto it = this->bitmaps.begin(); it != this->bitmaps.end(); it++) {
+        //    al_convert_bitmap(it->second.get());
+        //}
+
+        // method 3
+        //al_convert_memory_bitmaps();
+
+        *bitmapConvertCompleted = true;
+    }
+
+
 	std::shared_ptr<ALLEGRO_BITMAP> Resources::GetBitmap(std::string name, int width, int height) {
 		std::string idx = name + '?' + std::to_string(width) + 'x' + std::to_string(height);
 		if (bitmaps.count(idx) != 0)

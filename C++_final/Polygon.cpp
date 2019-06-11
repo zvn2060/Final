@@ -15,8 +15,8 @@ void Polygon::updateVertics() {
     auto it = this->vertex.begin();
     auto it2 = this->vertex_real.begin();
     for (; it != this->vertex.end(); it++, it2++) {
-        // rotate reference position = parent's position
-        // rotate angle = parent's angle
+        // rotation reference position = parent's position
+        // rotation angle = parent's angle
         it2->x =
             it->x * Math::cos(this->parent->angle + 180) -
             it->y * Math::sin(this->parent->angle + 180) +
@@ -37,10 +37,21 @@ void Polygon::updateNorms() {
     auto it2 = this->norms.begin();
     for (; it != this->vertex_real.end(); prev = it, it++, it2++) {
         if (it == this->vertex_real.begin()) {
-            *it2 = (this->vertex_real.back() - *it).normalR();
+            // this may have some overhead of creating new Engine::Point 2 times
+            //*it2 = (this->vertex_real.back() - *it).normalR();
+            *it2 = (*it - this->vertex_real.back()).normalR();
+            
+            // method 2: directly change x, y
+            //it2->x = it->y - this->vertex_real.back().y;
+            //it2->y = -(it->x - this->vertex_real.back().x);
         }
         else {
-            *it2 = (*prev - *it).normalR();
+            //*it2 = (*prev - *it).normalR();
+            *it2 = (*it - *prev).normalR();
+
+            // method 2: directly change x, y
+            //it2->x = it->y - prev->y;
+            //it2->y = -(it->x - prev->x);
         }
     }
 }
@@ -49,8 +60,9 @@ void Polygon::getProjectedMinMax(float* p_max, float* p_min, Engine::Point& norm
     auto it = this->vertex_real.begin();
     float min = it->projectLengthOnto(norm);
     float max = min;
+    float l;
     for (it++; it != this->vertex_real.end(); it++) {
-        float l = it->projectLengthOnto(norm);
+        l = it->projectLengthOnto(norm);
         if (l < min) min = l;
         if (l > max) max = l;
     }

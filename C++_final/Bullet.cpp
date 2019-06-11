@@ -2,10 +2,12 @@
 #include "Bullet.hpp"
 #include "Util.hpp"
 #include "Resources.hpp"
+#include "MainScene.hpp"
+#include "LOG.hpp"
 #include <allegro5/allegro_primitives.h>
 
 
-Bullet::Bullet(Fighter* fighter) {
+Bullet::Bullet(MainScene* mainScene) {
     this->position = Engine::Point(100, 100);
     this->count = 0;
     this->speed = 100;
@@ -14,11 +16,12 @@ Bullet::Bullet(Fighter* fighter) {
     this->ra = 0;
     this->raa = 0;
     this->alive = false;
-    this->fighter = fighter;
     this->vIndex = 0;
     this->grazed = false;
     this->polygon = nullptr;
     this->setGenre(0, 0);
+    this->fighter = mainScene->fighter;
+    this->mainScene = mainScene;
 }
 
 void Bullet::setGenre(int genre, int color) {
@@ -50,6 +53,9 @@ void Bullet::setGenre(int genre, int color) {
             });
         break;
     default:
+        string info = "shape of bullet " + to_string(genre) + "  is not supported yet ><";
+        Engine::LOG(Engine::INFO) << info;
+        // we will not re-allocate it's bmp, and so it may still use the bullet0-0.png which is fetched by preload thread, and cause performance issue
         break;
     }
     // anchor should be (0.5, 0.5) to work with Polygon's separate-axis calculation
@@ -57,16 +63,6 @@ void Bullet::setGenre(int genre, int color) {
     this->bitmapWidth = al_get_bitmap_width(bmp.get());
     this->bitmapHeight = al_get_bitmap_height(bmp.get());
 
-
-    for (int i = 0; i < 10; i++) {
-        this->polygon_vertex_for_testing[i] = nullptr;
-    }
-    if (this->polygon) {
-        auto it = this->polygon->vertex_real.begin();
-        for (int i = 0; it != this->polygon->vertex_real.end(); it++, i++) {
-            this->polygon_vertex_for_testing[i] = &*it;
-        }
-    }
 }
 
 void Bullet::reset(float x, float y, vector<map<string, float>>& v, float baseAngle) {
@@ -179,12 +175,17 @@ void Bullet::draw() {
         Math::toRadian(-angle + 180), 0);
     // what the fuck is that allegro's rotating direction, which sees clockwise as positive angle, is different with cmath, which uses the coordinate view of real math
 
-    // testing for discriminating the difference between position & anchor(image)
-    al_draw_filled_circle(this->position.x, this->position.y, 1.5, al_map_rgb(10, 200, 10));
 
-    for (int i = 0; i < 10; i++) {
-        if (this->polygon_vertex_for_testing[i]) {
-            al_draw_filled_circle(this->polygon_vertex_for_testing[i]->x, this->polygon_vertex_for_testing[i]->y, 2, al_map_rgb(10, 200, 10));
+    if (this->mainScene->testMode) {
+        if (this->shape == SHAPE_CIRCLE) {
+            al_draw_circle(this->position.x, this->position.y, this->radius, al_map_rgb(49, 42, 252), 2);
+            //al_draw_circle(this->position.x, this->position.y, this->radius + 1, al_map_rgb(252, 42, 42), 2);
+        }
+        else if (this->shape == SHAPE_POLYGON) {
+            for (auto& it : this->polygon->vertex_real) {
+                al_draw_filled_circle(it.x, it.y, 2, al_map_rgb(49, 42, 252));
+            }
         }
     }
+
 }

@@ -25,7 +25,6 @@ public:
                  // float wa;
     float radius_fighterBullet;
     float radius_fighter;
-    MainScene* mainScene;
     vector<map<string, float>> v;
     vector<map<string, float>> s;
     vector<string> item;
@@ -33,11 +32,14 @@ public:
     int sIndex;
     int lifespan;
     float hp;
+
+    // link
+    MainScene* mainScene;
     EnemyManager* enemyMgr;
 
     explicit Enemy(const string& sprite, float x, float y, float hp,
         vector<map<string, float>>& v, vector<map<string, float>>& s,
-        MainScene* mainScene, EnemyManager* em);
+        MainScene*);
     ~Enemy() = default;;
     void setSprite(const string& fileName);
     bool checkMovingVectorChange();

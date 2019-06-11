@@ -33,8 +33,10 @@ public:
     static float fieldY2;
 
     bool testSeparateAcis = false;
+    bool testMode = false;
 
     bool loadCompleted;
+    bool bitmapConvertCompleted;
     void preload();
 
     explicit MainScene() = default;

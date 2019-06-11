@@ -177,9 +177,22 @@ namespace Engine {
 		}
 		activeScene->Update(deltaTime);
 	}
+
+    //int testingCount = 0;
 	void GameEngine::draw() const {
+        // testing for multiThread preload to evaluate drawing time
+        //auto t1 = std::chrono::steady_clock::now();
+
 		activeScene->Draw();
 		al_flip_display();
+
+        // testing for multiThread preload to evaluate drawing time
+        //auto t2 = std::chrono::steady_clock::now();
+        //if (testingCount >= 10) {
+        //    std::cout << "GameEngine: draw time = " << (t2 - t1).count() << std::endl;
+        //    testingCount = 0;
+        //}
+        //testingCount++;
 	}
 	void GameEngine::destroy() {
 		// Destroy allegro5 window resources.

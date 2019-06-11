@@ -12,14 +12,17 @@ float MainScene::fieldY2 = 680.0f;
 void MainScene::Initialize() {
     
     this->loadCompleted = false;
-    // Multithread unsuccessful (performance issue)
+    this->bitmapConvertCompleted = false;
+    // Multithread
     //future<void> task = async(launch::async, &MainScene::preload, this);
+    thread preloadThread(&MainScene::preload, this);
+    preloadThread.detach();
 
     // original single thread
-    preload();
+    //preload();
 
     //IScene::SetBackGround("background/play.png");
-    this->fighter = new Fighter();
+    this->fighter = new Fighter(this);
     this->bulletMgr = new BulletManager();
     this->enemyMgr = new EnemyManager();
     this->flag = new Flag();
@@ -32,7 +35,7 @@ void MainScene::Initialize() {
     AddNewObject(label_fps);
 }
 void MainScene::preload() {
-    for (int i = 0; i < 2; i++) {
+    for (int i = 0; i < 10; i++) {
         for (int j = 0; j < 8; j++) {
             Engine::Resources::GetInstance().LoadBitmap("main/bullet" + to_string(i) + "-" + to_string(j) + ".png");
         }
@@ -77,6 +80,10 @@ void MainScene::OnKeyDown(int keycode) {
 
         }
 
+    }
+
+    if (keycode == ALLEGRO_KEY_TAB) {
+        this->testMode = !this->testMode;
     }
 }
 
@@ -123,12 +130,20 @@ void MainScene::OnKeyUp(int keycode) {
 
 void MainScene::Update(float deltaTime) {
     if (this->count % 20 == 0) {
-        cout << deltaTime << endl;
+        //cout << deltaTime << endl;
         string s = "fps: " + to_string(1.0 / deltaTime);
         label_fps->Text = s.substr(0, 9);
     }
     this->fighter->update(deltaTime);
-    if (!this->loadCompleted) return;
+
+    // deal with preload
+    if (!this->loadCompleted || !this->bitmapConvertCompleted) {
+        if (!this->bitmapConvertCompleted) {
+            Engine::Resources::GetInstance().convertBitmap(&this->bitmapConvertCompleted);
+        }
+        return;
+    }
+
     this->bulletMgr->update(deltaTime);
     this->enemyMgr->update(deltaTime);
     this->count++;

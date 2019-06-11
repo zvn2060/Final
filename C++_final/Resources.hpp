@@ -61,6 +61,7 @@ namespace Engine {
 		/// <returns>The smart pointer of the bitmap.</returns>
 		std::shared_ptr<ALLEGRO_BITMAP> GetBitmap(std::string name);
 		void LoadBitmap(std::string name);
+        void convertBitmap(bool* bitmapConvertCompleted);
 		/// <summary>
 		/// Get bitmap pointer by name, and resize it. The file should be put under "resources/images/".
 		/// </summary>

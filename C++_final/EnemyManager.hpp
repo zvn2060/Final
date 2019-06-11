@@ -12,14 +12,16 @@ using namespace std;
 
 class EnemyManager {
 private:
-    MainScene* mainScene;
     vector<json> enemyData;
     int eIndex;
+
+    // link
+    MainScene* mainScene;
 public:
     set<Enemy*> enemyArray;
-    set<Enemy*> enemyArrayClear;  // enemies who ended their lifespan, need to be erased from enemyArray
+    set<Enemy*> enemyVanished;  // enemies who ended their lifespan, need to be erased from enemyArray
 
-    EnemyManager() {};
+    EnemyManager() = default;
     ~EnemyManager() = default;
     void init(MainScene* main);
 

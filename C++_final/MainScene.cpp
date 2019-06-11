@@ -10,16 +10,6 @@ float MainScene::fieldY1 = 40.0f;
 float MainScene::fieldY2 = 680.0f;
 
 void MainScene::Initialize() {
-    
-    this->loadCompleted = false;
-    this->bitmapConvertCompleted = false;
-    // Multithread
-    //future<void> task = async(launch::async, &MainScene::preload, this);
-    thread preloadThread(&MainScene::preload, this);
-    preloadThread.detach();
-
-    // original single thread
-    //preload();
 
     //IScene::SetBackGround("background/play.png");
     this->fighter = new Fighter(this);
@@ -28,11 +18,23 @@ void MainScene::Initialize() {
     this->flag = new Flag();
     this->count = 0;
 
+
+    this->loadCompleted = false;
+    this->bitmapConvertCompleted = false;
+    // Multithread
+    //future<void> task = async(launch::async, &MainScene::preload, this);
+    //thread preloadThread(&MainScene::preload, this);
+    //preloadThread.detach();
+
+    // original single thread
+    preload();
+
     this->bulletMgr->init(this);
     this->enemyMgr->init(this);
 
     label_fps = new Engine::Label("fps: 0", "FOT-SkipStd-B.otf", 20, this->fieldX2 + 5, this->fieldY2 - 20, 0xf0, 0xf0, 0xf0, 0xff, 0, 0);
     AddNewObject(label_fps);
+
 }
 void MainScene::preload() {
     for (int i = 0; i < 10; i++) {
@@ -138,7 +140,7 @@ void MainScene::Update(float deltaTime) {
 
     // deal with preload
     if (!this->loadCompleted || !this->bitmapConvertCompleted) {
-        if (!this->bitmapConvertCompleted) {
+        if (this->loadCompleted && !this->bitmapConvertCompleted) {
             Engine::Resources::GetInstance().convertBitmap(&this->bitmapConvertCompleted);
         }
         return;

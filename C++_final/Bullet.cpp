@@ -19,7 +19,7 @@ Bullet::Bullet(MainScene* mainScene) {
     this->vIndex = 0;
     this->grazed = false;
     this->polygon = nullptr;
-    this->setGenre(0, 0);
+    //this->setGenre(0, 0);  // this will make main thread contends mutex with preload thread, so we will not do this initialization
     this->fighter = mainScene->fighter;
     this->mainScene = mainScene;
 }
@@ -55,7 +55,7 @@ void Bullet::setGenre(int genre, int color) {
     default:
         string info = "shape of bullet " + to_string(genre) + "  is not supported yet ><";
         Engine::LOG(Engine::INFO) << info;
-        // we will not re-allocate it's bmp, and so it may still use the bullet0-0.png which is fetched by preload thread, and cause performance issue
+        // we will not re-assign it's bmp, and so it may still use the bullet0-0.png which is fetched by preload thread, and cause performance issue
         break;
     }
     // anchor should be (0.5, 0.5) to work with Polygon's separate-axis calculation

@@ -85,8 +85,8 @@ namespace Engine {
     }
     void Resources::convertBitmap(bool* bitmapConvertCompleted) {
         // method 1
-        for (auto it = this->bitmaps.begin(); it != this->bitmaps.end(); it++) {
-            it->second = std::shared_ptr<ALLEGRO_BITMAP>(al_clone_bitmap(it->second.get()), al_destroy_bitmap);
+        for (auto & bitmap : this->bitmaps) {
+            bitmap.second = std::shared_ptr<ALLEGRO_BITMAP>(al_clone_bitmap(bitmap.second.get()), al_destroy_bitmap);
         }
 
         // method 2
@@ -101,7 +101,7 @@ namespace Engine {
     }
 
 
-    std::shared_ptr<ALLEGRO_BITMAP> Resources::GetBitmap(std::string name, int width, int height) {
+    std::shared_ptr<ALLEGRO_BITMAP> Resources::GetBitmap(const std::string& name, int width, int height) {
         std::string idx = name + '?' + std::to_string(width) + 'x' + std::to_string(height);
         if (bitmaps.count(idx) != 0)
             return bitmaps[idx];
@@ -124,7 +124,7 @@ namespace Engine {
         bitmaps[idx] = std::shared_ptr<ALLEGRO_BITMAP>(resized_bmp, al_destroy_bitmap);
         return bitmaps[idx];
     }
-    std::shared_ptr<ALLEGRO_FONT> Resources::GetFont(std::string name, int fontSize) {
+    std::shared_ptr<ALLEGRO_FONT> Resources::GetFont(const std::string& name, int fontSize) {
         std::string idx = name + '?' + std::to_string(fontSize);
         if (fonts.count(idx) != 0)
             return fonts[idx];
@@ -136,7 +136,7 @@ namespace Engine {
         fonts[idx] = std::shared_ptr<ALLEGRO_FONT>(font, al_destroy_font);
         return fonts[idx];
     }
-    std::shared_ptr<ALLEGRO_SAMPLE> Resources::GetSample(std::string name) {
+    std::shared_ptr<ALLEGRO_SAMPLE> Resources::GetSample(const std::string& name) {
         if (samples.count(name) != 0)
             return samples[name];
         std::string samplePath = samplePathPrefix + name;

@@ -69,20 +69,20 @@ namespace Engine {
         /// <param name="width">The target width that we want the image to be resized to.</param>
         /// <param name="height">The target height that we want the image to be resized to.</param>
         /// <returns>The smart pointer of the bitmap.</returns>
-        std::shared_ptr<ALLEGRO_BITMAP> GetBitmap(std::string name, int width, int height);
+        std::shared_ptr<ALLEGRO_BITMAP> GetBitmap(const std::string& name, int width, int height);
         /// <summary>
         /// Get font pointer by name. The file should be put under "resources/fonts/".
         /// </summary>
         /// <param name="name">The filename of the font. (Including extension)</param>
         /// <param name="size">The font size of the font.</param>
         /// <returns>The smart pointer of the font.</returns>
-        std::shared_ptr<ALLEGRO_FONT> GetFont(std::string name, int fontSize);
+        std::shared_ptr<ALLEGRO_FONT> GetFont(const std::string& name, int fontSize);
         /// <summary>
         /// Get sample pointer by name. The file should be put under "resources/audios".
         /// </summary>
         /// <param name="name">The filename of the audio. (Including extension)</param>
         /// <returns>The smart pointer of the sample.</returns>
-        std::shared_ptr<ALLEGRO_SAMPLE> GetSample(std::string name);
+        std::shared_ptr<ALLEGRO_SAMPLE> GetSample(const std::string& name);
         /// <summary>
         /// Typical function to retrieve Singleton instance and supports lazy initialization.
         /// </summary>

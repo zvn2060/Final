@@ -43,25 +43,23 @@ Final Project Note
     * README.md
 # TODO
 - [X] 聲音設定                (use template)
-- [ ] 存取檔案                (By Allegro FileIO)
-- [ ] 允許全螢幕模式       
-- [ ] 雙語言 / Unicode 化     (By Allegro Unicode)
-- [ ] 支援玩家擴充包           (By Allegro Filesystem)
-- [ ] 雙人協力模式    
-- [ ] 反射型子彈               (物理引擎 ?)
+- [X] 存取檔案                (By Allegro FileIO)
+- [X] 允許全螢幕模式
+- [X] 雙語言 / Unicode 化     (By Allegro Unicode)
+- [X] 支援玩家擴充包           (By Allegro Filesystem)
 
 # Issue
 
 
 # Bonus
 * basic
-- [ ] Stating Scene
-- [ ] Use images
-- [ ] Music and Sound Effect
-- [ ] Keybord and Mouse
+- [X] Stating Scene
+- [X] Use images
+- [X] Music and Sound Effect
+- [X] Keybord and Mouse
 * Functional Bonus
-- [ ] Animation, Partcle effects 
-- [ ] File save/read (高分榜...)
+- [X] Animation, Partcle effects
+- [X] File save/read (高分榜...)
 - [ ] Two Player/Split screens
 - [ ] Special level design (Super Boss)
 - [ ] AI of enemy(Hard-coded rules, Q-learning)
@@ -70,10 +68,10 @@ Final Project Note
 * Code Bonus
 - [X] Git
 - [ ] Smart Pointer
-- [ ] Multi-thread smooth loading (pthread, std::thread…)
-- [ ] Online Multiplayer (sockets…)
+- [X] Multi-thread smooth loading (pthread, std::thread…)
+- [X] Online Multiplayer (sockets…)
 - [ ] Elegant Coding Style (OOP, Design Patterns…)
 - [ ] Try-catch and Lambda function
-- [ ] Algorithms not covered in this course (A* path finding, Separate-Axis Theorem…)
+- [X] Algorithms not covered in this course (A* path finding, Separate-Axis Theorem…)
 
 

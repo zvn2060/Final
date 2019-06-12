@@ -6,8 +6,8 @@
 #include "Allegro5Exception.hpp"
 #include "Resources.hpp"
 
-//#include <mutex>
-//std::mutex reMutex;
+#include <mutex>
+std::mutex reMutex;
 
 namespace Engine {
     const std::string Resources::bitmapPathPrefix = "resources/images/";
@@ -50,7 +50,7 @@ namespace Engine {
     // accessed by main thread
     // should be mutual exclusive because Resources is a singleton
     std::shared_ptr<ALLEGRO_BITMAP> Resources::GetBitmap(std::string name) {
-        //std::unique_lock<std::mutex> lock(reMutex);
+        std::unique_lock<std::mutex> lock(reMutex);
         if (bitmaps.count(name) != 0) {
             return bitmaps[name];
         }
@@ -64,7 +64,7 @@ namespace Engine {
 
     // accessed by preload thread (second thread)
     void Resources::LoadBitmap(std::string name) {
-        //std::unique_lock<std::mutex> lock(reMutex);
+        std::unique_lock<std::mutex> lock(reMutex);
         if (bitmaps.count(name) != 0) {
             return ;
         }
@@ -148,7 +148,7 @@ namespace Engine {
         return samples[name];
     }
     Resources& Resources::GetInstance() {
-        //std::unique_lock<std::mutex> lock(reMutex);
+        std::unique_lock<std::mutex> lock(reMutex);
         // The classic way to lazy initialize a Singleton.
         static Resources instance;
         return instance;

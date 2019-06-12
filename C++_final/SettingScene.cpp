@@ -1,5 +1,6 @@
 #include "SettingScene.hpp"
 #include "AudioHelper.hpp"
+#include "LayoutHelper.hpp"
 #include "TextButton.hpp"
 #include "LOG.hpp"
 #include "MultiLang.hpp"
@@ -22,20 +23,22 @@ void SettingScene::Initialize(){
 }
 
 void SettingScene::ConstructUI() {
-    Engine::TextButton* btn;
-    btn = new Engine::TextButton(MultiLang::SettingScene_audio, "FOT-SkipStd-B.otf", 48, 50 , 60, 0xff, 0xff, 0xff, 0, 0);
-    btn->SetOnClickCallback(std::bind(&SettingScene::SlideOnclick, this, Audio));
-    AddNewControlObject(btn);
-    btn = new Engine::TextButton(MultiLang::SettingScene_language, "FOT-SkipStd-B.otf", 48, 50 , 220, 0xff, 0xff, 0xff, 0, 0);
-    btn->SetOnClickCallback(std::bind(&SettingScene::SlideOnclick, this, Language));
-    AddNewControlObject(btn);
-    btn = new Engine::TextButton(MultiLang::SettingScene_display, "FOT-SkipStd-B.otf", 48, 50 , 380, 0xff, 0xff, 0xff, 0, 0);
-    btn->SetOnClickCallback(std::bind(&SettingScene::SlideOnclick, this, Display));
-    AddNewControlObject(btn);
-    btn = new Engine::TextButton(MultiLang::SettingScene_back, "FOT-SkipStd-B.otf", 48, 50 , 600, 0xff, 0xff, 0xff, 0, 0);
-    btn->SetOnClickCallback(std::bind(&SettingScene::SlideOnclick, this, 4));
-    AddNewControlObject(btn);
-
+    Engine::TextButton* txtbtn;
+	std::string text[4]{
+		MultiLang::SettingScene_audio,
+		MultiLang::SettingScene_language,
+		MultiLang::SettingScene_display,
+		MultiLang::SettingScene_back
+	};
+    for(auto i : {0 , 1 , 2 , 3}){
+		txtbtn = new Engine::TextButton(text[i], "FOT-SkipStd-B.otf", 48,
+				Engine::LayoutHelper::AlignLeft(50),
+				Engine::LayoutHelper::AlignTop(60 + 160 * i),
+				0xff, 0xff, 0xff, 0, 0);
+		txtbtn->SetOnClickCallback(std::bind(&SettingScene::SlideOnclick, this, i));
+		AddNewControlObject(txtbtn);
+    }
+ 
 }
 
 std::list<Engine::IObject*>* SettingScene::ConsAudioTag(){
@@ -45,7 +48,7 @@ std::list<Engine::IObject*>* SettingScene::ConsAudioTag(){
     Slider* BGMSlider, *SFXSlider;
     BGMSlider = new Slider(MultiLang::SettingScene_audio_BGM, "FOT-SkipStd-B.otf", 48,
             halfw - 50, halfh - 200, 400, 10,
-            0xff, 0xff, 0xff, 255);
+            0xff, 0xff, 0xff, 0xff);
     BGMSlider->SetOnValueChangedCallback(std::bind(&SettingScene::SetBGMValue, this, std::placeholders::_1));
     BGMSlider->SetValue( AudioHelper::BGMVolume );
     AddNewControlObject(BGMSlider);
@@ -64,15 +67,23 @@ std::list<Engine::IObject*>* SettingScene::ConsAudioTag(){
 
 std::list<Engine::IObject*>* SettingScene::ConsLangTag(){
     auto ls = new std::list<Engine::IObject*>;
-    btn = new Engine::OptionSwitch(halfw + 100, halfh - 50, FileHelper::GetFiles("resources/lang/"), Engine::GameEngine::GetInstance().GetLang());
-    btn->SetOnClickCallback(std::bind(&SettingScene::OnclickOption, this, 0));
-    AddNewControlObject(btn);
-    ls->emplace_back(btn);
+    LangSwitch = new Engine::OptionSwitch(halfw + 100, halfh - 50, FileHelper::GetFiles("resources/lang/"), Engine::GameEngine::GetInstance().GetLang());
+	LangSwitch->SetOnClickCallback(std::bind(&SettingScene::OnclickOption, this, 0));
+    AddNewControlObject(LangSwitch);
+    ls->emplace_back(LangSwitch);
     return ls;
 }
 
 std::list<Engine::IObject*>* SettingScene::ConsDisplayTag(){
     auto ls = new std::list<Engine::IObject*>;
+	FullScreenSwitch = new Engine::OptionSwitch(
+			Engine::LayoutHelper::HorizontalCenter(100),
+			Engine::LayoutHelper::VerticalCenter(-50),
+			std::vector<std::string>{"Windowed","Full Screen"},
+			"Windowed");
+	FullScreenSwitch->SetOnClickCallback(std::bind(&SettingScene::OnclickOption, this, 1));
+	AddNewControlObject(FullScreenSwitch);
+	ls->emplace_back(FullScreenSwitch);
     return ls;
 }
 
@@ -87,9 +98,8 @@ void SettingScene::SlideOnclick(int unit) {
             break;
         case Display:
             fragment->ChangeFragment("display");
-            Engine::GameEngine::GetInstance().ToggleFullScreen();
             break;
-        case 4:
+        case 3:
             fragment->Terminate();
             Engine::GameEngine::GetInstance().ChangeScene( "title" );
             break;
@@ -101,9 +111,10 @@ void SettingScene::SlideOnclick(int unit) {
 void SettingScene::OnclickOption(int unit) {
     switch (unit){
         case 0:
-            Engine::GameEngine::GetInstance().ChangeLang(btn->GetCurrentOption());
+            Engine::GameEngine::GetInstance().ChangeLang(LangSwitch->GetCurrentOption());
             break;
         case 1:
+			Engine::GameEngine::GetInstance().ToggleFullScreen();
             break;
         default:
             ;

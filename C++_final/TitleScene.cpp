@@ -2,17 +2,25 @@
 #include "Label.hpp"
 #include "LOG.hpp"
 #include "AudioHelper.hpp"
+#include "LayoutHelper.hpp"
 #include "MultiLang.hpp"
 
 
 void TitleScene::Initialize(){
     SetBackGround("background/title.png");
-
-    btn[ 0 ] = new Engine::TextButton( MultiLang::TitleScene_play, "FOT-SkipStd-B.otf", 48, 200, 400, 0xff, 0xff, 0xff, 0, 0 );
-    btn[ 1 ] = new Engine::TextButton( MultiLang::TitleScene_replay, "FOT-SkipStd-B.otf", 48, 200, 460, 0xff, 0xff, 0xff, 0, 0  );
-    btn[ 2 ] = new Engine::TextButton( MultiLang::TitleScene_option, "FOT-SkipStd-B.otf", 48, 200, 520, 0xff, 0xff, 0xff, 0, 0  );
-    btn[ 3 ] = new Engine::TextButton( MultiLang::TitleScene_exit, "FOT-SkipStd-B.otf", 48, 200, 580, 0xff, 0xff, 0xff, 0, 0  );
+	std::string text[4]{
+		MultiLang::TitleScene_play,
+		MultiLang::TitleScene_replay,
+		MultiLang::TitleScene_option,
+		MultiLang::TitleScene_exit
+	};
     for ( int i = 0 ; i < btnNum ; i++ ) {
+    	btn [ i ] = new Engine::TextButton(
+    			text[i], "FOT-SkipStd-B.otf", 48,
+    			Engine::LayoutHelper::AlignLeft(200),
+    			Engine::LayoutHelper::AlignBottom( 320 - 60 * i ),
+    			0xff, 0xff, 0xff, 0, 0 );
+    	
         btn[i]->SetOnClickCallback(std::bind(&TitleScene::Onclick, this, i));
         AddNewControlObject( btn[i] );
     }

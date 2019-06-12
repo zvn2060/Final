@@ -21,7 +21,8 @@ private:
     std::list<Engine::IObject*>* ConsLangTag();
     std::list<Engine::IObject*>* ConsDisplayTag();
     std::list <Engine::IObject*>* ConsAudioTag();
-    Engine::OptionSwitch* btn;
+    Engine::OptionSwitch* LangSwitch;
+    Engine::OptionSwitch* FullScreenSwitch;
     void SetBGMValue( float value);
     void SetSFXValue(float value);
 public:

@@ -1,9 +1,3 @@
-// [main.cpp]
-// this template is provided for the 2D tower defense game.
-// Program entry point.
-// Returns program exit code.
-#include <vector>
-#include <iterator>
 #include "GameEngine.hpp"
 #include "LOG.hpp"
 #include "TitleScene.hpp"
@@ -11,9 +5,7 @@
 #include "SettingScene.hpp"
 
 int main(int argc, char **argv) {
-
-
-
+	
 	Engine::LOG::SetConfig(true);
 	Engine::GameEngine& game = Engine::GameEngine::GetInstance();
 

@@ -20,7 +20,11 @@ private:
     const int FLAG_KEY_UP      = 0x8;
     const int FLAG_KEY_SHIFT   = 0x10;
     Engine::Label* label_fps;
-
+    Engine::Label* highest_score;
+    Engine::Label* score;
+    Engine::Label* life;
+    Engine::Label* bomb;
+    
 public:
     int count;
     Fighter* fighter;

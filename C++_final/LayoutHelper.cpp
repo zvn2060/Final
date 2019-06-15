@@ -25,4 +25,12 @@ namespace Engine{
 	float LayoutHelper::VerticalCenter( float margin ){
 		return GameEngine::GetInstance().GetScreenHeight() / 2 + margin;
 	}
+	
+	float LayoutHelper::HorizontalRatio( float ratio ){
+		return GameEngine::GetInstance().GetScreenWidth() * ratio;
+	}
+	
+	float LayoutHelper::VeticalRatio( float ratio ){
+		return GameEngine::GetInstance().GetScreenHeight() * ratio;
+	}
 }

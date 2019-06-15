@@ -71,8 +71,14 @@ namespace Engine {
         /// </summary>
         /// <returns>Magnitude of vector.</returns>
         float Magnitude() const;
-
-        // right normal vector
+		/// <summary>
+		/// Calculate distance between two point.
+		/// </summary>
+		/// <returns>Distance between two point.</returns>
+		float operator%(const Point& rhs)const;
+	
+	
+		// right normal vector
         Point normalR();
         float projectLengthOnto(Point& p);
     };

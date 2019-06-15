@@ -14,7 +14,7 @@ private:
     vector<Bullet> bulletPool;
     vector<Bullet>::iterator firstDead;
     int bulletPoolSize;
-    vector< vector< vector<map<string, float>> > > bulletData;  // second vector's size = bullet quantity
+    vector< vector< vector< map<string, float> > > > bulletData;  // second vector's size = bullet quantity
     
     // link
     MainScene* mainScene;

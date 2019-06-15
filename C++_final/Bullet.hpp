@@ -44,7 +44,7 @@ public:
     void reset(float x, float y, vector<map<string, float>>& v, float baseAngle);
     bool checkMovingVectorChange();
     void changeMovingVector(int index);
-    void update(float deltaTime);
+    virtual void update(float deltaTime);
     void draw();
 
 };

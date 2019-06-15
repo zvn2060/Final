@@ -3,6 +3,7 @@
 #include <thread>
 #include <future>
 #include "Image.hpp"
+#include "LayoutHelper.hpp"
 
 float MainScene::fieldX1 = 60.0f;
 float MainScene::fieldX2 = 540.0f;
@@ -32,9 +33,10 @@ void MainScene::Initialize() {
     this->bulletMgr->init(this);
     this->enemyMgr->init(this);
 
-    label_fps = new Engine::Label("fps: 0", "FOT-SkipStd-B.otf", 20, this->fieldX2 + 5, this->fieldY2 - 20, 0xf0, 0xf0, 0xf0, 0xff, 0, 0);
+    label_fps = new Engine::Label("fps: 0", "FOT-SkipStd-B.otf", 20, MainScene::fieldX2 + 5, MainScene::fieldY2 - 20, 0xf0, 0xf0, 0xf0, 0xff, 0, 0);
     AddNewObject(label_fps);
-
+    score = new Engine::Label("score: 0000000", "FOT-SkipStd-B.otf", 20, Engine::LayoutHelper::AlignRight(370), Engine::LayoutHelper::VeticalRatio(0.16), 0xf0, 0xf0, 0xf0, 0xff, 0, 0);
+	AddNewObject(score);
 }
 void MainScene::preload() {
     for (int i = 0; i < 10; i++) {

@@ -20,7 +20,7 @@ namespace Engine{
 		static float VerticalCenter( float margin = 0 );
 		
 		static float HorizontalRatio(float ratio);
-		static float VeticalRatio(float ratio);
+		static float VerticalRatio(float ratio);
 	};
 }
 #endif //LAYOUTHELPER_HPP

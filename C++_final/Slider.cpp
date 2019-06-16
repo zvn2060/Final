@@ -71,7 +71,14 @@ void Slider::OnMouseMove( int mx, int my ){
 			}
 		}
 	}
-	
-	
-
 }
+
+void Slider::Enable(){
+	Enabled = true;
+}
+
+void Slider::Disable(){
+	Enabled = false;
+}
+
+

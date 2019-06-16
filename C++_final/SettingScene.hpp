@@ -12,23 +12,22 @@
 
 class SettingScene : public Engine::IScene{
 private:
-    int halfh{};
-    int halfw{};
     Fragment* fragment{};
     enum Tags{Audio, Language, Display};
-    ALLEGRO_SAMPLE_INSTANCE * bgmInstance;
     void ConstructUI();
     std::list<Engine::IObject*>* ConsLangTag();
     std::list<Engine::IObject*>* ConsDisplayTag();
     std::list <Engine::IObject*>* ConsAudioTag();
+	Slider* BGMSlider, *SFXSlider;
     Engine::OptionSwitch* LangSwitch;
     Engine::OptionSwitch* FullScreenSwitch;
     void SetBGMValue( float value);
     void SetSFXValue(float value);
+    void ControllUnits();
 public:
     SettingScene() = default;
     void Initialize() override;
-    void SlideOnclick(int unit);
+    void TagOnclick(int unit);
     void OnclickOption(int unit);
 };
 

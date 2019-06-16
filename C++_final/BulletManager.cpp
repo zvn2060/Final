@@ -57,7 +57,7 @@ void BulletManager::shot(Engine::Point& p, int bullet, int genre, int color, flo
 
     Bullet* b;
     // for every bullet
-    for (vector<map<string, float>>& bullet : bulletData[bullet]) {
+    for (vector<map<string, float>>& ele_bullet : bulletData[bullet]) {
         b = getFirstDead();
         if (!b) {
             cout << "bulletPool not enough" << endl;
@@ -66,10 +66,10 @@ void BulletManager::shot(Engine::Point& p, int bullet, int genre, int color, flo
         b->setGenre(genre, color);
 
         if (offset_r) {
-            b->reset(p.x + offset_r * Math::cos(offset_t - 90), p.y + offset_r * -Math::sin(offset_t - 90), bullet, baseAngle);
+            b->reset(p.x + offset_r * Math::cos(offset_t - 90), p.y + offset_r * -Math::sin(offset_t - 90), ele_bullet, baseAngle);
         }
         else {
-            b->reset(p.x, p.y, bullet, baseAngle);
+            b->reset(p.x, p.y, ele_bullet, baseAngle);
         }
     }
 }

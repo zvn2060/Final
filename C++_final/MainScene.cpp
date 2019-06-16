@@ -35,7 +35,7 @@ void MainScene::Initialize() {
 
     label_fps = new Engine::Label("fps: 0", "FOT-SkipStd-B.otf", 20, MainScene::fieldX2 + 5, MainScene::fieldY2 - 20, 0xf0, 0xf0, 0xf0, 0xff, 0, 0);
     AddNewObject(label_fps);
-    score = new Engine::Label("score: 0000000", "FOT-SkipStd-B.otf", 20, Engine::LayoutHelper::AlignRight(370), Engine::LayoutHelper::VeticalRatio(0.16), 0xf0, 0xf0, 0xf0, 0xff, 0, 0);
+    score = new Engine::Label("score: 0000000", "FOT-SkipStd-B.otf", 20, Engine::LayoutHelper::AlignRight(370), Engine::LayoutHelper::VerticalRatio(0.16), 0xf0, 0xf0, 0xf0, 0xff, 0, 0);
 	AddNewObject(score);
 }
 void MainScene::preload() {

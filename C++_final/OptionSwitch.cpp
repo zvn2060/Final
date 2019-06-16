@@ -5,8 +5,8 @@
 #include "OptionSwitch.hpp"
 namespace Engine {
     OptionSwitch::OptionSwitch(float x, float y, const std::vector<std::string>& options, const std::string& init) :
-     Lswitch("optionswitch/left.png", "optionswitch/left_in.png", x - 200, y, 153, 111, 0.5, 0.5),
-     Rswitch("optionswitch/right.png", "optionswitch/right_in.png", x + 200, y, 153, 111, 0.5, 0.5),
+     Lswitch("optionswitch/left.png", "optionswitch/left_in.png", x - 300, y, 153, 111, 0.5, 0.5),
+     Rswitch("optionswitch/right.png", "optionswitch/right_in.png", x + 300, y, 153, 111, 0.5, 0.5),
      current(init, "FOT-SkipStd-B.otf", 48, x, y + 20, 255, 255, 255, 255, 0.5, 0.5)
      {
         this->options = options;
@@ -59,4 +59,14 @@ namespace Engine {
     std::string OptionSwitch::GetCurrentOption() {
         return options.at(idx);
     }
+	
+	void OptionSwitch::Enable(){
+		Lswitch.Enabled = true;
+		Rswitch.Enabled = true;
+	}
+	
+	void OptionSwitch::Disable(){
+		Lswitch.Enabled = false;
+		Rswitch.Enabled = false;
+	}
 }

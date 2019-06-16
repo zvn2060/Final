@@ -30,7 +30,7 @@ namespace Engine{
 		return GameEngine::GetInstance().GetScreenWidth() * ratio;
 	}
 	
-	float LayoutHelper::VeticalRatio( float ratio ){
+	float LayoutHelper::VerticalRatio( float ratio ){
 		return GameEngine::GetInstance().GetScreenHeight() * ratio;
 	}
 }

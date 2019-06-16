@@ -7,8 +7,8 @@ void Fragment::EmbedAt( Engine::IScene * scene ){
 
 /// FIXME Not safe (Potential Memory Leak)
 
-void Fragment::AddNewFragemt(
-        const std::string & name, const std::function < std::list < Engine::IObject * > * (  ) >& Construct ){
+void Fragment::AddNewFragment(
+		const std::string & name, const std::function < std::list < Engine::IObject * > *() > & Construct ){
         auto ls = Construct();
         for(auto & l : *ls){
             l->Visible = false;
@@ -17,8 +17,10 @@ void Fragment::AddNewFragemt(
         activefrag = name;
 }
 
-void Fragment::ChangeFragment( const std::string & name ){
-    
+bool Fragment::ChangeFragment( const std::string & name ){
+    if(activefrag == name){
+    	return false;
+    }
     auto it = Map.find(activefrag);
     if(!activefrag.empty()) {
         auto ls = it->second;
@@ -37,6 +39,7 @@ void Fragment::ChangeFragment( const std::string & name ){
     }else{
         throw std::invalid_argument("Cannot change to a unknown fragment.");
     }
+    return true;
 }
 
 void Fragment::Terminate(){

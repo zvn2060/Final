@@ -23,6 +23,8 @@ namespace Engine {
         void OnMouseDown(int button, int mx, int my) override;
         void OnMouseMove(int mx, int my) override;
         void UpDate();
+		void Enable();
+		void Disable();
     };
 }
 

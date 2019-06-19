@@ -7,21 +7,9 @@
 #include <allegro5/allegro_primitives.h>
 
 
-Bullet::Bullet(MainScene* mainScene) {
-    this->position = Engine::Point(100, 100);
-    this->count = 0;
-    this->speed = 100;
-    this->angle = 0;
-    this->w = 0;
-    this->ra = 0;
-    this->raa = 0;
-    this->alive = false;
-    this->vIndex = 0;
-    this->grazed = false;
-    this->polygon = nullptr;
+Bullet::Bullet(MainScene* mainScene):fighter(mainScene->fighter), mainScene(mainScene){
     //this->setGenre(0, 0);  // this will make main thread contends mutex with preload thread, so we will not do this initialization
-    this->fighter = mainScene->fighter;
-    this->mainScene = mainScene;
+   
 }
 
 void Bullet::setGenre(int genre, int color) {

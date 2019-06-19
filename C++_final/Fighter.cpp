@@ -2,24 +2,19 @@
 #include "MainScene.hpp"
 
 Fighter::Fighter(MainScene* mainScene) {
-    this->position = Engine::Point(300, 600);
-    this->anchor = Engine::Point(0.5, 0.5);
-    this->velocity = Engine::Point(0, 0);
-    this->radius = 2;
-    this->grazeRadius = 12;
-    this->graze = 0;
-    this->animation = Animation();
-    this->animation.add("stand", vector<string>{"main/reimu-1.png", "main/reimu-2.png", "main/reimu-3.png", "main/reimu-4.png", "main/reimu-5.png", "main/reimu-6.png", "main/reimu-7.png", "main/reimu-8.png"});
-    this->animation.add("move_left", vector<string>{"main/reimu-9.png", "main/reimu-10.png", "main/reimu-11.png", "main/reimu-12.png", "main/reimu-13.png", "main/reimu-14.png", "main/reimu-15.png", "main/reimu-16.png"});
-    this->animation.add("move_right", vector<string>{"main/reimu-17.png", "main/reimu-18.png", "main/reimu-19.png", "main/reimu-20.png", "main/reimu-21.png", "main/reimu-22.png", "main/reimu-23.png", "main/reimu-24.png"});
-    this->animation.play("stand", true, 4);
-    this->animation_dot = Animation();
-    this->animation_dot.add("show", vector<string>{"main/slow_dot-1.png", "main/slow_dot-2.png", "main/slow_dot-3.png", "main/slow_dot-4.png"});
-    this->animation_dot.add("hidden", vector<string>{"main/slow_dot-hidden.png"});
-    this->animation_dot.play("hidden");
+
+    animation = Animation();
+    animation.add("stand", vector<string>{"main/reimu-1.png", "main/reimu-2.png", "main/reimu-3.png", "main/reimu-4.png", "main/reimu-5.png", "main/reimu-6.png", "main/reimu-7.png", "main/reimu-8.png"});
+    animation.add("move_left", vector<string>{"main/reimu-9.png", "main/reimu-10.png", "main/reimu-11.png", "main/reimu-12.png", "main/reimu-13.png", "main/reimu-14.png", "main/reimu-15.png", "main/reimu-16.png"});
+    animation.add("move_right", vector<string>{"main/reimu-17.png", "main/reimu-18.png", "main/reimu-19.png", "main/reimu-20.png", "main/reimu-21.png", "main/reimu-22.png", "main/reimu-23.png", "main/reimu-24.png"});
+    animation.play("stand", true, 4);
+    animation_dot = Animation();
+    animation_dot.add("show", vector<string>{"main/slow_dot-1.png", "main/slow_dot-2.png", "main/slow_dot-3.png", "main/slow_dot-4.png"});
+    animation_dot.add("hidden", vector<string>{"main/slow_dot-hidden.png"});
+    animation_dot.play("hidden");
 
     this->mainScene = mainScene;
-    this->reset();
+    reset();
 }
 
 void Fighter::reset() {

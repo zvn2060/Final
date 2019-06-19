@@ -12,8 +12,8 @@ float MainScene::fieldY2 = 680.0f;
 
 void MainScene::Initialize() {
 
-    //IScene::SetBackGround("background/play.png");
-    this->fighter = new Fighter(this);
+    SetBackGround("background/play.png");
+	this->fighter = new Fighter(this);
     this->bulletMgr = new BulletManager();
     this->enemyMgr = new EnemyManager();
     this->flag = new Flag();
@@ -32,12 +32,27 @@ void MainScene::Initialize() {
 
     this->bulletMgr->init(this);
     this->enemyMgr->init(this);
+	ConstructUI();
 
-    label_fps = new Engine::Label("fps: 0", "FOT-SkipStd-B.otf", 20, MainScene::fieldX2 + 5, MainScene::fieldY2 - 20, 0xf0, 0xf0, 0xf0, 0xff, 0, 0);
-    AddNewObject(label_fps);
-    score = new Engine::Label("score: 0000000", "FOT-SkipStd-B.otf", 20, Engine::LayoutHelper::AlignRight(370), Engine::LayoutHelper::VerticalRatio(0.16), 0xf0, 0xf0, 0xf0, 0xff, 0, 0);
-	AddNewObject(score);
 }
+
+void MainScene::ConstructUI(){
+	highest_score = new Engine::Label("Ｒｅｃｏｒｄ　" + to_string(record), "FOT-SkipStd-B.otf", 30, fieldX2 + 100, Engine::LayoutHelper::VerticalRatio(0.15), 0xf0, 0xf0, 0xf0, 0xff, 0, 0);
+	AddNewObject(highest_score);
+	
+	score = new Engine::Label("Ｓｃｏｒｅ　　" + to_string(Score), "FOT-SkipStd-B.otf", 30,fieldX2 + 100, Engine::LayoutHelper::VerticalRatio(0.20), 0xf0, 0xf0, 0xf0, 0xff, 0, 0);
+	AddNewObject(score);
+	
+	life = new Engine::Label("Ｌｉｆｅ　", "FOT-SkipStd-B.otf", 30, fieldX2 + 100, Engine::LayoutHelper::VerticalRatio(0.30), 0xf0, 0xf0, 0xf0, 0xff, 0, 0);
+	AddNewObject(life);
+	
+	bomb = new Engine::Label("Ｂｏｍｂ　", "FOT-SkipStd-B.otf", 30, fieldX2 + 100, Engine::LayoutHelper::VerticalRatio(0.35), 0xf0, 0xf0, 0xf0, 0xff, 0, 0);
+	AddNewObject(bomb);
+	
+	label_fps = new Engine::Label("fps: 0", "FOT-SkipStd-B.otf", 20, MainScene::fieldX2 + 5, MainScene::fieldY2 - 20, 0xf0, 0xf0, 0xf0, 0xff, 0, 0);
+	AddNewObject(label_fps);
+}
+
 void MainScene::preload() {
     for (int i = 0; i < 10; i++) {
         for (int j = 0; j < 8; j++) {

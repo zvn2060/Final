@@ -2,15 +2,15 @@
 
 #include <utility>
 
+#include <utility>
+
 #include "OptionSwitch.hpp"
 namespace Engine {
-    OptionSwitch::OptionSwitch(float x, float y, const std::vector<std::string>& options, const std::string& init) :
+    OptionSwitch::OptionSwitch(float x, float y, std::vector<std::string>  options, const std::string& init) :
      Lswitch("optionswitch/left.png", "optionswitch/left_in.png", x - 300, y, 153, 111, 0.5, 0.5),
      Rswitch("optionswitch/right.png", "optionswitch/right_in.png", x + 300, y, 153, 111, 0.5, 0.5),
-     current(init, "FOT-SkipStd-B.otf", 48, x, y + 20, 255, 255, 255, 255, 0.5, 0.5)
-     {
-        this->options = options;
-     }
+     current(init, "FOT-SkipStd-B.otf", 48, x, y + 20, 255, 255, 255, 255, 0.5, 0.5),
+     options(std::move(options)){}
 
     void OptionSwitch::Draw() const {
         Lswitch.Draw();

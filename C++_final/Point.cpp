@@ -39,6 +39,10 @@ namespace Engine {
     float Point::Magnitude() const {
         return std::sqrt(MagnitudeSquared());
     }
+	float Point::operator%( const Point & rhs ) const{
+		return sqrt(pow( x - rhs.x, 2 )  + pow( y - rhs.y, 2 )) ;
+	}
+    
     Point operator*(const float& lhs, const Point& rhs) {
         return rhs * lhs;
     }
@@ -49,8 +53,8 @@ namespace Engine {
     float Point::projectLengthOnto(Point& p) {
         return (x * p.x + y * p.y) / p.Magnitude();
     }
-
-    std::ostream& operator<<(std::ostream& os, Engine::Point p) {
+	
+	std::ostream& operator<<(std::ostream& os, Engine::Point p) {
         os << "(" << p.x << ", " << p.y << ")";
         return os;
     }

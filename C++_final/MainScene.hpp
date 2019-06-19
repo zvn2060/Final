@@ -19,8 +19,16 @@ private:
     const int FLAG_KEY_DOWN    = 0x4;
     const int FLAG_KEY_UP      = 0x8;
     const int FLAG_KEY_SHIFT   = 0x10;
+	void ConstructUI();
     Engine::Label* label_fps;
-
+    float fps{};
+    Engine::Label* highest_score;
+    int record{};
+    Engine::Label* score;
+    int Score{};
+    Engine::Label* life;
+    Engine::Label* bomb;
+    
 public:
     int count;
     Fighter* fighter;
@@ -38,17 +46,12 @@ public:
     bool loadCompleted;
     bool bitmapConvertCompleted;
     void preload();
-
     explicit MainScene() = default;
     void Initialize() override;
-
     void OnKeyDown(int keycode) override;
     void OnKeyUp(int keycode) override;
-
     void Update(float deltaTime) override;
-
     void Draw() const override;
-
     void Terminate() override;
 
 };

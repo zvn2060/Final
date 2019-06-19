@@ -6,8 +6,8 @@
 #include "Allegro5Exception.hpp"
 #include "Resources.hpp"
 
-//#include <mutex>
-//std::mutex reMutex;
+#include <mutex>
+std::mutex reMutex;
 
 namespace Engine {
     const std::string Resources::bitmapPathPrefix = "resources/images/";
@@ -50,7 +50,7 @@ namespace Engine {
     // accessed by main thread
     // should be mutual exclusive because Resources is a singleton
     std::shared_ptr<ALLEGRO_BITMAP> Resources::GetBitmap(std::string name) {
-        //std::unique_lock<std::mutex> lock(reMutex);
+        std::unique_lock<std::mutex> lock(reMutex);
         if (bitmaps.count(name) != 0) {
             return bitmaps[name];
         }
@@ -64,7 +64,7 @@ namespace Engine {
 
     // accessed by preload thread (second thread)
     void Resources::LoadBitmap(std::string name) {
-        //std::unique_lock<std::mutex> lock(reMutex);
+        std::unique_lock<std::mutex> lock(reMutex);
         if (bitmaps.count(name) != 0) {
             return ;
         }
@@ -101,7 +101,7 @@ namespace Engine {
     }
 
 
-    std::shared_ptr<ALLEGRO_BITMAP> Resources::GetBitmap(std::string name, int width, int height) {
+    std::shared_ptr<ALLEGRO_BITMAP> Resources::GetBitmap(const std::string& name, int width, int height) {
         std::string idx = name + '?' + std::to_string(width) + 'x' + std::to_string(height);
         if (bitmaps.count(idx) != 0)
             return bitmaps[idx];
@@ -124,7 +124,7 @@ namespace Engine {
         bitmaps[idx] = std::shared_ptr<ALLEGRO_BITMAP>(resized_bmp, al_destroy_bitmap);
         return bitmaps[idx];
     }
-    std::shared_ptr<ALLEGRO_FONT> Resources::GetFont(std::string name, int fontSize) {
+    std::shared_ptr<ALLEGRO_FONT> Resources::GetFont(const std::string& name, int fontSize) {
         std::string idx = name + '?' + std::to_string(fontSize);
         if (fonts.count(idx) != 0)
             return fonts[idx];
@@ -136,7 +136,7 @@ namespace Engine {
         fonts[idx] = std::shared_ptr<ALLEGRO_FONT>(font, al_destroy_font);
         return fonts[idx];
     }
-    std::shared_ptr<ALLEGRO_SAMPLE> Resources::GetSample(std::string name) {
+    std::shared_ptr<ALLEGRO_SAMPLE> Resources::GetSample(const std::string& name) {
         if (samples.count(name) != 0)
             return samples[name];
         std::string samplePath = samplePathPrefix + name;
@@ -148,7 +148,7 @@ namespace Engine {
         return samples[name];
     }
     Resources& Resources::GetInstance() {
-        //std::unique_lock<std::mutex> lock(reMutex);
+        std::unique_lock<std::mutex> lock(reMutex);
         // The classic way to lazy initialize a Singleton.
         static Resources instance;
         return instance;

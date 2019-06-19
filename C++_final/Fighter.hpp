@@ -19,14 +19,14 @@ class Fighter {
 private:
 public:
     Flag flag;
-    Engine::Point position;
-    Engine::Point anchor;
+    Engine::Point position = Engine::Point(300, 600);
+    Engine::Point anchor = Engine::Point(0.5, 0.5);
     Animation animation;
     Animation animation_dot;
-    Engine::Point velocity;
-    float radius;
-    float grazeRadius;
-    int graze;
+    Engine::Point velocity = Engine::Point(0, 0);
+    float radius = 2;
+    float grazeRadius = 12;
+    int graze = 0;
     const float velocity_normal = 280;
     const float velocity_slow_normal_ratio = 0.464;
     //const float velocity_slow_normal_ratio = 0.05;  // for testing bullet's collision shape accurately
@@ -35,7 +35,7 @@ public:
     // link
     MainScene* mainScene;
 
-    Fighter(MainScene*);
+    explicit Fighter(MainScene*);
     ~Fighter() = default;
 
     void reset();

@@ -15,24 +15,24 @@ private:
     enum{ SHAPE_CIRCLE, SHAPE_POLYGON };
 public:
     shared_ptr<ALLEGRO_BITMAP> bmp;
-    int bitmapWidth;  // only for anchor
-    int bitmapHeight; // only for anchor
-    Engine::Point position;
+    int bitmapWidth{}; // only for anchor
+    int bitmapHeight{}; // only for anchor
+    Engine::Point position = Engine::Point(100, 100);
     Engine::Point anchor;
-    int count;
-    float speed; // Speed
-    float angle; // Angle
-    float w;     // Angular Acceleration
-    float ra;    // Acceleration
-    float raa;   // Jerk
+    int count = 0;
+    float speed = 100; // Speed
+    float angle = 0; // Angle
+    float w = 0;     // Angular Acceleration
+    float ra = 0;    // Acceleration
+    float raa = 0;   // Jerk
     // float wa;
-    int shape;
-    float radius;
-    Polygon* polygon;
-    bool alive;
+    int shape{};
+    float radius{};
+    Polygon* polygon = nullptr;
+    bool alive = false;
     vector<map<string, float>> v;
-    int vIndex;
-    bool grazed;
+    int vIndex = 0;
+    bool grazed = false;
 
     // link
     Fighter* fighter;
@@ -44,7 +44,7 @@ public:
     void reset(float x, float y, vector<map<string, float>>& v, float baseAngle);
     bool checkMovingVectorChange();
     void changeMovingVector(int index);
-    void update(float deltaTime);
+    virtual void update(float deltaTime);
     void draw();
 
 };

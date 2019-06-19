@@ -11,42 +11,42 @@
 
 void BulletManager::init(MainScene* mainScene) {
     this->mainScene = mainScene;
-    this->bulletPoolSize = 2000;
-    this->bulletPool.emplace_back(mainScene);
+    bulletPoolSize = 2000;
+    bulletPool.emplace_back(mainScene);
     for (int i = 0; i < this->bulletPoolSize; ++i) {
         this->bulletPool.emplace_back(mainScene);
     }
 
-    this->bulletData = Util::readBulletData("resources/data/bullet.json");
+    bulletData = Util::readBulletData("resources/data/bullet.json");
 
-    this->firstDead = this->bulletPool.begin();
+    firstDead = bulletPool.begin();
 }
 
 Bullet* BulletManager::getFirstDead() {
-    if (!(*this->firstDead).alive) {
-        return &*this->firstDead;
+    if (!firstDead->alive) {
+        return &*firstDead;
     }
 
-    auto prev = this->firstDead;
+    auto prev = firstDead;
     next();
-    while (this->firstDead != prev) {
-        if (!(*this->firstDead).alive) {
-            return &*this->firstDead;
+    while (firstDead != prev) {
+        if (!firstDead->alive) {
+            return &*firstDead;
         }
         next();
     }
     return nullptr;
 }
 void BulletManager::next() {
-    this->firstDead++;
-    if (this->firstDead == this->bulletPool.end())
-        this->firstDead = this->bulletPool.begin();
+    firstDead++;
+    if (firstDead == bulletPool.end())
+        firstDead = bulletPool.begin();
 }
 
 void BulletManager::shot(Engine::Point& p, int bullet, int genre, int color, float aiming, float randomRange, float offset_r, float offset_t){
     float baseAngle = 0;
     if (aiming == 999) {
-        baseAngle = Math::angleBetween(p.x, p.y, this->mainScene->fighter->position.x, this->mainScene->fighter->position.y);
+        baseAngle = Math::angleBetween(p.x, p.y, mainScene->fighter->position.x, mainScene->fighter->position.y);
     }
     else {
         baseAngle = aiming;
@@ -57,7 +57,7 @@ void BulletManager::shot(Engine::Point& p, int bullet, int genre, int color, flo
 
     Bullet* b;
     // for every bullet
-    for (vector<map<string, float>>& bullet : bulletData[bullet]) {
+    for (vector<map<string, float>>& ele_bullet : bulletData[bullet]) {
         b = getFirstDead();
         if (!b) {
             cout << "bulletPool not enough" << endl;
@@ -66,10 +66,10 @@ void BulletManager::shot(Engine::Point& p, int bullet, int genre, int color, flo
         b->setGenre(genre, color);
 
         if (offset_r) {
-            b->reset(p.x + offset_r * Math::cos(offset_t - 90), p.y + offset_r * -Math::sin(offset_t - 90), bullet, baseAngle);
+            b->reset(p.x + offset_r * Math::cos(offset_t - 90), p.y + offset_r * -Math::sin(offset_t - 90), ele_bullet, baseAngle);
         }
         else {
-            b->reset(p.x, p.y, bullet, baseAngle);
+            b->reset(p.x, p.y, ele_bullet, baseAngle);
         }
     }
 }

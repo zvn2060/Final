@@ -10,11 +10,12 @@ class Fragment{
 private:
     std::map<std::string, std::list<Engine::IObject*> * > Map;
     Engine::IScene* EmbeddingScene;
-    std::string activefrag = "";
+    std::string activefrag{};
 public:
     void EmbedAt(Engine::IScene* scene);
-    void AddNewFragemt(const std::string& name, const std::function<std::list<Engine::IObject*> * ()>& Construct);
-    void ChangeFragment(const std::string& name);
+    void AddNewFragment(
+			const std::string & name, const std::function < std::list < Engine::IObject * > *() > & Construct);
+    bool ChangeFragment(const std::string& name);
     void Terminate();
 };
 

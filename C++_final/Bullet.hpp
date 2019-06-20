@@ -6,8 +6,6 @@
 #include "Fighter.hpp"
 #include "Polygon.hpp"
 
-class MainScene;
-class Fighter;
 using namespace std;
 
 class Bullet {
@@ -44,7 +42,7 @@ public:
     void reset(float x, float y, vector<map<string, float>>& v, float baseAngle);
     bool checkMovingVectorChange();
     void changeMovingVector(int index);
-    virtual void update(float deltaTime);
+    void update(float deltaTime);
     void draw();
 
 };

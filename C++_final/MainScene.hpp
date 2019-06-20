@@ -8,6 +8,7 @@
 #include "Fighter.hpp"
 #include "BulletManager.hpp"
 #include "EnemyManager.hpp"
+#include "SelfBulletManager.hpp"
 
 
 class MainScene : public Engine::IScene {
@@ -19,6 +20,7 @@ private:
     const int FLAG_KEY_DOWN    = 0x4;
     const int FLAG_KEY_UP      = 0x8;
     const int FLAG_KEY_SHIFT   = 0x10;
+    const int FLAG_KEY_Z 	   = 0x20;
 	void ConstructUI();
     Engine::Label* label_fps;
     float fps{};
@@ -33,6 +35,7 @@ public:
     int count;
     Fighter* fighter;
     BulletManager* bulletMgr;
+    SelfBulletManager* selfBulletManager;
     EnemyManager* enemyMgr;
 
     static float fieldX1;

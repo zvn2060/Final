@@ -157,7 +157,7 @@ void MainScene::Update(float deltaTime) {
     if (count % 20 == 0) {
         //cout << deltaTime << endl;
         string s = "fps: " + to_string(1.0 / deltaTime);
-        label_fps->Text = s.substr(0, 9);
+        label_fps->Text = s.substr(0, 10);
     }
     fighter->update(deltaTime);
 

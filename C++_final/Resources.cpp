@@ -85,9 +85,9 @@ namespace Engine {
     }
     void Resources::convertBitmap(bool* bitmapConvertCompleted) {
         // method 1
-        for (auto & bitmap : this->bitmaps) {
-            bitmap.second = std::shared_ptr<ALLEGRO_BITMAP>(al_clone_bitmap(bitmap.second.get()), al_destroy_bitmap);
-        }
+        //for (auto it = this->bitmaps.begin(); it != this->bitmaps.end(); it++) {
+        //    it->second = std::shared_ptr<ALLEGRO_BITMAP>(al_clone_bitmap(it->second.get()), al_destroy_bitmap);
+        //}
 
         // method 2
         //for (auto it = this->bitmaps.begin(); it != this->bitmaps.end(); it++) {
@@ -95,7 +95,7 @@ namespace Engine {
         //}
 
         // method 3
-        //al_convert_memory_bitmaps();
+        al_convert_memory_bitmaps();
 
         *bitmapConvertCompleted = true;
     }

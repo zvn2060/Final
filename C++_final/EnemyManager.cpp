@@ -150,6 +150,10 @@ void EnemyManager::update(float deltaTime) {
 void EnemyManager::_update(float deltaTime) {
     for (auto& enemy : this->enemyArray) {
         enemy->update(deltaTime);
+        if(enemy->hp <= 0){
+        	mainScene->SetScore(100);
+        	enemyVanished.insert(enemy);
+        }
     }
     if (this->boss) {
         this->boss->update(deltaTime);
@@ -157,9 +161,8 @@ void EnemyManager::_update(float deltaTime) {
 
     if (!this->enemyVanished.empty()) {
         for (auto& enemy : this->enemyVanished) {
-            enemy->~Enemy();
+        	delete enemy;
             this->enemyArray.erase(enemy);
-
             if (enemy->typeForEnemyManager_testing == 1) {  // boss
                 this->boss = nullptr;
             }

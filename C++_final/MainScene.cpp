@@ -51,7 +51,7 @@ void MainScene::ConstructUI(){
 	bomb = new Engine::Label("Ｂｏｍｂ　", "FOT-SkipStd-B.otf", 30, fieldX2 + 100, Engine::LayoutHelper::VerticalRatio(0.35), 0xf0, 0xf0, 0xf0, 0xff, 0, 0);
 	AddNewObject(bomb);
 	
-	label_fps = new Engine::Label("fps: 0", "FOT-SkipStd-B.otf", 20, MainScene::fieldX2 + 5, MainScene::fieldY2 - 20, 0xf0, 0xf0, 0xf0, 0xff, 0, 0);
+	label_fps = new Engine::Label("fps: " + to_string(fps), "FOT-SkipStd-B.otf", 20, MainScene::fieldX2 + 5, MainScene::fieldY2 - 20, 0xf0, 0xf0, 0xf0, 0xff, 0, 0);
 	AddNewObject(label_fps);
 
     dialogueText = new Engine::Label("", "FOT-SkipStd-B.otf", 20, 100, 500, 0xf0, 0xf0, 0xf0, 0xff, 0, 0);
@@ -95,17 +95,6 @@ void MainScene::OnKeyDown(int keycode) {
         flag->setFlag(FLAG_KEY_SHIFT);
         fighter->animation_dot.play("show", false, 2);
         fighter->slow = true;
-		
-		/*
-        if (!testSeparateAcis) {
-            Engine::Point p(300, 300);
-            bulletMgr->shot(p, 3, 2, 0, false, 0, 0, 0);
-            p.y = 350;
-            bulletMgr->shot(p, 3, 3, 0, false, 0, 0, 0);
-            //testSeparateAcis = true;
-        }
-        */
-		
     }
 
     if (keycode == ALLEGRO_KEY_TAB) {
@@ -158,9 +147,8 @@ void MainScene::OnKeyUp(int keycode) {
 
 void MainScene::Update(float deltaTime) {
     if (count % 20 == 0) {
-        //cout << deltaTime << endl;
-        string s = "fps: " + to_string(1.0 / deltaTime);
-        label_fps->Text = s.substr(0, 10);
+        fps = 1.0 / deltaTime;
+        label_fps->Text = "fps: " + to_string(fps).substr(0, 5);
     }
     fighter->update(deltaTime);
 
@@ -183,25 +171,25 @@ void MainScene::Update(float deltaTime) {
     selfBulletManager->update(deltaTime);
     enemyMgr->update(deltaTime);
 
-    if (!this->flag->isFlagSet(this->FLAG_BOSS_STAGE)) {
-        this->count++;
+    if (!flag->isFlagSet(FLAG_BOSS_STAGE)) {
+        count++;
     }
 }
 void MainScene::notifyBossStage() {
-    this->flag->setFlag(this->FLAG_BOSS_STAGE);
-    this->flag->setFlag(this->FLAG_BOSS_MEET);
+    flag->setFlag(FLAG_BOSS_STAGE);
+    flag->setFlag(FLAG_BOSS_MEET);
 }
 void MainScene::notifyBossMet() {
-    this->flag->clearFlag(this->FLAG_BOSS_MEET);
-    this->flag->setFlag(this->FLAG_BOSS_DIALOG);
+    flag->clearFlag(FLAG_BOSS_MEET);
+    flag->setFlag(FLAG_BOSS_DIALOG);
 }
 void MainScene::notifyBossDialogEnd() {
-    this->flag->clearFlag(this->FLAG_BOSS_DIALOG);
-    this->flag->setFlag(this->FLAG_BOSS_FIGHT);
+    flag->clearFlag(FLAG_BOSS_DIALOG);
+    flag->setFlag(FLAG_BOSS_FIGHT);
 }
 void MainScene::notifyBossBeated() {
-    this->flag->clearFlag(this->FLAG_BOSS_FIGHT);
-    this->flag->clearFlag(this->FLAG_BOSS_STAGE);
+    flag->clearFlag(FLAG_BOSS_FIGHT);
+    flag->clearFlag(FLAG_BOSS_STAGE);
 }
 void MainScene::dialogue(const string& text) {
     this->dialogueText->Text = text;
@@ -223,6 +211,6 @@ void MainScene::Terminate() {
     IScene::Terminate();
 }
 
-void MainScene::SetScore(){
-	label_score->Text = "Ｓｃｏｒｅ　" + to_string(score);
+void MainScene::SetScore(int delta_score){
+	label_score->Text = "Ｓｃｏｒｅ　" + to_string(score += delta_score);
 }

@@ -15,7 +15,7 @@ public:
     static map<string, int> movingVectorTypeMap;
 
     int stopPoint;
-    int dialogueIndex = 0;
+    unsigned int dialogueIndex = 0;
     int dialogueSkipCount = 0;
     vector<string> dialogueA;  // dialogue before battle
     vector<string> dialogueB;  // dialogue after boss is beated
@@ -28,10 +28,10 @@ public:
         MainScene*);
     ~Boss() = default;
 
-    void changeMovingVector(int index);
+    void changeMovingVector(int index) override;
 
-    void update(float deltaTime);
-    void draw();
+    void update(float deltaTime) override;
+    void draw() override;
 
 };
 

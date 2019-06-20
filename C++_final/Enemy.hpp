@@ -32,6 +32,7 @@ public:
     int sIndex;
     int lifespan;
     float hp;
+    int typeForEnemyManager_testing;
 
     // link
     MainScene* mainScene;
@@ -40,7 +41,7 @@ public:
     explicit Enemy(const string& sprite, float x, float y, float hp,
         vector<map<string, float>>& v, vector<map<string, float>>& s,
         MainScene*);
-    ~Enemy() = default;;
+    ~Enemy() = default;
     void setSprite(const string& fileName);
     bool checkMovingVectorChange();
     void changeMovingVector(int index);

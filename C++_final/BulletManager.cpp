@@ -43,14 +43,13 @@ void BulletManager::next() {
         firstDead = bulletPool.begin();
 }
 
-void BulletManager::shot(Engine::Point& p, int bullet, int genre, int color, float aiming, float randomRange, float offset_r, float offset_t){
+void BulletManager::shot(Engine::Point& p, int bullet, int genre, int color, float aiming, float angle, float randomRange, float offset_r, float offset_t){
     float baseAngle = 0;
-    if (aiming == 999) {
+    if (aiming) {
         baseAngle = Math::angleBetween(p.x, p.y, mainScene->fighter->position.x, mainScene->fighter->position.y);
     }
-    else {
-        baseAngle = aiming;
-    }
+    baseAngle += angle;
+
     if (randomRange) {
         baseAngle += Math::random(-randomRange, randomRange);
     }

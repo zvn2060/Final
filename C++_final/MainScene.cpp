@@ -17,7 +17,7 @@ void MainScene::Initialize() {
     this->bulletMgr = new BulletManager();
     this->enemyMgr = new EnemyManager();
     this->flag = new Flag();
-    this->count = 0;
+    this->count = 1850;
 
 
     this->loadCompleted = false;
@@ -51,6 +51,9 @@ void MainScene::ConstructUI(){
 	
 	label_fps = new Engine::Label("fps: 0", "FOT-SkipStd-B.otf", 20, MainScene::fieldX2 + 5, MainScene::fieldY2 - 20, 0xf0, 0xf0, 0xf0, 0xff, 0, 0);
 	AddNewObject(label_fps);
+
+    dialogueText = new Engine::Label("", "FOT-SkipStd-B.otf", 20, 100, 500, 0xf0, 0xf0, 0xf0, 0xff, 0, 0);
+    AddNewObject(dialogueText);
 }
 
 void MainScene::preload() {
@@ -90,9 +93,9 @@ void MainScene::OnKeyDown(int keycode) {
         
         if (!this->testSeparateAcis) {
             Engine::Point p(300, 300);
-            this->bulletMgr->shot(p, 3, 2, 0, false, 0, 0, 0);
+            this->bulletMgr->shot(p, 3, 2, 0, false, 0, 0, 0, 0);
             p.y = 350;
-            this->bulletMgr->shot(p, 3, 3, 0, false, 0, 0, 0);
+            this->bulletMgr->shot(p, 3, 3, 0, false, 0, 0, 0, 0);
             //this->testSeparateAcis = true;
         }
         else {
@@ -165,8 +168,31 @@ void MainScene::Update(float deltaTime) {
 
     this->bulletMgr->update(deltaTime);
     this->enemyMgr->update(deltaTime);
-    this->count++;
+
+    if (!this->flag->isFlagSet(this->FLAG_BOSS_STAGE)) {
+        this->count++;
+    }
 }
+void MainScene::notifyBossStage() {
+    this->flag->setFlag(this->FLAG_BOSS_STAGE);
+    this->flag->setFlag(this->FLAG_BOSS_MEET);
+}
+void MainScene::notifyBossMet() {
+    this->flag->clearFlag(this->FLAG_BOSS_MEET);
+    this->flag->setFlag(this->FLAG_BOSS_DIALOG);
+}
+void MainScene::notifyBossDialogEnd() {
+    this->flag->clearFlag(this->FLAG_BOSS_DIALOG);
+    this->flag->setFlag(this->FLAG_BOSS_FIGHT);
+}
+void MainScene::notifyBossBeated() {
+    this->flag->clearFlag(this->FLAG_BOSS_FIGHT);
+    this->flag->clearFlag(this->FLAG_BOSS_STAGE);
+}
+void MainScene::dialogue(const string& text) {
+    this->dialogueText->Text = text;
+}
+
 void MainScene::Draw() const {
     IScene::Draw();
     this->enemyMgr->draw();

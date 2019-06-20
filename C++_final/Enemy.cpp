@@ -4,6 +4,7 @@
 #include "MainScene.hpp"
 #include <allegro5/allegro_primitives.h>
 
+
 Enemy::Enemy(const string& sprite, float x, float y, float hp, vector<map<string, float>>& v, vector<map<string, float>>& s, MainScene* mainScene) {
     this->setSprite(sprite);
     this->position = Engine::Point(x + MainScene::fieldX1, y + MainScene::fieldY1);
@@ -19,6 +20,7 @@ Enemy::Enemy(const string& sprite, float x, float y, float hp, vector<map<string
     this->hp = hp;
     this->mainScene = mainScene;
     this->enemyMgr = mainScene->enemyMgr;
+    this->typeForEnemyManager_testing = 0;
 }
 void Enemy::setSprite(const string& fileName) {
     this->bmp = Engine::Resources::GetInstance().GetBitmap("main/" + fileName);
@@ -68,6 +70,7 @@ void Enemy::shot(int index) {
         shot["genre"], 
         shot["color"], 
         shot["aiming"], 
+        shot["angle"],
         shot["random"],
         shot["offset_r"],
         shot["offset_t"]
@@ -81,7 +84,6 @@ void Enemy::update(float deltaTime) {
     this->speed += this->ra;
     this->ra += this->raa;
     this->angle += this->w;
-
     if (this->speed < 0) {
         speed = -speed;
         angle = -angle;

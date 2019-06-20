@@ -13,16 +13,16 @@ mainScene(mainScene)
 void SelfBullet::setGenre(int genre, int color) {
 	switch (genre) {
 		case 0:
-			this->bmp = Engine::Resources::GetInstance().GetBitmap(
+			bmp = Engine::Resources::GetInstance().GetBitmap(
 						"main/bullet0-" + to_string(color) + ".png"
 						);
-			this->shape = SHAPE_CIRCLE;
-			this->radius = 2;
+			shape = SHAPE_CIRCLE;
+			radius = 2;
 			break;
 		case 1:
-			this->bmp = Engine::Resources::GetInstance().GetBitmap("main/bullet1-" + to_string(color) + ".png");
-			this->shape = SHAPE_CIRCLE;
-			this->radius = 4;
+			bmp = Engine::Resources::GetInstance().GetBitmap("main/bullet1-" + to_string(color) + ".png");
+			shape = SHAPE_CIRCLE;
+			radius = 4;
 			break;
 		default:
 			string info = "shape of bullet " + to_string(genre) + "  is not supported yet ><";
@@ -31,65 +31,65 @@ void SelfBullet::setGenre(int genre, int color) {
 			break;
 	}
 	// anchor should be (0.5, 0.5) to work with Polygon's separate-axis calculation
-	this->anchor = Engine::Point(0.5, 0.5);
-	this->bitmapWidth = al_get_bitmap_width(bmp.get());
-	this->bitmapHeight = al_get_bitmap_height(bmp.get());
+	anchor = Engine::Point(0.5, 0.5);
+	bitmapWidth = al_get_bitmap_width(bmp.get());
+	bitmapHeight = al_get_bitmap_height(bmp.get());
 	
 }
 
 void SelfBullet::reset(float x, float y, vector<map<string, float>>& v, float baseAngle) {
-	this->alive = true;
-	this->position.x = x;
-	this->position.y = y;
+	alive = true;
+	position.x = x;
+	position.y = y;
 	if (v[0]["offset_r"]) {
-		this->position.x += v[0]["offset_r"] * Math::cos(v[0]["offset_t"] - 90);
-		this->position.y += v[0]["offset_r"] * -Math::sin(v[0]["offset_t"] - 90);
+		position.x += v[0]["offset_r"] * Math::cos(v[0]["offset_t"] - 90);
+		position.y += v[0]["offset_r"] * -Math::sin(v[0]["offset_t"] - 90);
 	}
 	
-	this->grazed = false;
+	grazed = false;
 	
 	this->v = v;
-	this->count = 0;
-	this->changeMovingVector(0);
+	count = 0;
+	changeMovingVector(0);
 	
-	this->angle += baseAngle;
+	angle += baseAngle;
 }
 
 bool SelfBullet::checkMovingVectorChange() {
-	if (this->vIndex >= (int)this->v.size() - 1) {
+	if (vIndex >= (int)v.size() - 1) {
 		return false;
 	}
 	/*
-	 * if (this->count >= this->v[vIndex + 1]["count"]) {
+	 * if (count >= v[vIndex + 1]["count"]) {
 	 * return true;
 	 * }
 	 */
 	
-	return this->count >= this->v[vIndex + 1]["count"];
+	return count >= v[vIndex + 1]["count"];
 }
 void SelfBullet::changeMovingVector(int index) {
-	//std::cout << "r: " << this->speed << " ra: " << this->ra << std::endl;
-	if (this->v[index]["r"] == 999) {  // inheritance current speed
-		this->speed = this->speed;
+	//std::cout << "r: " << speed << " ra: " << ra << std::endl;
+	if (v[index]["r"] == 999) {  // inheritance current speed
+		speed = speed;
 	}
 	else {
-		this->speed = this->v[index]["r"];
+		speed = v[index]["r"];
 	}
 	
 	if (v[index]["aiming"]) {
-		this->angle = Math::angleBetween(this->position.x, this->position.y, this->fighter->position.x, this->fighter->position.y);
+		angle = Math::angleBetween(position.x, position.y, fighter->position.x, fighter->position.y);
 	}
-	else if(this->v[index]["angle"] == 999) {  // inheritance current angle
-		this->angle = this->angle;
+	else if(v[index]["angle"] == 999) {  // inheritance current angle
+		this->angle = angle;
 	}
 	else {
-		this->angle = this->v[index]["angle"];
+		angle = v[index]["angle"];
 	}
 	
-	this->w = this->v[index]["w"];
-	this->ra = this->v[index]["ra"];
-	this->raa = this->v[index]["raa"];
-	this->vIndex = index;
+	w = v[index]["w"];
+	ra = v[index]["ra"];
+	raa = v[index]["raa"];
+	vIndex = index;
 }
 
 void SelfBullet::update(float deltaTime) {
@@ -110,10 +110,9 @@ void SelfBullet::update(float deltaTime) {
 		if ( Math::distanceBetween( position, enemy->position ) < 80 ) {
 			switch ( shape ) {
 				case SHAPE_CIRCLE:
-					if ( Collision::circleOverlap( position, radius, fighter->position, fighter->radius ) ) {
-						enemy->hp--;
-						cout<<'A';
-						this->alive = false;
+					if ( Collision::circleOverlap( position, radius, enemy->position, enemy->radius_fighter ) ) {
+						enemy->hp -= 1;
+						alive = false;
 					}
 					break;
 				default:
@@ -122,14 +121,14 @@ void SelfBullet::update(float deltaTime) {
 		}
 	}
 	
-	if (Collision::outOfWorldBound(this->position)) {
-		this->alive = false;
+	if (Collision::outOfWorldBound(position)) {
+		alive = false;
 	}
 	
-	if (this->checkMovingVectorChange())
-		this->changeMovingVector(this->vIndex + 1);
+	if (checkMovingVectorChange())
+		changeMovingVector(vIndex + 1);
 	
-	this->count++;
+	count++;
 }
 
 void SelfBullet::draw() {
@@ -140,13 +139,13 @@ void SelfBullet::draw() {
 	// what the fuck is that allegro's rotating direction, which sees clockwise as positive angle, is different with cmath, which uses the coordinate view of real math
 	
 	
-	if (this->mainScene->testMode) {
-		if (this->shape == SHAPE_CIRCLE) {
-			al_draw_circle(this->position.x, this->position.y, this->radius, al_map_rgb(49, 42, 252), 2);
-			//al_draw_circle(this->position.x, this->position.y, this->radius + 1, al_map_rgb(252, 42, 42), 2);
+	if (mainScene->testMode) {
+		if (shape == SHAPE_CIRCLE) {
+			al_draw_circle(position.x, position.y, radius, al_map_rgb(49, 42, 252), 2);
+			//al_draw_circle(position.x, position.y, radius + 1, al_map_rgb(252, 42, 42), 2);
 		}
-		else if (this->shape == SHAPE_POLYGON) {
-			for (auto& it : this->polygon->vertex_real) {
+		else if (shape == SHAPE_POLYGON) {
+			for (auto& it : polygon->vertex_real) {
 				al_draw_filled_circle(it.x, it.y, 2, al_map_rgb(49, 42, 252));
 			}
 		}

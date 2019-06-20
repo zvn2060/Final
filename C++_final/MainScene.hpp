@@ -22,7 +22,7 @@ private:
     const int FLAG_KEY_SHIFT   = 0x10;
     const int FLAG_KEY_Z 	   = 0x20;
 	void ConstructUI();
-    Engine::Label* label_fps;
+	Engine::Label* label_fps;
     float fps{};
     Engine::Label* highest_score;
     int record{};

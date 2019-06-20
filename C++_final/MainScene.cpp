@@ -19,7 +19,7 @@ void MainScene::Initialize() {
     enemyMgr = new EnemyManager();
     flag = new Flag();
     count = 0;
-
+	
 
     loadCompleted = false;
     bitmapConvertCompleted = false;
@@ -168,8 +168,11 @@ void MainScene::Update(float deltaTime) {
         }
         return;
     }
-    if(flag->isFlagSet(FLAG_KEY_Z)) {
-		selfBulletManager->shot( fighter->position, 0, 0, 0, false, 0, 0, 0 );
+    if(flag->isFlagSet(FLAG_KEY_Z) && count % 10 == 0) {
+    	float x = fighter->position.x;
+    	float y = fighter->position.y - 30;
+    	Engine::Point p(x, y);
+		selfBulletManager->shot( p, 0, 0, 0, false, 0, 0, 0 );
 	}
 	
 	bulletMgr->update(deltaTime);

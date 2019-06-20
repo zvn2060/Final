@@ -4,6 +4,7 @@
 #include <future>
 #include "Image.hpp"
 #include "LayoutHelper.hpp"
+#include "AudioHelper.hpp"
 
 float MainScene::fieldX1 = 60.0f;
 float MainScene::fieldX2 = 540.0f;
@@ -11,7 +12,7 @@ float MainScene::fieldY1 = 40.0f;
 float MainScene::fieldY2 = 680.0f;
 
 void MainScene::Initialize() {
-
+	AudioHelper::PlayBGM("BGM/battle-1.ogg");
     SetBackGround("background/play.png");
 	fighter = new Fighter(this);
     bulletMgr = new BulletManager();

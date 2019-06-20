@@ -14,6 +14,7 @@ float MainScene::fieldY2 = 680.0f;
 void MainScene::Initialize() {
 	AudioHelper::PlayBGM("BGM/battle-1.ogg");
     SetBackGround("background/play.png");
+    AddNewObject(new Engine::Image("background/battle.png", fieldX1 - 15, fieldY1 - 20, fieldX2 - fieldX1 + 30, fieldY2 - fieldY1 + 40));
 	fighter = new Fighter(this);
     bulletMgr = new BulletManager();
     selfBulletManager = new SelfBulletManager();
@@ -161,6 +162,7 @@ void MainScene::Update(float deltaTime) {
     }
 
     if (flag->isFlagSet(FLAG_KEY_Z) && count % 10 == 0) {
+    	AudioHelper::PlayAudio("fire.ogg");
         float x = fighter->position.x;
         float y = fighter->position.y - 30;
         Engine::Point p(x, y);

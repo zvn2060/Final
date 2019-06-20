@@ -24,10 +24,10 @@ private:
 	void ConstructUI();
 	Engine::Label* label_fps;
     float fps{};
-    Engine::Label* highest_score;
+    Engine::Label* label_record;
     int record{};
-    Engine::Label* score;
-    int Score{};
+    Engine::Label* label_score;
+    int score{};
     Engine::Label* life;
     Engine::Label* bomb;
     
@@ -56,7 +56,7 @@ public:
     void Update(float deltaTime) override;
     void Draw() const override;
     void Terminate() override;
-
+	void SetScore();
 };
 
 

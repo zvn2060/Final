@@ -40,11 +40,11 @@ void MainScene::Initialize() {
 }
 
 void MainScene::ConstructUI(){
-	highest_score = new Engine::Label("Ｒｅｃｏｒｄ　" + to_string(record), "FOT-SkipStd-B.otf", 30, fieldX2 + 100, Engine::LayoutHelper::VerticalRatio(0.15), 0xf0, 0xf0, 0xf0, 0xff, 0, 0);
-	AddNewObject(highest_score);
+	label_record = new Engine::Label("Ｒｅｃｏｒｄ　" + to_string(record), "FOT-SkipStd-B.otf", 30, fieldX2 + 100, Engine::LayoutHelper::VerticalRatio(0.15), 0xf0, 0xf0, 0xf0, 0xff, 0, 0);
+	AddNewObject(label_record);
 	
-	score = new Engine::Label("Ｓｃｏｒｅ　　" + to_string(Score), "FOT-SkipStd-B.otf", 30,fieldX2 + 100, Engine::LayoutHelper::VerticalRatio(0.20), 0xf0, 0xf0, 0xf0, 0xff, 0, 0);
-	AddNewObject(score);
+	label_score = new Engine::Label("Ｓｃｏｒｅ　　" + to_string(score), "FOT-SkipStd-B.otf", 30,fieldX2 + 100, Engine::LayoutHelper::VerticalRatio(0.20), 0xf0, 0xf0, 0xf0, 0xff, 0, 0);
+	AddNewObject(label_score);
 	
 	life = new Engine::Label("Ｌｉｆｅ　", "FOT-SkipStd-B.otf", 30, fieldX2 + 100, Engine::LayoutHelper::VerticalRatio(0.30), 0xf0, 0xf0, 0xf0, 0xff, 0, 0);
 	AddNewObject(life);
@@ -195,4 +195,8 @@ void MainScene::Terminate() {
     delete bulletMgr;
     delete selfBulletManager;
     IScene::Terminate();
+}
+
+void MainScene::SetScore(){
+	label_score->Text = "Ｓｃｏｒｅ　" + to_string(score);
 }

@@ -4,6 +4,7 @@
 #include <future>
 #include "Image.hpp"
 #include "LayoutHelper.hpp"
+#include "AudioHelper.hpp"
 
 float MainScene::fieldX1 = 60.0f;
 float MainScene::fieldX2 = 540.0f;
@@ -11,17 +12,17 @@ float MainScene::fieldY1 = 40.0f;
 float MainScene::fieldY2 = 680.0f;
 
 void MainScene::Initialize() {
-
+	AudioHelper::PlayBGM("BGM/battle-1.ogg");
     SetBackGround("background/play.png");
-	this->fighter = new Fighter(this);
-    this->bulletMgr = new BulletManager();
-    this->enemyMgr = new EnemyManager();
-    this->flag = new Flag();
-    this->count = 1850;
+	fighter = new Fighter(this);
+    bulletMgr = new BulletManager();
+    selfBulletManager = new SelfBulletManager();
+    enemyMgr = new EnemyManager();
+    flag = new Flag();
+    count = 0;
 
-
-    this->loadCompleted = false;
-    this->bitmapConvertCompleted = false;
+    loadCompleted = false;
+    bitmapConvertCompleted = false;
     // Multithread
     //future<void> task = async(launch::async, &MainScene::preload, this);
     //thread preloadThread(&MainScene::preload, this);
@@ -30,18 +31,19 @@ void MainScene::Initialize() {
     // original single thread
     preload();
 
-    this->bulletMgr->init(this);
-    this->enemyMgr->init(this);
+    bulletMgr->init(this);
+    enemyMgr->init(this);
+    selfBulletManager->init(this);
 	ConstructUI();
 
 }
 
 void MainScene::ConstructUI(){
-	highest_score = new Engine::Label("Ｒｅｃｏｒｄ　" + to_string(record), "FOT-SkipStd-B.otf", 30, fieldX2 + 100, Engine::LayoutHelper::VerticalRatio(0.15), 0xf0, 0xf0, 0xf0, 0xff, 0, 0);
-	AddNewObject(highest_score);
+	label_record = new Engine::Label("Ｒｅｃｏｒｄ　" + to_string(record), "FOT-SkipStd-B.otf", 30, fieldX2 + 100, Engine::LayoutHelper::VerticalRatio(0.15), 0xf0, 0xf0, 0xf0, 0xff, 0, 0);
+	AddNewObject(label_record);
 	
-	score = new Engine::Label("Ｓｃｏｒｅ　　" + to_string(Score), "FOT-SkipStd-B.otf", 30,fieldX2 + 100, Engine::LayoutHelper::VerticalRatio(0.20), 0xf0, 0xf0, 0xf0, 0xff, 0, 0);
-	AddNewObject(score);
+	label_score = new Engine::Label("Ｓｃｏｒｅ　　" + to_string(score), "FOT-SkipStd-B.otf", 30,fieldX2 + 100, Engine::LayoutHelper::VerticalRatio(0.20), 0xf0, 0xf0, 0xf0, 0xff, 0, 0);
+	AddNewObject(label_score);
 	
 	life = new Engine::Label("Ｌｉｆｅ　", "FOT-SkipStd-B.otf", 30, fieldX2 + 100, Engine::LayoutHelper::VerticalRatio(0.30), 0xf0, 0xf0, 0xf0, 0xff, 0, 0);
 	AddNewObject(life);
@@ -63,111 +65,123 @@ void MainScene::preload() {
         }
     }
     Engine::Resources::GetInstance().LoadBitmap("main/yousei_1.png");
-    this->loadCompleted = true;
+    loadCompleted = true;
 }
 
 void MainScene::OnKeyDown(int keycode) {
     if (keycode == ALLEGRO_KEY_LEFT) {
-        this->flag->setFlag(this->FLAG_KEY_LEFT);
-        this->fighter->animation.play("move_left", false, 4);
-        this->fighter->velocity.x = -this->fighter->velocity_normal;
+        flag->setFlag(FLAG_KEY_LEFT);
+        fighter->animation.play("move_left", false, 4);
+        fighter->velocity.x = -fighter->velocity_normal;
     }
     if (keycode == ALLEGRO_KEY_RIGHT) {
-        this->flag->setFlag(this->FLAG_KEY_RIGHT);
-        this->fighter->animation.play("move_right", false, 4);
-        this->fighter->velocity.x = this->fighter->velocity_normal;
+        flag->setFlag(FLAG_KEY_RIGHT);
+        fighter->animation.play("move_right", false, 4);
+        fighter->velocity.x = fighter->velocity_normal;
     }
     if (keycode == ALLEGRO_KEY_DOWN) {
-        this->flag->setFlag(this->FLAG_KEY_DOWN);
-        this->fighter->velocity.y = this->fighter->velocity_normal;
+        flag->setFlag(FLAG_KEY_DOWN);
+        fighter->velocity.y = fighter->velocity_normal;
     }
     if (keycode == ALLEGRO_KEY_UP) {
-        this->flag->setFlag(this->FLAG_KEY_UP);
-        this->fighter->velocity.y = -this->fighter->velocity_normal;
+        flag->setFlag(FLAG_KEY_UP);
+        fighter->velocity.y = -fighter->velocity_normal;
+    }
+    if(keycode == ALLEGRO_KEY_Z){
+    	flag->setFlag(FLAG_KEY_Z);
     }
 
     if (keycode == ALLEGRO_KEY_LSHIFT) {
-        this->flag->setFlag(this->FLAG_KEY_SHIFT);
-        this->fighter->animation_dot.play("show", false, 2);
-        this->fighter->slow = true;
-        
-        if (!this->testSeparateAcis) {
+        flag->setFlag(FLAG_KEY_SHIFT);
+        fighter->animation_dot.play("show", false, 2);
+        fighter->slow = true;
+		
+		/*
+        if (!testSeparateAcis) {
             Engine::Point p(300, 300);
-            this->bulletMgr->shot(p, 3, 2, 0, false, 0, 0, 0, 0);
+            bulletMgr->shot(p, 3, 2, 0, false, 0, 0, 0);
             p.y = 350;
-            this->bulletMgr->shot(p, 3, 3, 0, false, 0, 0, 0, 0);
-            //this->testSeparateAcis = true;
+            bulletMgr->shot(p, 3, 3, 0, false, 0, 0, 0);
+            //testSeparateAcis = true;
         }
-        else {
-
-        }
-
+        */
+		
     }
 
     if (keycode == ALLEGRO_KEY_TAB) {
-        this->testMode = !this->testMode;
+        testMode = !testMode;
     }
 }
 
 void MainScene::OnKeyUp(int keycode) {
     if (keycode == ALLEGRO_KEY_LEFT) {
-        this->flag->clearFlag(this->FLAG_KEY_LEFT);
-        this->fighter->animation.play("stand", true, 4);
-        this->fighter->velocity.x = 0;
-        if (this->flag->isFlagSet(this->FLAG_KEY_RIGHT)) {
-            this->fighter->animation.play("move_right", false, 4);
-            this->fighter->velocity.x = this->fighter->velocity_normal;
+        flag->clearFlag(FLAG_KEY_LEFT);
+        fighter->animation.play("stand", true, 4);
+        fighter->velocity.x = 0;
+        if (flag->isFlagSet(FLAG_KEY_RIGHT)) {
+            fighter->animation.play("move_right", false, 4);
+            fighter->velocity.x = fighter->velocity_normal;
         }
     }
     if (keycode == ALLEGRO_KEY_RIGHT) {
-        this->flag->clearFlag(this->FLAG_KEY_RIGHT);
-        this->fighter->animation.play("stand", true, 4);
-        this->fighter->velocity.x = 0;
-        if (this->flag->isFlagSet(this->FLAG_KEY_LEFT)) {
-            this->fighter->animation.play("move_left", false, 4);
-            this->fighter->velocity.x = -this->fighter->velocity_normal;
+        flag->clearFlag(FLAG_KEY_RIGHT);
+        fighter->animation.play("stand", true, 4);
+        fighter->velocity.x = 0;
+        if (flag->isFlagSet(FLAG_KEY_LEFT)) {
+            fighter->animation.play("move_left", false, 4);
+            fighter->velocity.x = -fighter->velocity_normal;
         }
     }
     if (keycode == ALLEGRO_KEY_DOWN) {
-        this->flag->clearFlag(this->FLAG_KEY_DOWN);
-        this->fighter->velocity.y = 0;
-        if (this->flag->isFlagSet(this->FLAG_KEY_UP)) {
-            this->fighter->velocity.y = -this->fighter->velocity_normal;
+        flag->clearFlag(FLAG_KEY_DOWN);
+        fighter->velocity.y = 0;
+        if (flag->isFlagSet(FLAG_KEY_UP)) {
+            fighter->velocity.y = -fighter->velocity_normal;
         }
     }
     if (keycode == ALLEGRO_KEY_UP) {
-        this->flag->clearFlag(this->FLAG_KEY_UP);
-        this->fighter->velocity.y = 0;
-        if (this->flag->isFlagSet(this->FLAG_KEY_DOWN)) {
-            this->fighter->velocity.y = this->fighter->velocity_normal;
+        flag->clearFlag(FLAG_KEY_UP);
+        fighter->velocity.y = 0;
+        if (flag->isFlagSet(FLAG_KEY_DOWN)) {
+            fighter->velocity.y = fighter->velocity_normal;
         }
     }
-
+	if(keycode == ALLEGRO_KEY_Z){
+		flag->clearFlag(FLAG_KEY_Z);
+	}
     if (keycode == ALLEGRO_KEY_LSHIFT) {
-        this->flag->clearFlag(this->FLAG_KEY_SHIFT);
-        this->fighter->animation_dot.play("hidden");
-        this->fighter->slow = false;
+        flag->clearFlag(FLAG_KEY_SHIFT);
+        fighter->animation_dot.play("hidden");
+        fighter->slow = false;
     }
 }
 
 void MainScene::Update(float deltaTime) {
-    if (this->count % 20 == 0) {
+    if (count % 20 == 0) {
         //cout << deltaTime << endl;
         string s = "fps: " + to_string(1.0 / deltaTime);
         label_fps->Text = s.substr(0, 10);
     }
-    this->fighter->update(deltaTime);
+    fighter->update(deltaTime);
 
     // deal with preload
-    if (!this->loadCompleted || !this->bitmapConvertCompleted) {
-        if (this->loadCompleted && !this->bitmapConvertCompleted) {
-            Engine::Resources::GetInstance().convertBitmap(&this->bitmapConvertCompleted);
+    if (!loadCompleted || !bitmapConvertCompleted) {
+        if (loadCompleted && !bitmapConvertCompleted) {
+            Engine::Resources::GetInstance().convertBitmap(&bitmapConvertCompleted);
         }
         return;
     }
 
-    this->bulletMgr->update(deltaTime);
-    this->enemyMgr->update(deltaTime);
+    if (flag->isFlagSet(FLAG_KEY_Z) && count % 10 == 0) {
+        float x = fighter->position.x;
+        float y = fighter->position.y - 30;
+        Engine::Point p(x, y);
+        selfBulletManager->shot(p, 0, 0, 0, false, 0, 0, 0);
+    }
+
+    bulletMgr->update(deltaTime);
+    selfBulletManager->update(deltaTime);
+    enemyMgr->update(deltaTime);
 
     if (!this->flag->isFlagSet(this->FLAG_BOSS_STAGE)) {
         this->count++;
@@ -195,14 +209,20 @@ void MainScene::dialogue(const string& text) {
 
 void MainScene::Draw() const {
     IScene::Draw();
-    this->enemyMgr->draw();
-    this->fighter->draw();
-    this->bulletMgr->draw();
+    enemyMgr->draw();
+    fighter->draw();
+    bulletMgr->draw();
+    selfBulletManager->draw();
 }
 
 void MainScene::Terminate() {
-    delete this->flag;
-    this->fighter->~Fighter();
-    this->bulletMgr->~BulletManager();
+    delete flag;
+    delete fighter;
+    delete bulletMgr;
+    delete selfBulletManager;
     IScene::Terminate();
+}
+
+void MainScene::SetScore(){
+	label_score->Text = "Ｓｃｏｒｅ　" + to_string(score);
 }

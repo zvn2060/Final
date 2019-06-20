@@ -75,7 +75,7 @@ json Util::readJsonData(const std::string& fileName) {
         fileInputStream >> j;
     }
     catch (json::exception& e) {
-        Engine::LOG(Engine::ERROR) << fileName << ": input stream to json failed, (1) the file doesn't exist (2) the other causes \n";
+        Engine::LOG(Engine::ERROR) << fileName << ": input stream to json failed, (1) the file doesn't exist (2) the other reasons \n";
     }
     fileInputStream.close();
     return j;

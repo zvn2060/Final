@@ -10,7 +10,7 @@
 
 void SettingScene::Initialize(){
     SetBackGround("background/title.png");
-    AudioHelper::PlayBGM("BGM/title.ogg");
+    AudioHelper::PlayBGM("BGM/setting.ogg");
     ConstructUI();
     fragment = new Fragment();
     fragment->EmbedAt(this);

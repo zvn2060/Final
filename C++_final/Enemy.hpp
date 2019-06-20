@@ -12,23 +12,23 @@ class Enemy {
 private:
 public:
     shared_ptr<ALLEGRO_BITMAP> bmp;
-    int bitmapWidth;
-    int bitmapHeight; // only for anchor
+    int bitmapWidth{};
+    int bitmapHeight{}; // only for anchor
     Engine::Point position;
     Engine::Point anchor;
     int count;
-    float speed; // Speed
-    float angle; // Angle
-    float w;     // Angular Acceleration
-    float ra;    // Acceleration
-    float raa;   // Jerk
+    float speed{}; // Speed
+    float angle{}; // Angle
+    float w{};     // Angular Acceleration
+    float ra{};    // Acceleration
+    float raa{};   // Jerk
                  // float wa;
     float radius_fighterBullet;
     float radius_fighter;
     vector<map<string, float>> v;
     vector<map<string, float>> s;
     vector<string> item;
-    int vIndex;
+    int vIndex{};
     int sIndex;
     int lifespan;
     float hp;

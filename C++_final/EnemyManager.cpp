@@ -12,7 +12,7 @@ set<string> EnemyManager::shotDataKeyword = { "count", "genre", "color", "bullet
 void EnemyManager::init(MainScene* mainScene) {
     this->mainScene = mainScene;
     this->enemyData = Util::readEnemyData("resources/data/enemy.json");
-    this->eIndex = 3;
+    this->eIndex = -1;
 }
 
 void EnemyManager::checkAndSpawnEnemy() {

@@ -8,18 +8,19 @@
 #include "Fighter.hpp"
 #include "BulletManager.hpp"
 #include "EnemyManager.hpp"
+#include "SelfBulletManager.hpp"
 
 
 class MainScene : public Engine::IScene {
 private:
     ALLEGRO_SAMPLE_INSTANCE * bgmInstance;
 	void ConstructUI();
-    Engine::Label* label_fps;
+	Engine::Label* label_fps;
     float fps{};
-    Engine::Label* highest_score;
+    Engine::Label* label_record;
     int record{};
-    Engine::Label* score;
-    int Score{};
+    Engine::Label* label_score;
+    int score{};
     Engine::Label* life;
     Engine::Label* bomb;
 
@@ -32,7 +33,7 @@ public:
     const int FLAG_KEY_DOWN = 0x4;
     const int FLAG_KEY_UP = 0x8;
     const int FLAG_KEY_SHIFT = 0x10;
-
+    const int FLAG_KEY_Z = 0x20;
     const int FLAG_BOSS_STAGE = 0x40;
     const int FLAG_BOSS_MEET = 0x80;
     const int FLAG_BOSS_DIALOG = 0x100;
@@ -41,6 +42,7 @@ public:
     int count;
     Fighter* fighter;
     BulletManager* bulletMgr;
+    SelfBulletManager* selfBulletManager;
     EnemyManager* enemyMgr;
 
     static float fieldX1;
@@ -67,7 +69,7 @@ public:
 
     void Draw() const override;
     void Terminate() override;
-
+	void SetScore();
 };
 
 

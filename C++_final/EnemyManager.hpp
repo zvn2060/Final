@@ -30,7 +30,7 @@ public:
 
     EnemyManager() = default;
     ~EnemyManager() = default;
-    void init(MainScene* main);
+    void init(MainScene* mainScene);
 
     void checkAndSpawnEnemy();
     

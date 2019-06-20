@@ -61,7 +61,7 @@ void Bullet::reset(float x, float y, vector<map<string, float>>& v, float baseAn
         this->position.x += v[0]["offset_r"] * Math::cos(v[0]["offset_t"] - 90);
         this->position.y += v[0]["offset_r"] * -Math::sin(v[0]["offset_t"] - 90);
     }
-        
+    
     this->grazed = false;
 
     this->v = v;

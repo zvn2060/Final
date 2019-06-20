@@ -9,12 +9,12 @@
 
 #include <typeinfo>
 
-void BulletManager::init(MainScene* mainScene) {
-    this->mainScene = mainScene;
+void BulletManager::init(MainScene* mainscene) {
+    mainScene = mainscene;
     bulletPoolSize = 2000;
-    bulletPool.emplace_back(mainScene);
-    for (int i = 0; i < this->bulletPoolSize; ++i) {
-        this->bulletPool.emplace_back(mainScene);
+    bulletPool.emplace_back(mainscene);
+    for (int i = 0; i < bulletPoolSize; ++i) {
+        bulletPool.emplace_back(mainscene);
     }
 
     bulletData = Util::readBulletData("resources/data/bullet.json");
@@ -93,12 +93,12 @@ void BulletManager::_update(float deltaTime) {
 
 
 void BulletManager::draw() {
-    //for (auto b : this->bulletPool) {
+    //for (auto b : bulletPool) {
     //	if (b.alive) {
     //		b.draw();
     //	}
     //}
-    for (auto& b : this->bulletPool) {
+    for (auto& b : bulletPool) {
         if (b.alive) {
             b.draw();
         }

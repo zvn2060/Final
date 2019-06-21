@@ -22,7 +22,7 @@ public:
     int timeLimit;
     int time;
 
-    explicit Boss(const string& sprite, float hp, int timeLimit,
+    explicit Boss(int debutCount, const string& sprite, float hp, int timeLimit,
         vector<map<string, float>>& v, vector<map<string, float>>& s,
         vector<string>& dialogueA, vector<string>dialogueB,
         MainScene*);

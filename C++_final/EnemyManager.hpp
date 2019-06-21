@@ -19,9 +19,10 @@ private:
     // link
     MainScene* mainScene;
 public:
+    vector<Enemy*> enemyNotDebut;
+    vector<Boss*> bossNotDebut;
     set<Enemy*> enemyArray;
     set<Enemy*> enemyVanished;  // enemies who ended their lifespan, need to be erased from enemyArray
-    Boss* boss;
 
 
     static set<string> movingVectorKeyword;
@@ -33,8 +34,6 @@ public:
     void init(MainScene* mainScene);
 
     void checkAndSpawnEnemy();
-    
-    void bossStage(json& ed);
 
     void update(float deltaTime);
     void _update(float deltaTime);

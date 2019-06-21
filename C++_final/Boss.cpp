@@ -13,8 +13,8 @@ map<string, int> Boss::movingVectorTypeMap = {
     { "loop", LOOP }
 };
 
-Boss::Boss(const string& sprite, float hp, int timeLimit, vector<map<string, float>>& v, vector<map<string, float>>& s, vector<string>& dialogueA, vector<string>dialogueB, MainScene* mainScene)
-    : Enemy(sprite, (mainScene->fieldX2 - mainScene->fieldX1) / 2, -100, hp, v, s, mainScene ){
+Boss::Boss(int debutCount, const string& sprite, float hp, int timeLimit, vector<map<string, float>>& v, vector<map<string, float>>& s, vector<string>& dialogueA, vector<string>dialogueB, MainScene* mainScene)
+    : Enemy(debutCount, sprite, (mainScene->fieldX2 - mainScene->fieldX1) / 2, -100, hp, v, s, mainScene ){
     this->timeLimit = timeLimit;
     this->dialogueA = dialogueA;
     this->dialogueB = dialogueB;
@@ -60,7 +60,7 @@ void Boss::update(float deltaTime) {
             }
         }
         else {
-            if (this->mainScene->flag->isFlagSet(mainScene->FLAG_KEY_DOWN)) {
+            if (this->mainScene->flag->isFlagSet(mainScene->FLAG_KEY_Z)) {
                 if (this->dialogueSkipCount == 0) {
                     this->dialogueIndex++;
                     this->dialogueSkipCount = 0;

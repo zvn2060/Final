@@ -3,8 +3,8 @@
 #include <iomanip>
 #include "LOG.hpp"
 #include "Util.hpp"
-#include "MainScene.hpp"
 #include "Polygon.hpp"
+#include "MainScene.hpp"
 
 using namespace std;
 
@@ -88,7 +88,7 @@ void Util::writeJsonData(const std::string& filename, const json& js){
     fileOutputStream.close();
 }
 
-vector<vector< vector<map<string, float>> >> Util::readBulletData(const string& fileName) {
+vector<vector< vector<map<string, float>> >> Util::parseBulletData(const string& fileName) {
     json bulletData = Util::readJsonData(fileName);
 
     // rebuild bullet data to conform with C++ type;
@@ -112,11 +112,12 @@ vector<vector< vector<map<string, float>> >> Util::readBulletData(const string& 
                 map<string, float> v_t;
                 // push all moving vector property
                 for (auto it = v.begin(); it != v.end(); it++) {
-                    if (it.value().is_number() || it.value().is_boolean()) {
+                    if ( (Util::movingVectorKeyword_bullet.find(it.key()) != Util::movingVectorKeyword_bullet.end()) &&
+                        it.value().is_number() || it.value().is_boolean()) {
                         v_t[it.key()] = it.value();
                     }
                     else {
-                        Engine::LOG(Engine::WARN) << "only float value is supported now. Value in map without key will be 0";
+                        Engine::LOG(Engine::WARN) << "Util::parseBulletData(): not supported parameter type";
                     }
                 }
 
@@ -131,12 +132,124 @@ vector<vector< vector<map<string, float>> >> Util::readBulletData(const string& 
     return bulletData_t;
 }
 
-vector<json> Util::readEnemyData(const std::string& fileName) {
+vector<Enemy*> Util::parseEnemyData(const std::string& fileName, MainScene* mainScene) {
     json enemyDataBundle = readJsonData(fileName);
-    vector<json> enemyData;
-    enemyData.reserve(enemyDataBundle.size());
-    for (auto& enemy : enemyDataBundle) {
-        enemyData.push_back(enemy);
+    vector<Enemy*> enemyNotDebut;
+    enemyNotDebut.reserve(enemyDataBundle.size());
+
+    int index = 0;
+    for (auto& ed : enemyDataBundle) {
+        try {
+            if (ed["bossStage"].is_null()) {
+                enemyNotDebut.push_back(Util::parseEnemy(ed, mainScene));
+            }
+            else {
+                enemyNotDebut.push_back(Util::parseBoss(ed, mainScene));
+            }
+        }
+        catch (json::exception& e) {
+            cout << "Util::parseEnemyData(): enemy index: " << index << " | create enemy failed" << endl;
+        }
+
+        index++;
     }
-    return enemyData;
+    return enemyNotDebut;
+}
+
+Enemy* Util::parseEnemy(json& ed, MainScene* mainScene) {
+    vector<map<string, float>> vs;
+    for (auto& v : ed["v"]) {
+        map<string, float> v_t;
+        // push all moving vector property
+        for (auto it = v.begin(); it != v.end(); it++) {
+            if ((Util::movingVectorKeyword_enemy.find(it.key()) != Util::movingVectorKeyword_enemy.end()) &&
+                it.value().is_number()) {
+                v_t[it.key()] = it.value();
+            }
+            else {
+                Engine::LOG(Engine::WARN) << "EnemyManager.checkAndSpawnEnemy(): not supported parameter type";
+            }
+        }
+        vs.push_back(v_t);
+    }
+    vector<map<string, float>> ss;
+    for (auto& s : ed["s"]) {
+        map<string, float> s_t;
+        for (auto it = s.begin(); it != s.end(); it++) {
+            if ((Util::shotDataKeyword.find(it.key()) != Util::shotDataKeyword.end()) &&
+                it.value().is_number() || it.value().is_boolean()) {
+                s_t[it.key()] = it.value();
+            }
+            else {
+                Engine::LOG(Engine::WARN) << "EnemyManager.checkAndSpawnEnemy(): not supported parameter type";
+            }
+        }
+        ss.push_back(s_t);
+    }
+
+    return new Enemy(
+        ed["count"].get<int>(),
+        ed["sprite"].get<string>(),
+        ed["x"].get<float>(),
+        ed["y"].get<float>(),
+        ed["hp"].get<float>(),
+        vs, ss, mainScene
+    );
+}
+Boss* Util::parseBoss(json& ed, MainScene* mainScene) {
+    vector<map<string, float>> vs;
+    for (auto& v : ed["v"]) {
+        map<string, float> v_t;
+        // push all moving vector property
+        for (auto it = v.begin(); it != v.end(); it++) {
+            if ((Util::movingVectorKeyword_boss.find(it.key()) != Util::movingVectorKeyword_boss.end()) &&
+                it.value().is_number()) {
+                v_t[it.key()] = it.value();
+            }
+            else if (it.value().is_string() && it.key() == "type") {
+                v_t[it.key()] = Boss::movingVectorTypeMap[it.value()];
+            }
+            else {
+                Engine::LOG(Engine::WARN) << "EnemyManager.bossStage(): not supported parameter type";
+            }
+        }
+        vs.push_back(v_t);
+    }
+
+    vector<map<string, float>> ss;
+    for (auto& s : ed["s"]) {
+        map<string, float> s_t;
+        for (auto it = s.begin(); it != s.end(); it++) {
+            if ((Util::shotDataKeyword.find(it.key()) != Util::shotDataKeyword.end()) &&
+                it.value().is_number() || it.value().is_boolean()) {
+                s_t[it.key()] = it.value();
+            }
+            else {
+                Engine::LOG(Engine::WARN) << "EnemyManager.bossStage(): not supported parameter type";
+            }
+        }
+        ss.push_back(s_t);
+    }
+
+    vector<string> dialogueA;
+    if (!ed["dialogueA"].is_null()) {
+        for (auto& dialogue : ed["dialogueA"]) {
+            dialogueA.push_back(dialogue);
+        }
+    }
+
+    vector<string> dialogueB;
+    if (!ed["dialogueB"].is_null()) {
+        for (auto& dialogue : ed["dialogueB"]) {
+            dialogueB.push_back(dialogue);
+        }
+    }
+
+    return new Boss(
+        ed["count"].get<int>(),
+        ed["sprite"].get<string>(),
+        ed["hp"].get<float>(),
+        ed["timeLimit"].get<int>(),
+        vs, ss, dialogueA, dialogueB, mainScene
+    );
 }

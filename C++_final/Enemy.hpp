@@ -16,6 +16,7 @@ public:
     int bitmapHeight{}; // only for anchor
     Engine::Point position;
     Engine::Point anchor;
+    int debutCount;
     int count;
     float speed{}; // Speed
     float angle{}; // Angle
@@ -38,7 +39,7 @@ public:
     MainScene* mainScene;
     EnemyManager* enemyMgr;
 
-    explicit Enemy(const string& sprite, float x, float y, float hp,
+    explicit Enemy(int debutCount, const string& sprite, float x, float y, float hp,
         vector<map<string, float>>& v, vector<map<string, float>>& s,
         MainScene*);
     ~Enemy() = default;

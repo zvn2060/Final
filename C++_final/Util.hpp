@@ -4,10 +4,14 @@
 #include <iostream>
 #include <fstream>
 #include <random>
+#include <set>
 #include "Point.hpp"
+#include "Enemy.hpp"
+#include "Boss.hpp"
 #include "nlohmann/json.hpp"
 
 class Polygon;
+class MainScene;
 
 using json = nlohmann::json;
 
@@ -34,8 +38,15 @@ namespace Collision {
 namespace Util {
     json readJsonData(const std::string& fileName);
     void writeJsonData(const std::string& filename, const json& js);
-    std::vector<std::vector< std::vector<std::map<std::string, float>> >> readBulletData(const std::string& fileName);
-    std::vector<json> readEnemyData(const std::string& fileName);
+
+    static std::set<std::string> movingVectorKeyword_bullet = { "count", "r", "aiming", "angle", "ra", "w", "raa", "offset_r", "offset_t" };
+    static std::set<std::string> movingVectorKeyword_enemy = { "count", "r", "angle", "ra", "w", "raa" };
+    static std::set<std::string> movingVectorKeyword_boss = { "count", "type", "x1", "x2", "y1", "y2", "index", "interval" };
+    static std::set<std::string> shotDataKeyword = { "count", "genre", "color", "bullet", "aiming", "angle", "random", "offset_r", "offset_t" };
+    std::vector<std::vector< std::vector<std::map<std::string, float>> >> parseBulletData(const std::string& fileName);
+    std::vector<Enemy*> parseEnemyData(const std::string& fileName, MainScene* mainScene);
+    Enemy* parseEnemy(json&, MainScene*);
+    Boss* parseBoss(json&, MainScene*);
 }
 
 #endif

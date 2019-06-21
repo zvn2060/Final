@@ -9,7 +9,7 @@ void SelfBulletManager::init(MainScene* mainscene) {
 		this->bulletPool.emplace_back(mainscene);
 	}
 	
-	bulletData = Util::readBulletData("resources/data/selfbullet.json");
+	bulletData = Util::parseBulletData("resources/data/selfbullet.json");
 	
 	firstDead = bulletPool.begin();
 }

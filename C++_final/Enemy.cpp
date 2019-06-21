@@ -5,10 +5,11 @@
 #include <allegro5/allegro_primitives.h>
 
 
-Enemy::Enemy(const string& sprite, float x, float y, float hp, vector<map<string, float>>& v, vector<map<string, float>>& s, MainScene* main) {
+Enemy::Enemy(int debutCount, const string& sprite, float x, float y, float hp, vector<map<string, float>>& v, vector<map<string, float>>& s, MainScene* main) {
     setSprite(sprite);
     position = Engine::Point(x + MainScene::fieldX1, y + MainScene::fieldY1);
     anchor = Engine::Point(0.5, 0.5);
+    this->debutCount = debutCount;
     count = 0;
     this->v = v;
     this->s = s;

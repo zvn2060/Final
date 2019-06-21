@@ -17,7 +17,7 @@ void BulletManager::init(MainScene* mainscene) {
         bulletPool.emplace_back(mainscene);
     }
 
-    bulletData = Util::readBulletData("resources/data/bullet.json");
+    bulletData = Util::parseBulletData("resources/data/bullet.json");
 
     firstDead = bulletPool.begin();
 }

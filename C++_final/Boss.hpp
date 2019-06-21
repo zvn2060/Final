@@ -15,23 +15,23 @@ public:
     static map<string, int> movingVectorTypeMap;
 
     int stopPoint;
-    int dialogueIndex = 0;
+    unsigned int dialogueIndex = 0;
     int dialogueSkipCount = 0;
     vector<string> dialogueA;  // dialogue before battle
     vector<string> dialogueB;  // dialogue after boss is beated
     int timeLimit;
-    int time;
+    int time{};
 
     explicit Boss(int debutCount, const string& sprite, float hp, int timeLimit,
         vector<map<string, float>>& v, vector<map<string, float>>& s,
-        vector<string>& dialogueA, vector<string>dialogueB,
+        vector<string>& dialogueA, vector<string>& dialogueB,
         MainScene*);
-    ~Boss() = default;
+    ~Boss() override = default;
 
-    void changeMovingVector(int index);
+    void changeMovingVector(int index) override;
 
-    void update(float deltaTime);
-    void draw();
+    void update(float deltaTime) override;
+    void draw() override;
 
 };
 

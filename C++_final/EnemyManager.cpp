@@ -48,11 +48,15 @@ void EnemyManager::_update(float deltaTime) {
         else if (enemy->typeForEnemyManager_testing == 1) {
             ((Boss*)enemy)->update(deltaTime);
         }
+        if(enemy->hp <= 0){
+        	mainScene->SetScore(100);
+        	enemyVanished.insert(enemy);
+        }
     }
 
     if (!this->enemyVanished.empty()) {
         for (auto& enemy : this->enemyVanished) {
-            enemy->~Enemy();
+        	delete enemy;
             this->enemyArray.erase(enemy);
         }
         this->enemyVanished.clear();

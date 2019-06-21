@@ -69,7 +69,7 @@ public:
 
     void Draw() const override;
     void Terminate() override;
-	void SetScore();
+	void SetScore(int delta_score);
 };
 
 

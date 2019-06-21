@@ -42,14 +42,17 @@ public:
     explicit Enemy(int debutCount, const string& sprite, float x, float y, float hp,
         vector<map<string, float>>& v, vector<map<string, float>>& s,
         MainScene*);
-    ~Enemy() = default;
+    virtual ~Enemy() = default;
     void setSprite(const string& fileName);
     bool checkMovingVectorChange();
-    void changeMovingVector(int index);
+	
+	virtual void changeMovingVector(int index);
     bool checkShot();
     void shot(int index);
-    void update(float deltaTime);
-    void draw();
+	
+	virtual void update(float deltaTime);
+	
+	virtual void draw();
 
 };
 

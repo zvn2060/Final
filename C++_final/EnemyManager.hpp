@@ -20,14 +20,8 @@ private:
     MainScene* mainScene;
 public:
     vector<Enemy*> enemyNotDebut;
-    vector<Boss*> bossNotDebut;
     set<Enemy*> enemyArray;
     set<Enemy*> enemyVanished;  // enemies who ended their lifespan, need to be erased from enemyArray
-
-
-    static set<string> movingVectorKeyword;
-    static set<string> movingVectorKeyword_boss;
-    static set<string> shotDataKeyword;
 
     EnemyManager() = default;
     ~EnemyManager() = default;

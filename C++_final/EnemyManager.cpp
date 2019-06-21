@@ -3,12 +3,6 @@
 #include "MainScene.hpp"
 #include "LOG.hpp"
 
-
-set<string> EnemyManager::movingVectorKeyword = { "count", "r", "angle", "ra", "w", "raa" };
-set<string> EnemyManager::movingVectorKeyword_boss = { "count", "type", "x1", "x2", "y1", "y2", "index", "interval" };
-set<string> EnemyManager::shotDataKeyword = { "count", "genre", "color", "bullet", "aiming", "angle", "random", "offset_r", "offset_t" };
-
-
 void EnemyManager::init(MainScene* mainScene) {
     this->mainScene = mainScene;
     this->enemyNotDebut = Util::parseEnemyData("resources/data/enemy.json", mainScene);

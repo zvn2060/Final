@@ -167,7 +167,7 @@ Enemy* Util::parseEnemy(json& ed, MainScene* mainScene) {
                 v_t[it.key()] = it.value();
             }
             else {
-                Engine::LOG(Engine::WARN) << "EnemyManager.checkAndSpawnEnemy(): not supported parameter type";
+                Engine::LOG(Engine::WARN) << "Util::parseEnemy(): not supported parameter type";
             }
         }
         vs.push_back(v_t);
@@ -181,7 +181,7 @@ Enemy* Util::parseEnemy(json& ed, MainScene* mainScene) {
                 s_t[it.key()] = it.value();
             }
             else {
-                Engine::LOG(Engine::WARN) << "EnemyManager.checkAndSpawnEnemy(): not supported parameter type";
+                Engine::LOG(Engine::WARN) << "Util::parseEnemy(): not supported parameter type";
             }
         }
         ss.push_back(s_t);
@@ -210,7 +210,7 @@ Boss* Util::parseBoss(json& ed, MainScene* mainScene) {
                 v_t[it.key()] = Boss::movingVectorTypeMap[it.value()];
             }
             else {
-                Engine::LOG(Engine::WARN) << "EnemyManager.bossStage(): not supported parameter type";
+                Engine::LOG(Engine::WARN) << "Util::parseBoss(): not supported parameter type";
             }
         }
         vs.push_back(v_t);
@@ -225,7 +225,7 @@ Boss* Util::parseBoss(json& ed, MainScene* mainScene) {
                 s_t[it.key()] = it.value();
             }
             else {
-                Engine::LOG(Engine::WARN) << "EnemyManager.bossStage(): not supported parameter type";
+                Engine::LOG(Engine::WARN) << "Util::parseBoss(): not supported parameter type";
             }
         }
         ss.push_back(s_t);

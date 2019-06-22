@@ -53,7 +53,6 @@ public:
     static float fieldY1;
     static float fieldY2;
 
-    bool testSeparateAcis = false;
     bool testMode = false;
 
     bool loadCompleted;

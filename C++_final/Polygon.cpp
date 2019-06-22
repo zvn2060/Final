@@ -69,3 +69,14 @@ void Polygon::getProjectedMinMax(float* p_max, float* p_min, Engine::Point& norm
     *p_min = min;
     *p_max = max;
 }
+
+
+
+
+ostream& operator<<(ostream& os, Polygon& polygon) {
+    for (auto it = polygon.vertex.begin(); it != polygon.vertex.end(); ++it) {
+        os << *it << " ";
+    }
+    os << endl;
+    return os;
+}

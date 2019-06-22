@@ -1,6 +1,7 @@
 #ifndef POLYGON_HPP
 #define POLYGON_HPP
 #include <list>
+#include <iostream>
 #include "Point.hpp"
 #include "Util.hpp"
 
@@ -24,5 +25,7 @@ public:
     void updateNorms();
     void getProjectedMinMax(float* p_max, float* p_min, Engine::Point& norm);
 };
+
+ostream& operator<<(ostream& os, Polygon& polygon);
 
 #endif

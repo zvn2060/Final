@@ -21,7 +21,7 @@ void MainScene::Initialize() {
     enemyMgr = new EnemyManager();
     itemMgr = new ItemManager();
     flag = new Flag();
-    count = 0;
+    count = 1850;
 
     loadCompleted = false;
     bitmapConvertCompleted = false;
@@ -57,7 +57,6 @@ void MainScene::ConstructUI(){
 	label_fps = new Engine::Label("fps: " + to_string(fps), "FOT-SkipStd-B.otf", 20, MainScene::fieldX2 + 5, MainScene::fieldY2 - 20, 0xf0, 0xf0, 0xf0, 0xff, 0, 0);
 	AddNewObject(label_fps);
     dialogueText = new Engine::Label("", "FOT-SkipStd-B.otf", 20, 100, 500, 0xf0, 0xf0, 0xf0, 0xff, 0, 0);
-    AddNewObject(dialogueText);
     /*
     Engine::Image * ptr =new Engine::Image("battle/1.png", fieldX1 - 15 , 3543-1300 - 23, fieldX2 - fieldX1 + 30, 0, 0, 1);
 	AddNewObject(ptr);
@@ -113,6 +112,19 @@ void MainScene::OnKeyDown(int keycode) {
         flag->setFlag(FLAG_KEY_SHIFT);
         fighter->animation_dot.play("show", false, 2);
         fighter->slow = true;
+
+        {  // test bullet shape
+            static bool ttt = true;
+            if (ttt) {
+                Engine::Point p(300, 250);
+                bulletMgr->shot(p, 3, 7, 7, false, 0, 0, 0, 0);
+                p.y = 300;
+                bulletMgr->shot(p, 3, 8, 7, false, 0, 0, 0, 0);
+                p.y = 350;
+                bulletMgr->shot(p, 3, 9, 7, false, 0, 0, 0, 0);
+                ttt = false;
+            }
+        }
     }
 
     if (keycode == ALLEGRO_KEY_TAB) {
@@ -243,6 +255,7 @@ void MainScene::Draw() const {
     bulletMgr->draw();
     selfBulletManager->draw();
     itemMgr->draw();
+    dialogueText->Draw();
 }
 
 void MainScene::Terminate() {

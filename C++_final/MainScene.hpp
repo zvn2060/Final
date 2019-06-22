@@ -14,7 +14,8 @@
 
 class MainScene : public Engine::IScene {
 private:
-    ALLEGRO_SAMPLE_INSTANCE * bgmInstance;
+	int cnt = 0;
+	
 	void ConstructUI();
 	Engine::Label* label_fps;
     float fps{};
@@ -24,9 +25,9 @@ private:
     int score{};
     Engine::Label* life;
     Engine::Label* bomb;
-
+	
     Engine::Label* dialogueText;
-    
+    Animation* ground;
 public:
     Flag * flag;
     const int FLAG_KEY_LEFT = 0x1;

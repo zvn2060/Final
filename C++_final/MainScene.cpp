@@ -5,6 +5,7 @@
 #include "Image.hpp"
 #include "LayoutHelper.hpp"
 #include "AudioHelper.hpp"
+#include "LOG.hpp"
 
 float MainScene::fieldX1 = 60.0f;
 float MainScene::fieldX2 = 540.0f;
@@ -14,8 +15,7 @@ float MainScene::fieldY2 = 680.0f;
 void MainScene::Initialize() {
 	AudioHelper::PlayBGM("BGM/battle-1.ogg");
     SetBackGround("background/play.png");
-    AddNewObject(new Engine::Image("background/battle.png", fieldX1 - 15, fieldY1 - 20, fieldX2 - fieldX1 + 30, fieldY2 - fieldY1 + 40));
-	fighter = new Fighter(this);
+    fighter = new Fighter(this);
     bulletMgr = new BulletManager();
     selfBulletManager = new SelfBulletManager();
     enemyMgr = new EnemyManager();
@@ -56,9 +56,16 @@ void MainScene::ConstructUI(){
 	
 	label_fps = new Engine::Label("fps: " + to_string(fps), "FOT-SkipStd-B.otf", 20, MainScene::fieldX2 + 5, MainScene::fieldY2 - 20, 0xf0, 0xf0, 0xf0, 0xff, 0, 0);
 	AddNewObject(label_fps);
-
     dialogueText = new Engine::Label("", "FOT-SkipStd-B.otf", 20, 100, 500, 0xf0, 0xf0, 0xf0, 0xff, 0, 0);
     AddNewObject(dialogueText);
+    /*
+    Engine::Image * ptr =new Engine::Image("battle/1.png", fieldX1 - 15 , 3543-1300 - 23, fieldX2 - fieldX1 + 30, 0, 0, 1);
+	AddNewObject(ptr);
+	Engine::LOG(Engine::DEBUG)<<ptr->GetBitmapHeight();
+	Engine::LOG(Engine::DEBUG)<<Engine::LayoutHelper::AlignBottom();
+    */
+    ground = new Animation();
+    ground->addCircular(fieldX1 - 15, 0 ,fieldX2-fieldX1 + 30, Engine::LayoutHelper::AlignBottom(), "battle/1.png");
 }
 
 void MainScene::preload() {
@@ -155,6 +162,7 @@ void MainScene::OnKeyUp(int keycode) {
 }
 
 void MainScene::Update(float deltaTime) {
+	
     if (count % 20 == 0) {
         fps = 1.0 / deltaTime;
         label_fps->Text = "fps: " + to_string(fps).substr(0, 5);
@@ -227,6 +235,7 @@ void MainScene::notifyItemCaught(Item* item) {
 
 void MainScene::Draw() const {
     IScene::Draw();
+    ground->circular();
     enemyMgr->draw();
     fighter->draw();
     bulletMgr->draw();

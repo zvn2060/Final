@@ -1,6 +1,7 @@
 #ifndef ANIMATION_HPP
 #define ANIMATION_HPP
 #include "Point.hpp"
+#include "Image.hpp"
 #include <map>
 #include <vector>
 #include <string>
@@ -12,8 +13,9 @@ class Animation {
 private:
     vector<shared_ptr<ALLEGRO_BITMAP>> bmps;
     map<string, vector<shared_ptr<ALLEGRO_BITMAP>> > bmps_all;
+    vector<Engine::Image*> imgs;
     unsigned int frame;
-    int count;
+    unsigned int count = 0;
     int framerate;
     bool loop;
 public:
@@ -35,10 +37,12 @@ public:
     }
 
     void draw(Engine::Point position, Engine::Point anchor) {
-        al_draw_bitmap(this->bmps[this->frame].get(),
+        al_draw_bitmap(
+        	this->bmps[this->frame].get(),
             position.x - anchor.x * al_get_bitmap_width(bmps[this->frame].get()),
             position.y - anchor.y * al_get_bitmap_height(bmps[this->frame].get()),
-            0);
+            0
+        );
 
 
         this->count = (this->count + 1) % this->framerate;
@@ -61,6 +65,33 @@ public:
             this->bmps_all[animationName].push_back(Engine::Resources::GetInstance().GetBitmap(file));
         }
     }
+    
+    void addCircular( float x, float y, float w, float winh, const string& file){
+    	count = 0;
+    	int imgh;
+    	auto * img = new Engine::Image(file, 0, 0, w);
+    	imgh = img->GetBitmapHeight();
+    	
+    	delete img;
+    	
+    	float ancy = imgh - 1.83 * winh;
+    	
+    	//int startx = -imgw + winw;
+    
+    	while(ancy <= imgh){
+    		imgs.emplace_back(new Engine::Image(file, x, ancy, w, 0, 0, 1.0));
+    		ancy += 5;
+    	}
+    }
+	
+    void circular(){
+    	if(count == imgs.size()){
+    		count = 0;
+    	}
+    	imgs.at(count)->Draw();
+    	count++;
+    }
+    
 };
 
 #endif

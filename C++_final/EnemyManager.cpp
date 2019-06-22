@@ -11,7 +11,7 @@ void EnemyManager::init(MainScene* mainScene) {
 
 void EnemyManager::checkAndSpawnEnemy() {
     if (this->eIndex >= (int)this->enemyNotDebut.size() - 1) return;
-    if (!(this->mainScene->count >= this->enemyNotDebut[this->eIndex + 1]->debutCount)) return;
+    if (this->mainScene->count < this->enemyNotDebut[this->eIndex + 1]->debutCount) return;
     this->eIndex++;
     if (this->enemyNotDebut[this->eIndex]->typeForEnemyManager_testing == 0) {  // normal enemy
         this->enemyArray.insert(this->enemyNotDebut[this->eIndex]);

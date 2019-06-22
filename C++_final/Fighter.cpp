@@ -1,5 +1,6 @@
 #include "Fighter.hpp"
 #include "MainScene.hpp"
+#include "AudioHelper.hpp"
 
 Fighter::Fighter(MainScene* mainScene) {
 
@@ -57,4 +58,37 @@ void Fighter::draw() {
         al_draw_filled_circle(60, this->position.y, 5, al_map_rgb(240, 240, 240));
         al_draw_filled_circle(540, this->position.y, 5, al_map_rgb(240, 240, 240));
     }
+}
+
+void Fighter::Shot( int score, bool shift ){
+	AudioHelper::PlayAudio("fire.ogg");
+	int side = 30;
+	int front= -25;
+	if(!shift) {
+		if ( score >= 800 ) {
+		
+		} else if ( score >= 400 ) {
+		} else if ( score >= 200 ) {
+			mainScene->selfBulletManager->shot( position, 0, 0, 0, false, 3, 0, front );
+			mainScene->selfBulletManager->shot( position, 1, 0, 0, false, 3, 0, front );
+		} else if ( score >= 100 ) {
+			mainScene->selfBulletManager->shot( position, 0, 0, 0, false, 3, side, 0 );
+			mainScene->selfBulletManager->shot( position, 0, 0, 0, false, 3, -side, 0 );
+		} else {
+			mainScene->selfBulletManager->shot( position, 0, 0, 0, false, 3, 0, front );
+		}
+	} else {
+		if ( score >= 800 ) {
+		
+		} else if ( score >= 400 ) {
+		} else if ( score >= 200 ) {
+			mainScene->selfBulletManager->shot( position, 0, 0, 0, false, 0, 0, -20 );
+			mainScene->selfBulletManager->shot( position, 1, 0, 0, false, 0, 0, -20 );
+		} else if ( score >= 100 ) {
+			mainScene->selfBulletManager->shot( position, 0, 0, 0, false, 0, 5, -20 );
+			mainScene->selfBulletManager->shot( position, 0, 0, 0, false, 0, -5, -20 );
+		} else {
+			mainScene->selfBulletManager->shot( position, 0, 0, 0, false, 1, 0, -20 );
+		}
+	}
 }

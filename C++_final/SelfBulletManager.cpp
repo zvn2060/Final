@@ -33,7 +33,7 @@ void SelfBulletManager::next() {
 		firstDead = bulletPool.begin();
 }
 
-void SelfBulletManager::shot(Engine::Point& p, int bullet, int genre, int color, float aiming, float randomRange, float offset_r, float offset_t){
+void SelfBulletManager::shot(Engine::Point& p, int bullet, int genre, int color, float aiming, float randomRange, float offset_x, float offset_y){
 	float baseAngle = 0;
 	if (aiming == 999) {
 		baseAngle = Math::angleBetween(p.x, p.y, mainScene->fighter->position.x, mainScene->fighter->position.y);
@@ -57,13 +57,7 @@ void SelfBulletManager::shot(Engine::Point& p, int bullet, int genre, int color,
 		}
 		b->setGenre(genre, color);
 		
-		if (offset_r) {
-			b->reset(p.x + offset_r * Math::cos(offset_t - 90), p.y + offset_r * -Math::sin(offset_t - 90), ele_bullet, baseAngle);
-		}
-		else {
-			b->reset(p.x, p.y, ele_bullet, baseAngle);
-		}
-		
+		b->reset(p.x + offset_x, p.y + offset_y, ele_bullet, baseAngle);
 	}
 
 }

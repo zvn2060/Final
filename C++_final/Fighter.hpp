@@ -46,6 +46,7 @@ public:
 
     void checkWorldBound();
     void draw();
+    void Shot(int score, bool shift);
 };
 
 #endif

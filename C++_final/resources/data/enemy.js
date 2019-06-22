@@ -115,7 +115,7 @@ var enemyData =
       "AA： 「快去寫」" 
     ],
 
-    timeLimit: 1800,
+    timeLimit: 600,
     s: [
       { count:   30, genre: 1, color: 4, bullet: 2, aiming: true, angle:  -40, random:  0, offset_r:    0, offset_t:    0 },
       { count:   35, genre: 1, color: 4, bullet: 2, aiming: true, angle:  -20, random:  0, offset_r:    0, offset_t:    0 },
@@ -137,10 +137,10 @@ var enemyData =
     bossStage: true,
     sprite: "th10_momiji.png",
     hp: 500,
-    timeLimit: 1800,
+    timeLimit: 600,
     s: [
-      { count:   30, genre: 8, color: 5, bullet: 1, aiming: true, angle:    0, random:  0, offset_r:    0, offset_t:    0 },
-      { count:   50, genre: 8, color: 5, bullet: 1, aiming: true, angle:    0, random:  0, offset_r:    0, offset_t:    0 },
+      { count:   30, genre: 8, color: 6, bullet: 1, aiming: true, angle:    0, random:  0, offset_r:    0, offset_t:    0 },
+      { count:   50, genre: 8, color: 6, bullet: 1, aiming: true, angle:    0, random:  0, offset_r:    0, offset_t:    0 },
     ],
     v: [
       { count:    0, type: "random", interval: 100, x1:  100, x2:  540, y1:   50, y2:  250 },

@@ -105,7 +105,7 @@ void Boss::update(float deltaTime) {
 
     // count
     this->count++;
-    this->time += 3;
+    this->time++;
     if (this->count >= this->stopPoint) {
         this->speed = 0;
         this->ra = 0;

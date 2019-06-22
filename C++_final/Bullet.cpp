@@ -16,19 +16,20 @@ Bullet::Bullet(MainScene* mainScene):fighter(mainScene->fighter), mainScene(main
 }
 
 void Bullet::setGenre(int genre, int color) {
+    string fileName = "";
     switch (genre) {
     case 0:
-        this->bmp = Engine::Resources::GetInstance().GetBitmap("main/bullet0-" + to_string(color) + ".png");
+        fileName = "main/bullet0-" + to_string(color) + ".png";
         this->shape = SHAPE_CIRCLE;
         this->radius = 2;
         break;
     case 1:
-        this->bmp = Engine::Resources::GetInstance().GetBitmap("main/bullet1-" + to_string(color) + ".png");
+        fileName = "main/bullet1-" + to_string(color) + ".png";
         this->shape = SHAPE_CIRCLE;
         this->radius = 4;
         break;
     case 2:
-        this->bmp = Engine::Resources::GetInstance().GetBitmap("main/bullet2-" + to_string(color) + ".png");
+        fileName = "main/bullet2-" + to_string(color) + ".png";
         this->shape = SHAPE_POLYGON;
         this->radius = 100;
         this->polygon = new Polygon(this, {
@@ -36,7 +37,7 @@ void Bullet::setGenre(int genre, int color) {
             });
         break;
     case 3:
-        this->bmp = Engine::Resources::GetInstance().GetBitmap("main/bullet3-" + to_string(color) + ".png");
+        fileName = "main/bullet3-" + to_string(color) + ".png";
         this->shape = SHAPE_POLYGON;
         this->radius = 100;
         this->polygon = new Polygon(this, {
@@ -49,9 +50,15 @@ void Bullet::setGenre(int genre, int color) {
         // we will not re-assign it's bmp, and so it may still use the bullet0-0.png which is fetched by preload thread, and cause performance issue
         break;
     }
-    this->bitmapWidth = al_get_bitmap_width(bmp.get());
-    this->bitmapHeight = al_get_bitmap_height(bmp.get());
+    this->bmp = Engine::Resources::GetInstance().GetBitmap(fileName);
 
+    // approach 1: get dimension from Util's map, png should be loaded by Util first
+    //this->bitmapWidth = Util::getPngWidth(fileName);
+    //this->bitmapHeight = Util::getPngHeight(fileName);
+
+    // approach 2: from allegro library directly
+    this->bitmapWidth = al_get_bitmap_width(this->bmp.get());
+    this->bitmapHeight = al_get_bitmap_height(this->bmp.get());
 }
 
 void Bullet::reset(float x, float y, vector<map<string, float>>& v, float baseAngle) {

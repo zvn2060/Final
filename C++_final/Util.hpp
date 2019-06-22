@@ -54,6 +54,15 @@ namespace Util {
     std::vector<Enemy*> parseEnemyData(const std::string& fileName, MainScene* mainScene);
     Enemy* parseEnemy(json&, MainScene*);
     Boss* parseBoss(json&, MainScene*);
+
+
+    // work with MainScene::preload()
+    // build fileName -> bitmapDimension map to skip al_get_bitmap_width() when Bullet::setGenre()
+    void loadBitmap(const string& fileName);
+    int getPngWidth(const string& fileName);
+    int getPngHeight(const string& fileName);
+    static std::map<string, int> bitmapWidthMap;
+    static std::map<string, int> bitmapHeightMap;
 }
 
 #endif

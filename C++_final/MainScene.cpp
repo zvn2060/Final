@@ -42,7 +42,7 @@ void MainScene::Initialize() {
 }
 
 void MainScene::ConstructUI(){
-	label_record = new Engine::Label("ｒｅｃｏｒｄ　" + to_string(record), "FOT-SkipStd-B.otf", 30, fieldX2 + 100, Engine::LayoutHelper::VerticalRatio(0.15), 0xf0, 0xf0, 0xf0, 0xff, 0, 0);
+	label_record = new Engine::Label("Ｒｅｃｏｒｄ　" + to_string(record), "FOT-SkipStd-B.otf", 30, fieldX2 + 100, Engine::LayoutHelper::VerticalRatio(0.15), 0xf0, 0xf0, 0xf0, 0xff, 0, 0);
 	AddNewObject(label_record);
 	
 	label_score = new Engine::Label("Ｓｃｏｒｅ　　" + to_string(score), "FOT-SkipStd-B.otf", 30,fieldX2 + 100, Engine::LayoutHelper::VerticalRatio(0.20), 0xf0, 0xf0, 0xf0, 0xff, 0, 0);
@@ -62,11 +62,13 @@ void MainScene::ConstructUI(){
 }
 
 void MainScene::preload() {
+    // load bullets' png by Util
     for (int i = 0; i < 10; i++) {
         for (int j = 0; j < 8; j++) {
-            Engine::Resources::GetInstance().LoadBitmap("main/bullet" + to_string(i) + "-" + to_string(j) + ".png");
+            Util::loadBitmap("main/bullet" + to_string(i) + "-" + to_string(j) + ".png");
         }
     }
+    // load others by [template]Resources
     Engine::Resources::GetInstance().LoadBitmap("main/item-0.png");
     Engine::Resources::GetInstance().LoadBitmap("main/item-1.png");
     Engine::Resources::GetInstance().LoadBitmap("main/item-2.png");

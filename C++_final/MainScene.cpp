@@ -42,6 +42,9 @@ void MainScene::Initialize() {
 }
 
 void MainScene::ConstructUI(){
+	ground = new Animation();
+	ground->addCircular(fieldX1 - 15, 0 ,fieldX2-fieldX1 + 30, Engine::LayoutHelper::AlignBottom(), "battle/1.png");
+	
 	label_record = new Engine::Label("ｒｅｃｏｒｄ　" + to_string(record), "FOT-SkipStd-B.otf", 30, fieldX2 + 100, Engine::LayoutHelper::VerticalRatio(0.15), 0xf0, 0xf0, 0xf0, 0xff, 0, 0);
 	AddNewObject(label_record);
 	
@@ -58,14 +61,8 @@ void MainScene::ConstructUI(){
 	AddNewObject(label_fps);
     dialogueText = new Engine::Label("", "FOT-SkipStd-B.otf", 20, 100, 500, 0xf0, 0xf0, 0xf0, 0xff, 0, 0);
     AddNewObject(dialogueText);
-    /*
-    Engine::Image * ptr =new Engine::Image("battle/1.png", fieldX1 - 15 , 3543-1300 - 23, fieldX2 - fieldX1 + 30, 0, 0, 1);
-	AddNewObject(ptr);
-	Engine::LOG(Engine::DEBUG)<<ptr->GetBitmapHeight();
-	Engine::LOG(Engine::DEBUG)<<Engine::LayoutHelper::AlignBottom();
-    */
-    ground = new Animation();
-    ground->addCircular(fieldX1 - 15, 0 ,fieldX2-fieldX1 + 30, Engine::LayoutHelper::AlignBottom(), "battle/1.png");
+    
+    
 }
 
 void MainScene::preload() {
@@ -178,11 +175,7 @@ void MainScene::Update(float deltaTime) {
     }
 
     if (flag->isFlagSet(FLAG_KEY_Z) && count % 10 == 0) {
-    	AudioHelper::PlayAudio("fire.ogg");
-        float x = fighter->position.x;
-        float y = fighter->position.y - 30;
-        Engine::Point p(x, y);
-        selfBulletManager->shot(p, 0, 0, 0, false, 0, 0, 0);
+    	fighter->Shot(score, flag->isFlagSet(FLAG_KEY_SHIFT));
     }
 
     bulletMgr->update(deltaTime);
@@ -241,6 +234,7 @@ void MainScene::Draw() const {
     bulletMgr->draw();
     selfBulletManager->draw();
     itemMgr->draw();
+    dialogueText->Draw();
 }
 
 void MainScene::Terminate() {
@@ -248,6 +242,7 @@ void MainScene::Terminate() {
     delete fighter;
     delete bulletMgr;
     delete selfBulletManager;
+    delete ground;
     IScene::Terminate();
 }
 

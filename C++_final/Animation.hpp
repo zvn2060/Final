@@ -27,7 +27,11 @@ public:
         this->framerate = 4;
         this->loop = true;
     }
-    ~Animation() = default;
+    ~Animation(){
+    	for(auto img : imgs){
+    		delete img;
+    	}
+    };
     void play(const std::string& name, bool loop = false, int framerate = 4) {
         this->frame = 0;
         this->count = 0;
@@ -74,7 +78,7 @@ public:
     	
     	delete img;
     	
-    	float ancy = imgh - 1.83 * winh;
+    	float ancy = imgh - 1.8375 * winh;
     	
     	//int startx = -imgw + winw;
     

@@ -247,7 +247,7 @@ Boss* Util::parseBoss(json& ed, MainScene* mainScene) {
             items.push_back(Util::itemMap[item]);
         }
         else {
-            Engine::LOG(Engine::WARN) << "Util::parseEnemy(): not supported item type";
+            Engine::LOG(Engine::WARN) << "Util::parseBoss(): not supported item type";
         }
     }
 
@@ -272,4 +272,30 @@ Boss* Util::parseBoss(json& ed, MainScene* mainScene) {
         ed["timeLimit"].get<int>(),
         items, vs, ss, dialogueA, dialogueB, mainScene
     );
+}
+
+
+
+// work with MainScene::preload()
+// build fileName -> bitmapDimension map to skip al_get_bitmap_width() when Bullet::setGenre()
+void Util::loadBitmap(const string& fileName) {
+    //Engine::Resources::GetInstance().LoadBitmap(fileName);
+    Engine::Resources::GetInstance().LoadBitmap(fileName);
+    shared_ptr<ALLEGRO_BITMAP> bmp = Engine::Resources::GetInstance().GetBitmap(fileName);
+    Util::bitmapWidthMap[fileName] = al_get_bitmap_width(bmp.get());
+    Util::bitmapHeightMap[fileName] = al_get_bitmap_height(bmp.get());
+}
+int Util::getPngHeight(const string& fileName) {
+    auto target = Util::bitmapHeightMap.find(fileName);
+    if (target == Util::bitmapHeightMap.end()) {
+        throw std::runtime_error("png file has not loaded by Util yet");
+    }
+    return target->second;
+}
+int Util::getPngWidth(const string& fileName) {
+    auto target = Util::bitmapWidthMap.find(fileName);
+    if (target == Util::bitmapWidthMap.end()) {
+        throw std::runtime_error("png file has not loaded by Util yet");
+    }
+    return target->second;
 }

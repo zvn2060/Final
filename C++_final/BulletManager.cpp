@@ -13,7 +13,7 @@ void BulletManager::init(MainScene* mainscene) {
     mainScene = mainscene;
     bulletPoolSize = 2000;
     for (int i = 0; i < bulletPoolSize; ++i) {
-        bulletPool.emplace_back(mainscene);
+        bulletPool.push_back(new Bullet(mainScene));
     }
 
     bulletData = Util::parseBulletData("resources/data/bullet.json");
@@ -22,15 +22,15 @@ void BulletManager::init(MainScene* mainscene) {
 }
 
 Bullet* BulletManager::getFirstDead() {
-    if (!firstDead->alive) {
-        return &*firstDead;
+    if (!(*firstDead)->alive) {
+        return *firstDead;
     }
 
     auto prev = firstDead;
     next();
     while (firstDead != prev) {
-        if (!firstDead->alive) {
-            return &*firstDead;
+        if (!(*firstDead)->alive) {
+            return *firstDead;
         }
         next();
     }
@@ -83,9 +83,9 @@ void BulletManager::update(float deltaTime) {
     }
 }
 void BulletManager::_update(float deltaTime) {
-    for (auto & i : bulletPool) {
-        if (i.alive) {
-            i.update(deltaTime);
+    for (auto& b : bulletPool) {
+        if (b->alive) {
+            b->update(deltaTime);
         }
     }
 }
@@ -98,8 +98,8 @@ void BulletManager::draw() {
     //	}
     //}
     for (auto& b : bulletPool) {
-        if (b.alive) {
-            b.draw();
+        if (b->alive) {
+            b->draw();
         }
     }
 }

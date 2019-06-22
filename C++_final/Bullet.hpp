@@ -27,6 +27,7 @@ public:
     int shape{};
     float radius{};
     Polygon* polygon = nullptr;
+    map<int, Polygon*> polygonDB;
     bool alive = false;
     vector<map<string, float>> v;
     int vIndex = 0;

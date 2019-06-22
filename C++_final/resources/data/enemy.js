@@ -60,14 +60,14 @@ var enemyData =
     y: -40,
     items: ["s", "s", "s", "s", "s", "P"],
     s: [
-      { count: 140, genre: 1, color: 2, bullet: 1, aiming: true, angle:    0, random: 0, offset_r: 0, offset_t: 0 },
-      { count: 160, genre: 1, color: 2, bullet: 1, aiming: true, angle:    0, random: 0, offset_r: 0, offset_t: 0 },
-      { count: 180, genre: 1, color: 2, bullet: 1, aiming: true, angle:    0, random: 0, offset_r: 0, offset_t: 0 },
-      { count: 200, genre: 1, color: 2, bullet: 1, aiming: true, angle:    0, random: 0, offset_r: 0, offset_t: 0 },
-      { count: 220, genre: 1, color: 2, bullet: 1, aiming: true, angle:    0, random: 0, offset_r: 0, offset_t: 0 },
-      { count: 240, genre: 1, color: 2, bullet: 1, aiming: true, angle:    0, random: 0, offset_r: 0, offset_t: 0 },
-      { count: 260, genre: 1, color: 2, bullet: 1, aiming: true, angle:    0, random: 0, offset_r: 0, offset_t: 0 },
-      { count: 280, genre: 1, color: 2, bullet: 1, aiming: true, angle:    0, random: 0, offset_r: 0, offset_t: 0 }
+      { count: 140, genre: 3, color: 2, bullet: 1, aiming: true, angle:    0, random: 0, offset_r: 0, offset_t: 0 },
+      { count: 160, genre: 3, color: 2, bullet: 1, aiming: true, angle:    0, random: 0, offset_r: 0, offset_t: 0 },
+      { count: 180, genre: 3, color: 2, bullet: 1, aiming: true, angle:    0, random: 0, offset_r: 0, offset_t: 0 },
+      { count: 200, genre: 3, color: 2, bullet: 1, aiming: true, angle:    0, random: 0, offset_r: 0, offset_t: 0 },
+      { count: 220, genre: 3, color: 2, bullet: 1, aiming: true, angle:    0, random: 0, offset_r: 0, offset_t: 0 },
+      { count: 240, genre: 3, color: 2, bullet: 1, aiming: true, angle:    0, random: 0, offset_r: 0, offset_t: 0 },
+      { count: 260, genre: 3, color: 2, bullet: 1, aiming: true, angle:    0, random: 0, offset_r: 0, offset_t: 0 },
+      { count: 280, genre: 3, color: 2, bullet: 1, aiming: true, angle:    0, random: 0, offset_r: 0, offset_t: 0 }
     ],
     v: [
       { count:    0, r:  60, angle:   0, ra:   0, w:   0, raa:   0 },
@@ -127,6 +127,24 @@ var enemyData =
       { count:    0, type: "random", interval: 100, x1:  100, x2:  540, y1:   50, y2:  250 },
       { count:  120, type: "linear", interval: 100, x1:  200, x2:    0, y1:   50, y2:    0 },
       { count:  240, type: "loop", index: 0 }
+    ]
+
+  },
+
+  // 4: showcase boss-2
+  {
+    count: 1900,
+    bossStage: true,
+    sprite: "th10_momiji.png",
+    hp: 500,
+    timeLimit: 1800,
+    s: [
+      { count:   30, genre: 8, color: 5, bullet: 1, aiming: true, angle:    0, random:  0, offset_r:    0, offset_t:    0 },
+      { count:   50, genre: 8, color: 5, bullet: 1, aiming: true, angle:    0, random:  0, offset_r:    0, offset_t:    0 },
+    ],
+    v: [
+      { count:    0, type: "random", interval: 100, x1:  100, x2:  540, y1:   50, y2:  250 },
+      { count:  200, type: "loop", index: 0 }
     ]
 
   }

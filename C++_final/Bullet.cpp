@@ -12,36 +12,57 @@ Bullet::Bullet(MainScene* mainScene):fighter(mainScene->fighter), mainScene(main
 
     // anchor should be (0.5, 0.5) to work with Polygon's separate-axis calculation
     this->anchor = Engine::Point(0.5, 0.5);
-   
+
+    this->polygonDB[2] = new Polygon(this, {
+        Engine::Point(-3, 4), Engine::Point(-3, -4), Engine::Point(3, -4), Engine::Point(3, 4)
+        });
+    this->polygonDB[3] = new Polygon(this, {
+        Engine::Point(0, 3), Engine::Point(-2.5, 0), Engine::Point(-4, -4), Engine::Point(4, -4), Engine::Point(2.5, 0)
+        });
+    this->polygonDB[6] = new Polygon(this, {
+        Engine::Point(0, 4), Engine::Point(-2, 2), Engine::Point(-2, -2), Engine::Point(0, -4), Engine::Point(2, -2), Engine::Point(2, 2)
+        });
+    this->polygonDB[7] = new Polygon(this, {
+        Engine::Point(0, 6), Engine::Point(-2, 4), Engine::Point(-2, -5), Engine::Point(2, -5), Engine::Point(2, 4)
+        });
+    this->polygonDB[8] = new Polygon(this, {
+        Engine::Point(0, 6), Engine::Point(-2.5, 0), Engine::Point(-2, -7), Engine::Point(2, -7), Engine::Point(2.5, 0)
+        });
+    this->polygonDB[9] = new Polygon(this, {
+        Engine::Point(-0.5, 4), Engine::Point(-2, 2), Engine::Point(-2, -2.5), Engine::Point(-0.5, -5), Engine::Point(1, -2.5), Engine::Point(1, 2)
+        });
 }
 
 void Bullet::setGenre(int genre, int color) {
     switch (genre) {
     case 0:
-        this->bmp = Engine::Resources::GetInstance().GetBitmap("main/bullet0-" + to_string(color) + ".png");
         this->shape = SHAPE_CIRCLE;
         this->radius = 2;
         break;
     case 1:
-        this->bmp = Engine::Resources::GetInstance().GetBitmap("main/bullet1-" + to_string(color) + ".png");
         this->shape = SHAPE_CIRCLE;
         this->radius = 4;
         break;
-    case 2:
-        this->bmp = Engine::Resources::GetInstance().GetBitmap("main/bullet2-" + to_string(color) + ".png");
-        this->shape = SHAPE_POLYGON;
-        this->radius = 100;
-        this->polygon = new Polygon(this, {
-            Engine::Point(-10, 20), Engine::Point(-10, -20), Engine::Point(10, -20), Engine::Point(10, 20)
-            });
+    case 4:
+        this->shape = SHAPE_CIRCLE;
+        this->radius = 5;
         break;
+    case 5:
+        this->shape = SHAPE_CIRCLE;
+        this->radius = 9;
+        break;
+    case 2:
     case 3:
-        this->bmp = Engine::Resources::GetInstance().GetBitmap("main/bullet3-" + to_string(color) + ".png");
+    case 6:
+    case 7:
+    case 8:
+    case 9:
         this->shape = SHAPE_POLYGON;
         this->radius = 100;
-        this->polygon = new Polygon(this, {
-            Engine::Point(0, 10), Engine::Point(-8, 2), Engine::Point(-12, -6), Engine::Point(12, -6), Engine::Point(8, 2)
-            });
+        this->polygon = this->polygonDB[genre];
+        //this->polygon = new Polygon(this, {
+        //    Engine::Point(-0.5, 4), Engine::Point(-2, 2), Engine::Point(-2, -2.5), Engine::Point(-0.5, -5), Engine::Point(1, -2.5), Engine::Point(1, 2)
+        //    });
         break;
     default:
         string info = "shape of bullet " + to_string(genre) + "  is not supported yet ><";
@@ -49,9 +70,16 @@ void Bullet::setGenre(int genre, int color) {
         // we will not re-assign it's bmp, and so it may still use the bullet0-0.png which is fetched by preload thread, and cause performance issue
         break;
     }
-    this->bitmapWidth = al_get_bitmap_width(bmp.get());
-    this->bitmapHeight = al_get_bitmap_height(bmp.get());
+    string fileName = "main/bullet" + to_string(genre) + "-" + to_string(color) + ".png";
+    this->bmp = Engine::Resources::GetInstance().GetBitmap(fileName);
 
+    // approach 1: get dimension from Util's map, png should be loaded by Util first
+    //this->bitmapWidth = Util::getPngWidth(fileName);
+    //this->bitmapHeight = Util::getPngHeight(fileName);
+
+    // approach 2: from allegro library directly
+    this->bitmapWidth = al_get_bitmap_width(this->bmp.get());
+    this->bitmapHeight = al_get_bitmap_height(this->bmp.get());
 }
 
 void Bullet::reset(float x, float y, vector<map<string, float>>& v, float baseAngle) {

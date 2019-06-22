@@ -23,6 +23,7 @@ public:
     Engine::Point anchor = Engine::Point(0.5, 0.5);
     Animation animation;
     Animation animation_dot;
+    
     Engine::Point velocity = Engine::Point(0, 0);
     float radius = 2;
     float grazeRadius = 12;

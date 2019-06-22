@@ -42,9 +42,6 @@ void MainScene::Initialize() {
 }
 
 void MainScene::ConstructUI(){
-	ground = new Animation();
-	ground->addCircular(fieldX1 - 15, 0 ,fieldX2-fieldX1 + 30, Engine::LayoutHelper::AlignBottom(), "battle/1.png");
-	
 	label_record = new Engine::Label("ｒｅｃｏｒｄ　" + to_string(record), "FOT-SkipStd-B.otf", 30, fieldX2 + 100, Engine::LayoutHelper::VerticalRatio(0.15), 0xf0, 0xf0, 0xf0, 0xff, 0, 0);
 	AddNewObject(label_record);
 	
@@ -62,6 +59,8 @@ void MainScene::ConstructUI(){
     dialogueText = new Engine::Label("", "FOT-SkipStd-B.otf", 20, 100, 500, 0xf0, 0xf0, 0xf0, 0xff, 0, 0);
     AddNewObject(dialogueText);
     
+    img = new Engine::Image("battle/1.png", 0, 0, fieldX2 - fieldX1);
+    img->Position.y = -1 * img->GetBitmapHeight() + 720 * 3.3;
     
 }
 
@@ -228,7 +227,11 @@ void MainScene::notifyItemCaught(Item* item) {
 
 void MainScene::Draw() const {
     IScene::Draw();
-    ground->circular();
+    img->Draw();
+    img->Position.y += 3;
+    if(img->Position.y >= 0){
+		img->Position.y = -1 * img->GetBitmapHeight() + 720 * 3.3;
+    }
     enemyMgr->draw();
     fighter->draw();
     bulletMgr->draw();
@@ -242,7 +245,7 @@ void MainScene::Terminate() {
     delete fighter;
     delete bulletMgr;
     delete selfBulletManager;
-    delete ground;
+    delete img;
     IScene::Terminate();
 }
 

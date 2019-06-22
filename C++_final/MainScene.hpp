@@ -27,7 +27,8 @@ private:
     Engine::Label* bomb;
 	
     Engine::Label* dialogueText;
-    Animation* ground;
+
+    Engine::Image * img;
 public:
     Flag * flag;
     const int FLAG_KEY_LEFT = 0x1;

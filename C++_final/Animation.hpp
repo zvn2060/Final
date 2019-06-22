@@ -84,7 +84,7 @@ public:
     
     	while(ancy <= imgh){
     		imgs.emplace_back(new Engine::Image(file, x, ancy, w, 0, 0, 1.0));
-    		ancy += 5;
+    		ancy += 3;
     	}
     }
 	

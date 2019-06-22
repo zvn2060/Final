@@ -28,7 +28,7 @@ public:
     float radius_fighter;
     vector<map<string, float>> v;
     vector<map<string, float>> s;
-    vector<string> item;
+    vector<int> items;
     int vIndex{};
     int sIndex;
     int lifespan;
@@ -40,7 +40,7 @@ public:
     EnemyManager* enemyMgr;
 
     explicit Enemy(int debutCount, const string& sprite, float x, float y, float hp,
-        vector<map<string, float>>& v, vector<map<string, float>>& s,
+        vector<int>& items, vector<map<string, float>>& v, vector<map<string, float>>& s,
         MainScene*);
     virtual ~Enemy() = default;
     void setSprite(const string& fileName);

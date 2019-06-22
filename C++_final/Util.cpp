@@ -186,6 +186,16 @@ Enemy* Util::parseEnemy(json& ed, MainScene* mainScene) {
         }
         ss.push_back(s_t);
     }
+    vector<int> items;
+    for (auto& item : ed["items"]) {
+        if (item.is_string() && 
+            Util::itemMap.find(item) != itemMap.end()) {
+            items.push_back(Util::itemMap[item]);
+        }
+        else {
+            Engine::LOG(Engine::WARN) << "Util::parseEnemy(): not supported item type";
+        }
+    }
 
     return new Enemy(
         ed["count"].get<int>(),
@@ -193,7 +203,7 @@ Enemy* Util::parseEnemy(json& ed, MainScene* mainScene) {
         ed["x"].get<float>(),
         ed["y"].get<float>(),
         ed["hp"].get<float>(),
-        vs, ss, mainScene
+        items, vs, ss, mainScene
     );
 }
 Boss* Util::parseBoss(json& ed, MainScene* mainScene) {
@@ -230,6 +240,16 @@ Boss* Util::parseBoss(json& ed, MainScene* mainScene) {
         }
         ss.push_back(s_t);
     }
+    vector<int> items;
+    for (auto& item : ed["items"]) {
+        if (item.is_string() &&
+            Util::itemMap.find(item) != itemMap.end()) {
+            items.push_back(Util::itemMap[item]);
+        }
+        else {
+            Engine::LOG(Engine::WARN) << "Util::parseEnemy(): not supported item type";
+        }
+    }
 
     vector<string> dialogueA;
     if (!ed["dialogueA"].is_null()) {
@@ -250,6 +270,6 @@ Boss* Util::parseBoss(json& ed, MainScene* mainScene) {
         ed["sprite"].get<string>(),
         ed["hp"].get<float>(),
         ed["timeLimit"].get<int>(),
-        vs, ss, dialogueA, dialogueB, mainScene
+        items, vs, ss, dialogueA, dialogueB, mainScene
     );
 }

@@ -5,6 +5,7 @@
 #include <fstream>
 #include <random>
 #include <set>
+#include <map>
 #include "Point.hpp"
 #include "Enemy.hpp"
 #include "Boss.hpp"
@@ -43,6 +44,12 @@ namespace Util {
     static std::set<std::string> movingVectorKeyword_enemy = { "count", "r", "angle", "ra", "w", "raa" };
     static std::set<std::string> movingVectorKeyword_boss = { "count", "type", "x1", "x2", "y1", "y2", "index", "interval" };
     static std::set<std::string> shotDataKeyword = { "count", "genre", "color", "bullet", "aiming", "angle", "random", "offset_r", "offset_t" };
+    static std::map<string, int> itemMap = {
+        {"s", 0},
+        {"p", 1},
+        {"P", 2},
+        {"L", 3}
+    };
     std::vector<std::vector< std::vector<std::map<std::string, float>> >> parseBulletData(const std::string& fileName);
     std::vector<Enemy*> parseEnemyData(const std::string& fileName, MainScene* mainScene);
     Enemy* parseEnemy(json&, MainScene*);

@@ -110,8 +110,8 @@ void SelfBullet::update(float deltaTime) {
 		if ( Math::distanceBetween( position, enemy->position ) < 80 ) {
 			switch ( shape ) {
 				case SHAPE_CIRCLE:
-					if ( Collision::circleOverlap( position, radius, enemy->position, enemy->radius_fighter ) ) {
-						enemy->hp -= 100;
+					if ( Collision::circleOverlap( position, radius, enemy->position, enemy->radius_fighterBullet) ) {
+						enemy->hp -= 40;
 						alive = false;
 					}
 					break;

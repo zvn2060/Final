@@ -13,8 +13,8 @@ map<string, int> Boss::movingVectorTypeMap = {
     { "loop", LOOP }
 };
 
-Boss::Boss(int debutCount, const string& sprite, float hp, int timeLimit, vector<map<string, float>>& v, vector<map<string, float>>& s, vector<string>& dialogueA, vector<string>& dialogueB, MainScene* mainScene)
-    : Enemy(debutCount, sprite, (mainScene->fieldX2 - mainScene->fieldX1) / 2, -100, hp, v, s, mainScene ){
+Boss::Boss(int debutCount, const string& sprite, float hp, int timeLimit, vector<int>& items, vector<map<string, float>>& v, vector<map<string, float>>& s, vector<string>& dialogueA, vector<string>& dialogueB, MainScene* mainScene)
+    : Enemy(debutCount, sprite, (mainScene->fieldX2 - mainScene->fieldX1) / 2, -100, hp, items, v, s, mainScene ){
     this->timeLimit = timeLimit;
     this->dialogueA = dialogueA;
     this->dialogueB = dialogueB;

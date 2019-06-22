@@ -42,10 +42,6 @@ void EnemyManager::_update(float deltaTime) {
         else if (enemy->typeForEnemyManager_testing == 1) {
             ((Boss*)enemy)->update(deltaTime);
         }
-        if(enemy->hp <= 0){
-        	mainScene->SetScore(100);
-        	enemyVanished.insert(enemy);
-        }
     }
 
     if (!this->enemyVanished.empty()) {

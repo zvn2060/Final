@@ -19,6 +19,7 @@ void MainScene::Initialize() {
     bulletMgr = new BulletManager();
     selfBulletManager = new SelfBulletManager();
     enemyMgr = new EnemyManager();
+    itemMgr = new ItemManager();
     flag = new Flag();
     count = 0;
 
@@ -26,21 +27,22 @@ void MainScene::Initialize() {
     bitmapConvertCompleted = false;
     // Multithread
     //future<void> task = async(launch::async, &MainScene::preload, this);
-    //thread preloadThread(&MainScene::preload, this);
-    //preloadThread.detach();
+    thread preloadThread(&MainScene::preload, this);
+    preloadThread.detach();
 
     // original single thread
-    preload();
+    //preload();
 
     bulletMgr->init(this);
     enemyMgr->init(this);
     selfBulletManager->init(this);
+    itemMgr->init(this);
 	ConstructUI();
 
 }
 
 void MainScene::ConstructUI(){
-	label_record = new Engine::Label("Ｒｅｃｏｒｄ　" + to_string(record), "FOT-SkipStd-B.otf", 30, fieldX2 + 100, Engine::LayoutHelper::VerticalRatio(0.15), 0xf0, 0xf0, 0xf0, 0xff, 0, 0);
+	label_record = new Engine::Label("ｒｅｃｏｒｄ　" + to_string(record), "FOT-SkipStd-B.otf", 30, fieldX2 + 100, Engine::LayoutHelper::VerticalRatio(0.15), 0xf0, 0xf0, 0xf0, 0xff, 0, 0);
 	AddNewObject(label_record);
 	
 	label_score = new Engine::Label("Ｓｃｏｒｅ　　" + to_string(score), "FOT-SkipStd-B.otf", 30,fieldX2 + 100, Engine::LayoutHelper::VerticalRatio(0.20), 0xf0, 0xf0, 0xf0, 0xff, 0, 0);
@@ -65,6 +67,12 @@ void MainScene::preload() {
             Engine::Resources::GetInstance().LoadBitmap("main/bullet" + to_string(i) + "-" + to_string(j) + ".png");
         }
     }
+    Engine::Resources::GetInstance().LoadBitmap("main/item-0.png");
+    Engine::Resources::GetInstance().LoadBitmap("main/item-1.png");
+    Engine::Resources::GetInstance().LoadBitmap("main/item-2.png");
+    Engine::Resources::GetInstance().LoadBitmap("main/item-3.png");
+    Engine::Resources::GetInstance().LoadBitmap("main/item-4.png");
+    Engine::Resources::GetInstance().LoadBitmap("main/item-5.png");
     Engine::Resources::GetInstance().LoadBitmap("main/yousei_1.png");
     loadCompleted = true;
 }
@@ -172,6 +180,7 @@ void MainScene::Update(float deltaTime) {
     bulletMgr->update(deltaTime);
     selfBulletManager->update(deltaTime);
     enemyMgr->update(deltaTime);
+    itemMgr->update(deltaTime);
 
     if (!flag->isFlagSet(FLAG_BOSS_STAGE)) {
         count++;
@@ -197,12 +206,32 @@ void MainScene::dialogue(const string& text) {
     this->dialogueText->Text = text;
 }
 
+// this is called only when enemy is beated by fighter bullet
+// otherwise, enemy can vanish due to it's lifetime
+void MainScene::notifyEnemyVanished(Enemy* enemy) {
+    SetScore(100);
+    itemMgr->shot(enemy->position, enemy->items);
+}
+void MainScene::notifyItemCaught(Item* item) {
+    switch (item->type) {
+    case 0:  // score
+        SetScore(1);
+        break;
+    case 1:  // power
+    case 2:  // POWER
+    case 3:  // Live
+    default:
+        break;
+    }
+}
+
 void MainScene::Draw() const {
     IScene::Draw();
     enemyMgr->draw();
     fighter->draw();
     bulletMgr->draw();
     selfBulletManager->draw();
+    itemMgr->draw();
 }
 
 void MainScene::Terminate() {

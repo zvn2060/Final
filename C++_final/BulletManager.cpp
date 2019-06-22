@@ -12,7 +12,6 @@
 void BulletManager::init(MainScene* mainscene) {
     mainScene = mainscene;
     bulletPoolSize = 2000;
-    bulletPool.emplace_back(mainscene);
     for (int i = 0; i < bulletPoolSize; ++i) {
         bulletPool.emplace_back(mainscene);
     }

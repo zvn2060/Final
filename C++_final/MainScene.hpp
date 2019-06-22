@@ -9,6 +9,7 @@
 #include "BulletManager.hpp"
 #include "EnemyManager.hpp"
 #include "SelfBulletManager.hpp"
+#include "ItemManager.hpp"
 
 
 class MainScene : public Engine::IScene {
@@ -44,6 +45,7 @@ public:
     BulletManager* bulletMgr;
     SelfBulletManager* selfBulletManager;
     EnemyManager* enemyMgr;
+    ItemManager* itemMgr;
 
     static float fieldX1;
     static float fieldX2;
@@ -66,6 +68,8 @@ public:
     void notifyBossDialogEnd();
     void notifyBossBeated();
     void dialogue(const string& text);
+    void notifyEnemyVanished(Enemy* enemy);
+    void notifyItemCaught(Item* item);
 
     void Draw() const override;
     void Terminate() override;

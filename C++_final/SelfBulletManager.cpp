@@ -4,7 +4,6 @@
 void SelfBulletManager::init(MainScene* mainscene) {
 	mainScene = mainscene;
 	bulletPoolSize = 2000;
-	bulletPool.emplace_back(mainscene);
 	for (int i = 0; i < this->bulletPoolSize; ++i) {
 		this->bulletPool.emplace_back(mainscene);
 	}

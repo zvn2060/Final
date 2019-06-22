@@ -7,7 +7,7 @@ var enemyData =
     hp: 100,
     x: 180,
     y: -40,
-    item: [],
+    items: ["s", "s", "s", "s", "s"],
     s: [
       // boolean in s is now supported
       { count: 100, genre: 0, color: 0, bullet: 0, aiming: true, angle:    0, random: 5, offset_r: 0, offset_t: 0 },
@@ -33,7 +33,7 @@ var enemyData =
     hp: 100,
     x: 300,
     y: -40,
-    item: [],
+    items: ["p", "s", "p", "s", "s"],
     s: [
       { count: 100, genre: 1, color: 0, bullet: 0, aiming: true, angle:    0, random: 0,  offset_r: 0, offset_t: 0 },
       { count: 120, genre: 1, color: 1, bullet: 0, aiming: true, angle:    0, random: 0,  offset_r: 0, offset_t: 0 },
@@ -58,7 +58,7 @@ var enemyData =
     hp: 100,
     x: 150,
     y: -40,
-    item: [],
+    items: ["s", "s", "s", "s", "s", "P"],
     s: [
       { count: 140, genre: 1, color: 2, bullet: 1, aiming: true, angle:    0, random: 0, offset_r: 0, offset_t: 0 },
       { count: 160, genre: 1, color: 2, bullet: 1, aiming: true, angle:    0, random: 0, offset_r: 0, offset_t: 0 },
@@ -83,7 +83,7 @@ var enemyData =
     hp: 100,
     x: 400,
     y: -40,
-    item: [],
+    items: ["s", "s", "s", "s", "s", "s", "s", "s", "L"],
     s: [
       { count: 140, genre: 1, color: 3, bullet: 2, aiming:false, angle:    0, random:  0, offset_r:  100, offset_t:    0 },
       { count: 150, genre: 1, color: 3, bullet: 2, aiming:false, angle:  -20, random:  0, offset_r:  100, offset_t:  -20 },

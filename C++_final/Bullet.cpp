@@ -9,6 +9,9 @@
 
 Bullet::Bullet(MainScene* mainScene):fighter(mainScene->fighter), mainScene(mainScene){
     //this->setGenre(0, 0);  // this will make main thread contends mutex with preload thread, so we will not do this initialization
+
+    // anchor should be (0.5, 0.5) to work with Polygon's separate-axis calculation
+    this->anchor = Engine::Point(0.5, 0.5);
    
 }
 
@@ -46,8 +49,6 @@ void Bullet::setGenre(int genre, int color) {
         // we will not re-assign it's bmp, and so it may still use the bullet0-0.png which is fetched by preload thread, and cause performance issue
         break;
     }
-    // anchor should be (0.5, 0.5) to work with Polygon's separate-axis calculation
-    this->anchor = Engine::Point(0.5, 0.5);
     this->bitmapWidth = al_get_bitmap_width(bmp.get());
     this->bitmapHeight = al_get_bitmap_height(bmp.get());
 

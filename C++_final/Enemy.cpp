@@ -5,12 +5,13 @@
 #include <allegro5/allegro_primitives.h>
 
 
-Enemy::Enemy(int debutCount, const string& sprite, float x, float y, float hp, vector<map<string, float>>& v, vector<map<string, float>>& s, MainScene* main) {
+Enemy::Enemy(int debutCount, const string& sprite, float x, float y, float hp, vector<int>& items, vector<map<string, float>>& v, vector<map<string, float>>& s, MainScene* main) {
     setSprite(sprite);
     position = Engine::Point(x + MainScene::fieldX1, y + MainScene::fieldY1);
     anchor = Engine::Point(0.5, 0.5);
     this->debutCount = debutCount;
     count = 0;
+    this->items = items;
     this->v = v;
     this->s = s;
     sIndex = -1;
@@ -104,7 +105,11 @@ void Enemy::update(float deltaTime) {
 
     count++;
 	
-    if (count > lifespan ) {
+    if (count > lifespan) {
+        enemyMgr->enemyVanished.insert(this);
+    }
+    else if (hp <= 0) {
+        mainScene->notifyEnemyVanished(this);
         enemyMgr->enemyVanished.insert(this);
     }
 }

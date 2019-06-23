@@ -1,8 +1,8 @@
 // power[power_level][one_z shoting bullet {}, {}, {}....]
 // offset_x : x margin
 // offset_y : y margin
-let front = -30;
-let side = 50;
+let front = -10;
+let side = 3;
 var power = [
     [],
     []
@@ -16,10 +16,10 @@ for(let level = 0 ; level <= 8 ; level++){
     for(let bullet = 1 ; bullet <= bullet_num[level]; bullet++){
         let middle = Math.ceil(bullet_num[level] / 2);
         power[0][level].push(
-            {genre: 0, color: 0, bullet: 0, angle: 180 + 5 * (bullet - middle), offset_x: 0, offset_y: front}
+            {genre: 0, color: 0, bullet: 0, angle: 180 + 15 * (bullet - middle), offset_x: side * (bullet - middle), offset_y: front}
         );
         power[1][level].push(
-            {genre: 0, color: 0, bullet: 0, angle: 180 + 2 * (bullet - middle), offset_x: 0, offset_y: front}
+            {genre: 0, color: 0, bullet: 0, angle: 180 + 5 * (bullet - middle), offset_x: side * (bullet - middle), offset_y: front}
         );
     }
 }

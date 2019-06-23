@@ -33,10 +33,11 @@ void SelfBulletManager::next() {
 		firstDead = bulletPool.begin();
 }
 
-void SelfBulletManager::shot(Engine::Point& p, int bullet, int genre, int color, float offset_x, float offset_y){
+void SelfBulletManager::shot(Engine::Point& p, int bullet, int genre, int color, float angle, float offset_x, float offset_y){
 	float baseAngle = 0;
 	SelfBullet* b;
 	// for every bullet
+	baseAngle += angle;
 	
 	for (auto& ele_bullet : bulletData.at(bullet)) {
 		

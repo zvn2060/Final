@@ -19,7 +19,7 @@ Enemy::Enemy(int debutCount, const string& sprite, float x, float y, float hp, v
     radius_fighterBullet = bitmapWidth / 2;
     radius_fighter = 2;
     lifespan = 1000;
-    this->hp = hp;
+    maxhp = this->hp = hp;
     mainScene = main;
     enemyMgr = main->enemyMgr;
     typeForEnemyManager_testing = 0;

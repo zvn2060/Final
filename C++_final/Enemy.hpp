@@ -33,6 +33,7 @@ public:
     int sIndex;
     int lifespan;
     float hp;
+    float maxhp;
     int typeForEnemyManager_testing;
 
     // link

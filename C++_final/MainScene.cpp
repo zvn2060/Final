@@ -25,6 +25,8 @@ void MainScene::Initialize() {
     pauseOptionIndex = 0;
     isPaused = false;
 
+	ConstructUI();
+
     loadCompleted = false;
     bitmapConvertCompleted = false;
     // Multithread
@@ -39,7 +41,6 @@ void MainScene::Initialize() {
     enemyMgr->init(this);
     selfBulletManager->init(this);
     itemMgr->init(this);
-	ConstructUI();
 	
 }
 
@@ -97,6 +98,9 @@ void MainScene::preload() {
     Engine::Resources::GetInstance().LoadBitmap("main/item-4.png");
     Engine::Resources::GetInstance().LoadBitmap("main/item-5.png");
     Engine::Resources::GetInstance().LoadBitmap("main/yousei_1.png");
+    Engine::Resources::GetInstance().LoadBitmap("main/yousei_2.png");
+    Engine::Resources::GetInstance().LoadBitmap("main/yousei_3.png");
+    Engine::Resources::GetInstance().LoadBitmap("main/yousei_4.png");
     loadCompleted = true;
 }
 

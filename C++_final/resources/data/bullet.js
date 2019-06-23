@@ -73,12 +73,12 @@ for(let i = 0; i <= 4 ; i++){
 for(let angle = 0 ; angle <= 360 ; angle += 5){
   bulletData[5].push(
       [
-          {count:0, r:400, angle:angle, ra:-12, w:0, raa:0.3},
-          {count:50, r:180, angle:999, ra:0, w:0, raa:0}
+        {count:0, r:180, angle:angle, ra:-12, w:0, raa:0.2},
+        {count:10, r:999, angle:999, ra:0, w:0, raa:0}
       ],
       [
-        {count:0, r:400, angle:angle, ra:-8, w:0, raa:0.3},
-        {count:80, r:120, angle:999, ra:0, w:0, raa:0}
+        {count:0, r:220, angle:angle, ra:-12, w:0, raa:0.2},
+        {count:10, r:999, angle:999, ra:0, w:0, raa:0}
       ]
   )
 }

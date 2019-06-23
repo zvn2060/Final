@@ -68,9 +68,9 @@ var enemyData =
     sprite: "th10_momiji.png",
     hp: 400,
     dialogueA: [
-      "AA： 「final寫完了嗎?」",
-      "BB： 「還沒」",
-      "AA： 「快去寫」" 
+      "???： 「發財」",
+      "???： 「發大財」",
+      "???： 「糕熊發大財」"
     ],
 
     timeLimit: 600,
@@ -113,13 +113,12 @@ var enemyData =
     bossStage: "end",
     sprite: "th10_momiji.png",
     hp: 500,
-    timeLimit: 600,
+    timeLimit: 2250,
     s: [],
     v: [
       { count:    0, type: "linear", interval: 50, x1:  300, x2:    0, y1:  150, y2:    0 },
-      { count:  200, type: "loop", index: 0 }
+      { count:  750, type: "loop", index: 0 }
     ]
-
   },
 
   // 14 2150 enemy after boss
@@ -224,24 +223,20 @@ for(let c = 6; c <= 8;c++) {
 
 // boss stage3 shot behavior
 
-let count = [
-    [],
-    [],
-    []
+var wave_count = [
+  [50, 150],
+  [300, 400],
+  [550, 650],
+];
 
-]
-
-for(let big_wave = 0 ; big_wave < 4 ; big_wave++){
-  for(let small_wave = 0; small_wave < 3 ; small_wave++) {
+for(let big_wave = 0 ; big_wave < 3 ; big_wave++){
+  for(let small_wave = 0; small_wave < 2 ; small_wave++) {
     enemyData[13]["s"].push(
-        {count: 50 + 100 * big_wave + 20 * small_wave, genre: 8, color: 6, bullet: 5, aiming: false, angle: 0, random: 0, offset_r: 30, offset_t: 60},
+        {count: wave_count[big_wave][small_wave], genre: 8, color: 6, bullet: 5, aiming: false, angle: 0, random: 0, offset_r: 100 * big_wave, offset_t: (small_wave + 1) * 25},
+        {count: wave_count[big_wave][small_wave], genre: 8, color: 6, bullet: 5, aiming: false, angle: 0, random: 0, offset_r: 100 * big_wave, offset_t: (small_wave + 1) * -25},
     )
   }
 }
-
-  50    70   90
-  140   160  180
-  230   250  270
 
 
 console.log(JSON.stringify(enemyData, null, 0));

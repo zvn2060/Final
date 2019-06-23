@@ -157,6 +157,7 @@ void Bullet::update(float deltaTime) {
             if (!this->grazed) {
                 if (Collision::circleOverlap(this->position, this->radius, this->fighter->position, this->fighter->grazeRadius)) {
                     this->fighter->graze++;
+                    mainScene->score += 500;
                     this->grazed = true;
                 }
             }
@@ -168,6 +169,7 @@ void Bullet::update(float deltaTime) {
             if (!this->grazed) {
                 if (Collision::circleOverlap(this->position, this->radius, this->fighter->position, this->fighter->grazeRadius)) {
                     this->fighter->graze++;
+					mainScene->score += 500;
                     this->grazed = true;
                 }
             }

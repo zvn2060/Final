@@ -38,7 +38,7 @@ void MainScene::Initialize() {
     selfBulletManager->init(this);
     itemMgr->init(this);
 	ConstructUI();
-
+	
 }
 
 void MainScene::ConstructUI(){
@@ -173,6 +173,7 @@ void MainScene::OnKeyUp(int keycode) {
 }
 
 void MainScene::Update(float deltaTime) {
+
 	UpdateInfo();
     if (count % 20 == 0) {
         fps = 1.0 / deltaTime;
@@ -189,7 +190,7 @@ void MainScene::Update(float deltaTime) {
     }
 
     if (flag->isFlagSet(FLAG_KEY_Z) && count % 10 == 0) {
-    	fighter->Shot(score, flag->isFlagSet(FLAG_KEY_SHIFT));
+    	fighter->Shot(flag->isFlagSet(FLAG_KEY_SHIFT));
     }
 
     bulletMgr->update(deltaTime);
@@ -287,6 +288,7 @@ void MainScene::UpdateInfo(){
 	label_score->Text = to_string(score);
 	label_score->Text = string( 8 - label_score->Text.size(), '0') + label_score->Text;
 	
+	label_life->Text = to_string(fighter->hp);
 	label_graze->Text = to_string(fighter->graze);
 	
 	label_power->Text = to_string(fighter->power);

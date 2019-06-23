@@ -13,6 +13,7 @@
 
 
 class MainScene : public Engine::IScene {
+	friend Bullet;
 private:
 	int cnt = 0;
 	

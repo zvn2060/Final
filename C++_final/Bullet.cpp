@@ -96,6 +96,8 @@ void Bullet::reset(float x, float y, vector<map<string, float>>& v, float baseAn
 
     this->v = v;
     this->count = 0;
+
+    this->angle = 0;
     this->changeMovingVector(0);
 
     this->angle += baseAngle;
@@ -125,14 +127,14 @@ void Bullet::changeMovingVector(int index) {
     if (this->v[index]["aiming"]) {
         this->angle = Math::angleBetween(this->position.x, this->position.y, this->fighter->position.x, this->fighter->position.y);
     }
-    else {
+    //else {
         if(this->v[index]["angle"] == 999) {  // inheritance current angle
             this->angle = this->angle;
         }
         else {
             this->angle += this->v[index]["angle"];
         }
-    }
+    //}
     if (this->v[index]["random"]) {
         float randomRange = this->v[index]["random"];
         this->angle += Math::random(-randomRange, randomRange);

@@ -29,6 +29,7 @@ private:
     Engine::Label* label_power;
     Engine::Label* label_graze;
 	
+    Engine::Image* dialogueBG;
     Engine::Label* dialogueText;
 
     Engine::Image* img;

@@ -14,7 +14,6 @@ float MainScene::fieldY2 = 680.0f;
 
 void MainScene::Initialize() {
 	AudioHelper::PlayBGM("BGM/battle-1.ogg");
-    SetBackGround("background/play.png");
     fighter = new Fighter(this);
     bulletMgr = new BulletManager();
     selfBulletManager = new SelfBulletManager();
@@ -51,7 +50,16 @@ void MainScene::ConstructUI(){
 	AddNewObject(new Engine::Label("Ｒｅｃｏｒｄ", "FOT-SkipStd-B.otf", font_size, fieldX2 + 100, Engine::LayoutHelper::VerticalRatio(0.15), 0xf0, 0xf0, 0xf0, 0xff, 0, 0));
 	AddNewObject(label_record);
 	*/
-	
+
+    img = new Engine::Image("battle/1.png", MainScene::fieldX1, MainScene::fieldY1, fieldX2 - fieldX1);
+    AddNewObject(img);
+    img->Position.y = -1 * img->GetBitmapHeight() + Engine::LayoutHelper::AlignBottom() * 3.3;
+
+    AddNewObject(new Engine::Image("background/play_1.png", 0, 0));
+    AddNewObject(new Engine::Image("background/play_2.png", 0, MainScene::fieldY1));
+    AddNewObject(new Engine::Image("background/play_3.png", 0, MainScene::fieldY2));
+    AddNewObject(new Engine::Image("background/play_4.png", MainScene::fieldX2, 0));
+
 	label_score = new Engine::Label(to_string(score), "FOT-SkipStd-B.otf", font_size,fieldX2 + 300, Engine::LayoutHelper::VerticalRatio(0.20), 0xf0, 0xf0, 0xf0, 0xff, 0, 0);
 	AddNewObject(new Engine::Label("Ｓｃｏｒｅ", "FOT-SkipStd-B.otf", font_size,fieldX2 + 100, Engine::LayoutHelper::VerticalRatio(0.20), 0xf0, 0xf0, 0xf0, 0xff, 0, 0));
 	AddNewObject(label_score);
@@ -75,14 +83,12 @@ void MainScene::ConstructUI(){
     label_fps = new Engine::Label("fps: " + to_string(fps), "FOT-SkipStd-B.otf", 20, MainScene::fieldX2 + 5, MainScene::fieldY2 - 20, 0xf0, 0xf0, 0xf0, 0xff, 0, 0);
 	AddNewObject(label_fps);
  
+    dialogueBG = new Engine::Image("main/dialog_bg.png", 60, 480);
 	dialogueText = new Engine::Label("", "FOT-SkipStd-B.otf", 20, 100, 500, 0xf0, 0xf0, 0xf0, 0xff, 0, 0);
-    AddNewObject(dialogueText);
 
     label_pauseOption[0] = new Engine::Label("continue", "FOT-SkipStd-B.otf", 22, (MainScene::fieldX1 + fieldX2) / 2, 250, 0xf0, 0xf0, 0xf0, 0xff, 0.5, 0);
     label_pauseOption[1] = new Engine::Label("title", "FOT-SkipStd-B.otf", 22, (MainScene::fieldX1 + fieldX2) / 2, 300, 0xf0, 0xf0, 0xf0, 0x7f, 0.5, 0);
     
-    img = new Engine::Image("battle/1.png", MainScene::fieldX1, MainScene::fieldY1, fieldX2 - fieldX1);
-    img->Position.y = -1 * img->GetBitmapHeight() + Engine::LayoutHelper::AlignBottom() * 3.3;
 }
 
 void MainScene::preload() {
@@ -101,6 +107,16 @@ void MainScene::preload() {
     Engine::Resources::GetInstance().LoadBitmap("main/yousei_2.png");
     Engine::Resources::GetInstance().LoadBitmap("main/yousei_3.png");
     Engine::Resources::GetInstance().LoadBitmap("main/yousei_4.png");
+    Engine::Resources::GetInstance().GetSample("se_ch00.wav");
+    Engine::Resources::GetInstance().GetSample("se_enemy_vanish.wav");
+    Engine::Resources::GetInstance().GetSample("se_enep01.wav");
+    Engine::Resources::GetInstance().GetSample("se_graze.wav");
+    Engine::Resources::GetInstance().GetSample("se_item00.wav");
+    Engine::Resources::GetInstance().GetSample("se_pldead00.wav");
+    Engine::Resources::GetInstance().GetSample("se_plst00.wav");
+    Engine::Resources::GetInstance().GetSample("se_powerup.wav");
+    Engine::Resources::GetInstance().GetSample("se_shot1.wav");
+    Engine::Resources::GetInstance().GetSample("se_slash.wav");
     loadCompleted = true;
 }
 
@@ -229,7 +245,7 @@ void MainScene::Update(float deltaTime) {
         return;
     }
 
-    if (flag->isFlagSet(FLAG_KEY_Z) && count % 10 == 0) {
+    if (flag->isFlagSet(FLAG_KEY_Z) && count % 10 == 0 && !flag->isFlagSet(FLAG_BOSS_DIALOG)) {
     	fighter->Shot(flag->isFlagSet(FLAG_KEY_SHIFT));
     }
 
@@ -310,9 +326,8 @@ void MainScene::notifyFighterExplosion() {
 }
 
 void MainScene::Draw() const {
-    IScene::Draw();
-    img->Draw();
     img->Position.y += 3;
+    IScene::Draw();
     if(img->Position.y >= 0){
 		img->Position.y = -1 * img->GetBitmapHeight() + Engine::LayoutHelper::AlignBottom() * 3.3;
     }
@@ -322,7 +337,10 @@ void MainScene::Draw() const {
     selfBulletManager->draw();
     itemMgr->draw();
 
-    dialogueText->Draw();
+    if (flag->isFlagSet(FLAG_BOSS_DIALOG)) {
+        dialogueBG->Draw();
+        dialogueText->Draw();
+    }
     if (isPaused) {
         label_pauseOption[0]->Draw();
         label_pauseOption[1]->Draw();
@@ -334,7 +352,6 @@ void MainScene::Terminate() {
     delete fighter;
     delete bulletMgr;
     delete selfBulletManager;
-    delete img;
     IScene::Terminate();
 }
 

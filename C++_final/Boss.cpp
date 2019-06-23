@@ -112,9 +112,13 @@ void Boss::update(float deltaTime) {
         this->raa = 0;
     }
     if (this->time > this->timeLimit) {
+        enemyMgr->nextBossStage(this);
         this->enemyMgr->enemyVanished.insert(this);
-
-        // prepare to advance to next boss stage
+    }
+    else if (hp <= 0) {
+        enemyMgr->nextBossStage(this);
+        enemyMgr->enemyVanished.insert(this);
+        mainScene->notifyEnemyVanished(this);
     }
 
 }

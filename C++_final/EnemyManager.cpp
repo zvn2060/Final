@@ -6,12 +6,17 @@
 void EnemyManager::init(MainScene* mainScene) {
     this->mainScene = mainScene;
     this->enemyNotDebut = Util::parseEnemyData("resources/data/enemy.json", mainScene);
-    this->eIndex = -1;
+    this->eIndex = 3;
 }
 
 void EnemyManager::checkAndSpawnEnemy() {
-    if (this->eIndex >= (int)this->enemyNotDebut.size() - 1) return;
+    if (this->eIndex >= (int)this->enemyNotDebut.size() - 1){
+        // last enemy, notify game end
+
+        return;
+    }
     if (this->mainScene->count < this->enemyNotDebut[this->eIndex + 1]->debutCount) return;
+    if (this->mainScene->flag->isFlagSet(mainScene->FLAG_BOSS_STAGE)) return;
 
     this->eIndex++;
     if (this->enemyNotDebut[this->eIndex]->typeForEnemyManager_testing == 0) {  // normal enemy
@@ -20,6 +25,24 @@ void EnemyManager::checkAndSpawnEnemy() {
     else if (this->enemyNotDebut[this->eIndex]->typeForEnemyManager_testing == 1) {  // boss
         this->enemyArray.insert(this->enemyNotDebut[this->eIndex]);
         this->mainScene->notifyBossStage();
+    }
+}
+void EnemyManager::nextBossStage(Boss* previousStage) {
+    if (this->eIndex >= (int)this->enemyNotDebut.size() - 1) {
+        // last enemy, notify game end
+
+        return;
+    }
+
+    cout << this->enemyNotDebut[this->eIndex + 1]->debutCount;
+    if (this->enemyNotDebut[this->eIndex + 1]->typeForEnemyManager_testing == 0) {  // normal enemy
+        cout << 123;
+        this->mainScene->notifyBossStageEnd();
+    }
+    else if (this->enemyNotDebut[this->eIndex + 1]->typeForEnemyManager_testing == 1) {  // boss
+        this->eIndex++;
+        this->enemyArray.insert(this->enemyNotDebut[this->eIndex]);
+        this->enemyNotDebut[this->eIndex]->position = previousStage->position;
     }
 }
 

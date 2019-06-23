@@ -106,7 +106,7 @@ var enemyData =
   // 4: showcase boss-1
   {
     count: 1900,
-    bossStage: true,
+    bossStage: "start",
     sprite: "th10_momiji.png",
     hp: 400,
     dialogueA: [
@@ -131,10 +131,10 @@ var enemyData =
 
   },
 
-  // 4: showcase boss-2
+  // 5: showcase boss-2
   {
     count: 1900,
-    bossStage: true,
+    bossStage: "stage2",
     sprite: "th10_momiji.png",
     hp: 500,
     timeLimit: 600,
@@ -147,7 +147,52 @@ var enemyData =
       { count:  200, type: "loop", index: 0 }
     ]
 
-  }
+  },
+
+  // 6: showcase boss-3
+  {
+    count: 1900,
+    bossStage: "end",
+    sprite: "th10_momiji.png",
+    hp: 500,
+    timeLimit: 600,
+    s: [
+      { count:   50, genre: 8, color: 6, bullet: 1, aiming: true, angle:    0, random:  0, offset_r:    0, offset_t:    0 },
+      { count:  150, genre: 8, color: 6, bullet: 1, aiming: true, angle:    0, random:  0, offset_r:    0, offset_t:    0 },
+    ],
+    v: [
+      { count:    0, type: "linear", interval: 50, x1:  300, x2:    0, y1:  150, y2:    0 },
+      { count:  200, type: "loop", index: 0 }
+    ]
+
+  },
+
+  // 7: showcase enemy after boss
+  {
+    count: 2000,
+    sprite: "yousei_1.png",
+    hp: 100,
+    x: 400,
+    y: -40,
+    items: ["s", "s", "s", "s", "s", "s", "s", "s", "L"],
+    s: [
+      { count: 140, genre: 1, color: 3, bullet: 2, aiming:false, angle:    0, random:  0, offset_r:  100, offset_t:    0 },
+      { count: 150, genre: 1, color: 3, bullet: 2, aiming:false, angle:  -20, random:  0, offset_r:  100, offset_t:  -20 },
+      { count: 160, genre: 1, color: 3, bullet: 2, aiming:false, angle:  -40, random:  0, offset_r:  100, offset_t:  -40 },
+      { count: 170, genre: 1, color: 3, bullet: 2, aiming:false, angle:  -60, random:  0, offset_r:  100, offset_t:  -60 },
+      { count: 180, genre: 1, color: 3, bullet: 2, aiming:false, angle:  -80, random:  0, offset_r:  100, offset_t:  -80 },
+      { count: 210, genre: 1, color: 4, bullet: 2, aiming: true, angle:    0, random: 10, offset_r:    0, offset_t:    0 },
+      { count: 220, genre: 1, color: 4, bullet: 2, aiming: true, angle:    0, random: 10, offset_r:    0, offset_t:    0 },
+      { count: 230, genre: 1, color: 4, bullet: 2, aiming: true, angle:    0, random: 10, offset_r:    0, offset_t:    0 },
+      { count: 240, genre: 1, color: 4, bullet: 2, aiming: true, angle:    0, random: 10, offset_r:    0, offset_t:    0 },
+      { count: 250, genre: 1, color: 4, bullet: 2, aiming: true, angle:    0, random: 10, offset_r:    0, offset_t:    0 }
+    ],
+    v: [
+      { count:    0, r:  60, angle:   0, ra:   0, w:   0, raa:   0 },
+      { count:  120, r:   0, angle:   0, ra:   0, w:   0, raa:   0 },
+      { count:  400, r:  60, angle: 180, ra:   0, w:   0, raa:   0 }
+    ]
+  },
 ];
 
 

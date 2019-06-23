@@ -28,6 +28,7 @@ public:
     void init(MainScene* mainScene);
 
     void checkAndSpawnEnemy();
+    void nextBossStage(Boss* previousStage);
 
     void update(float deltaTime);
     void _update(float deltaTime);

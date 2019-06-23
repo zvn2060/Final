@@ -21,7 +21,7 @@ void MainScene::Initialize() {
     enemyMgr = new EnemyManager();
     itemMgr = new ItemManager();
     flag = new Flag();
-    count = 0;
+    count = 1850;
 
     loadCompleted = false;
     bitmapConvertCompleted = false;
@@ -199,7 +199,7 @@ void MainScene::notifyBossDialogEnd() {
     flag->clearFlag(FLAG_BOSS_DIALOG);
     flag->setFlag(FLAG_BOSS_FIGHT);
 }
-void MainScene::notifyBossBeated() {
+void MainScene::notifyBossStageEnd() {
     flag->clearFlag(FLAG_BOSS_FIGHT);
     flag->clearFlag(FLAG_BOSS_STAGE);
 }

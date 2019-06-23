@@ -35,18 +35,18 @@ for(let i = 1; i <= 4; i++){
 
 bulletData[1].push([
   { count:    0, r:  360, angle:      0, ra:   -4, w:    0, raa:    0 },
-  { count:   50, r:    0, angle:      0, ra:    0, w:    0, raa:    0 },
+  { count:   50, r:    0, angle:    999, ra:    0, w:    0, raa:    0 },
   { count:   60, r:  140, aiming:  true, ra:    0, w:    0, raa:    0 }
 ])
 for(let i = 1; i <= 5; i++){
   bulletData[1].push([
     { count:    0, r:  360 - i*10, angle:  10 * i, ra:   -4, w:    0, raa:    0 },
-    { count:   50, r:           0, angle:       0, ra:    0, w:    0, raa:    0 },
+    { count:   50, r:           0, angle:     999, ra:    0, w:    0, raa:    0 },
     { count:   60, r:         140, aiming:   true, ra:    0, w:    0, raa:    0 }
   ])
   bulletData[1].push([
     { count:    0, r:  360 - i*10, angle: -10 * i, ra:   -4, w:    0, raa:    0 },
-    { count:   50, r:           0, angle:       0, ra:    0, w:    0, raa:    0 },
+    { count:   50, r:           0, angle:     999, ra:    0, w:    0, raa:    0 },
     { count:   60, r:         140, aiming:   true, ra:    0, w:    0, raa:    0 }
   ])
 }

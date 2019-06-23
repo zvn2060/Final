@@ -66,7 +66,7 @@ public:
     void notifyBossStage();
     void notifyBossMet();
     void notifyBossDialogEnd();
-    void notifyBossBeated();
+    void notifyBossStageEnd();
     void dialogue(const string& text);
     void notifyEnemyVanished(Enemy* enemy);
     void notifyItemCaught(Item* item);

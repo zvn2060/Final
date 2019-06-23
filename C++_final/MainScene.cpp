@@ -267,16 +267,19 @@ void MainScene::dialogue(const string& text) {
 void MainScene::notifyEnemyVanished(Enemy* enemy) {
     score += static_cast<int>(enemy->maxhp);
     itemMgr->shot(enemy->position, enemy->items);
+    AudioHelper::PlayAudio("se_enemy_vanish.wav");
 }
 void MainScene::notifyItemCaught(Item* item) {
     switch (item->type) {
     case 0:  // score
         score += static_cast<int>(pow(fieldY2 - fighter->position.y, 1.5));
+        AudioHelper::PlayAudio("se_item00.wav");
         break;
     case 1:  // power
     	if(fighter->power++ > 128){
     		fighter->power = 128;
     		score += 10000;
+            AudioHelper::PlayAudio("se_powerup.wav");
     	}else{
     		score += 10;
     	}
@@ -285,6 +288,7 @@ void MainScene::notifyItemCaught(Item* item) {
     	if( (fighter->power += 8) > 128){
 			fighter->power = 128;
 			score += 40000;
+            AudioHelper::PlayAudio("se_powerup.wav");
 		}else{
 			score += 10;
 		}
@@ -293,6 +297,7 @@ void MainScene::notifyItemCaught(Item* item) {
     	if( (fighter->hp++) > 9){
     		fighter->hp = 9;
     	}
+        AudioHelper::PlayAudio("se_powerup.wav");
     	break;
     default:
         break;

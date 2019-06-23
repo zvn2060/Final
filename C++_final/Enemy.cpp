@@ -3,6 +3,7 @@
 #include "Resources.hpp"
 #include "MainScene.hpp"
 #include <allegro5/allegro_primitives.h>
+#include "AudioHelper.hpp"
 
 
 Enemy::Enemy(int debutCount, const string& sprite, float x, float y, float hp, vector<int>& items, vector<map<string, float>>& v, vector<map<string, float>>& s, MainScene* main) {
@@ -78,6 +79,7 @@ void Enemy::shot(int index) {
         shot["offset_t"]
     );
     sIndex = index;
+    AudioHelper::PlayAudio("se_shot1.wav");
 }
 
 void Enemy::update(float deltaTime) {

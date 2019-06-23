@@ -88,8 +88,8 @@ void MainScene::ConstructUI(){
 	dialogueText = new Engine::Label("", "FOT-SkipStd-B.otf", 20, 100, 500, 0xf0, 0xf0, 0xf0, 0xff, 0, 0);
     bossTimeLimit = new Engine::Label("00", "FOT-SkipStd-B.otf", 20, MainScene::fieldX2 - 40, MainScene::fieldY1 + 5, 0xf0, 0xf0, 0xf0, 0xff, 0, 0);
 
-    label_pauseOption[0] = new Engine::Label("continue", "FOT-SkipStd-B.otf", 22, (MainScene::fieldX1 + fieldX2) / 2, 270, 0xf0, 0xf0, 0xf0, 0xff, 0.5, 0);
-    label_pauseOption[1] = new Engine::Label("title", "FOT-SkipStd-B.otf", 22, (MainScene::fieldX1 + fieldX2) / 2, 320, 0xf0, 0xf0, 0xf0, 0x7f, 0.5, 0);
+    label_pauseOption[0] = new Engine::Label("continue", "FOT-SkipStd-B.otf", 40, (MainScene::fieldX1 + fieldX2) / 2, 270, 0xf0, 0xf0, 0xf0, 0xff, 0.5, 0);
+    label_pauseOption[1] = new Engine::Label("title", "FOT-SkipStd-B.otf", 40, (MainScene::fieldX1 + fieldX2) / 2, 320, 0xf0, 0xf0, 0xf0, 0x7f, 0.5, 0);
     
 }
 

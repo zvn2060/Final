@@ -15,10 +15,11 @@
 class MainScene : public Engine::IScene {
 	friend Bullet;
 	friend SelfBullet;
+	friend Boss;
+	friend EnemyManager;
 private:
 	int cnt = 0;
-	
-	void ConstructUI();
+
 	Engine::Label* label_fps;
     float fps{};
     Engine::Label* label_record;
@@ -29,24 +30,25 @@ private:
     Engine::Label* label_bomb;
     Engine::Label* label_power;
     Engine::Label* label_graze;
-	
     Engine::Image* dialogueBG;
     Engine::Label* dialogueText;
     Engine::Label* bossTimeLimit;
-
     Engine::Image* img;
+	
+	Flag * flag;
+	const int FLAG_KEY_LEFT = 0x1;
+	const int FLAG_KEY_RIGHT = 0x2;
+	const int FLAG_KEY_DOWN = 0x4;
+	const int FLAG_KEY_UP = 0x8;
+	const int FLAG_KEY_SHIFT = 0x10;
+	const int FLAG_KEY_Z = 0x20;
+	const int FLAG_BOSS_STAGE = 0x40;
+	const int FLAG_BOSS_MEET = 0x80;
+	const int FLAG_BOSS_DIALOG = 0x100;
+	const int FLAG_BOSS_FIGHT = 0x200;
+	
+	void ConstructUI();
 public:
-    Flag * flag;
-    const int FLAG_KEY_LEFT = 0x1;
-    const int FLAG_KEY_RIGHT = 0x2;
-    const int FLAG_KEY_DOWN = 0x4;
-    const int FLAG_KEY_UP = 0x8;
-    const int FLAG_KEY_SHIFT = 0x10;
-    const int FLAG_KEY_Z = 0x20;
-    const int FLAG_BOSS_STAGE = 0x40;
-    const int FLAG_BOSS_MEET = 0x80;
-    const int FLAG_BOSS_DIALOG = 0x100;
-    const int FLAG_BOSS_FIGHT = 0x200;
 
     bool isPaused = false;
     bool fighterFail = false;

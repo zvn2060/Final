@@ -50,10 +50,10 @@ void Fighter::_update(float deltaTime) {
 }
 
 void Fighter::checkWorldBound() {
-    if (this->position.x < 60) this->position.x = 60;
-    if (this->position.x > 540) this->position.x = 540;
-    if (this->position.y < 40) this->position.y = 40;
-    if (this->position.y > 680) this->position.y = 680;
+    if (this->position.x < MainScene::fieldX1) this->position.x = MainScene::fieldX1;
+    if (this->position.x > MainScene::fieldX2) this->position.x = MainScene::fieldX2;
+    if (this->position.y < MainScene::fieldY1) this->position.y = MainScene::fieldY1;
+    if (this->position.y > MainScene::fieldY2) this->position.y = MainScene::fieldY2;
 }
 
 void Fighter::draw() {

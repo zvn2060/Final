@@ -112,8 +112,8 @@ vector<vector< vector<map<string, float>> >> Util::parseBulletData(const string&
                 map<string, float> v_t;
                 // push all moving vector property
                 for (auto it = v.begin(); it != v.end(); it++) {
-                    if ( (Util::movingVectorKeyword_bullet.find(it.key()) != Util::movingVectorKeyword_bullet.end()) &&
-                        it.value().is_number() || it.value().is_boolean()) {
+                    if ( ((Util::movingVectorKeyword_bullet.find(it.key()) != Util::movingVectorKeyword_bullet.end()) &&
+                        it.value().is_number()) || it.value().is_boolean()) {
                         v_t[it.key()] = it.value();
                     }
                     else {
@@ -176,8 +176,8 @@ Enemy* Util::parseEnemy(json& ed, MainScene* mainScene) {
     for (auto& s : ed["s"]) {
         map<string, float> s_t;
         for (auto it = s.begin(); it != s.end(); it++) {
-            if ((Util::shotDataKeyword.find(it.key()) != Util::shotDataKeyword.end()) &&
-                it.value().is_number() || it.value().is_boolean()) {
+            if (((Util::shotDataKeyword.find(it.key()) != Util::shotDataKeyword.end()) &&
+                it.value().is_number()) || it.value().is_boolean()) {
                 s_t[it.key()] = it.value();
             }
             else {
@@ -230,8 +230,8 @@ Boss* Util::parseBoss(json& ed, MainScene* mainScene) {
     for (auto& s : ed["s"]) {
         map<string, float> s_t;
         for (auto it = s.begin(); it != s.end(); it++) {
-            if ((Util::shotDataKeyword.find(it.key()) != Util::shotDataKeyword.end()) &&
-                it.value().is_number() || it.value().is_boolean()) {
+            if (((Util::shotDataKeyword.find(it.key()) != Util::shotDataKeyword.end()) &&
+                it.value().is_number()) || it.value().is_boolean()) {
                 s_t[it.key()] = it.value();
             }
             else {

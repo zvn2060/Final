@@ -13,6 +13,7 @@
 
 
 class MainScene : public Engine::IScene {
+	friend Bullet;
 private:
 	int cnt = 0;
 	
@@ -23,8 +24,9 @@ private:
     int record{};
     Engine::Label* label_score;
     int score{};
-    Engine::Label* life;
-    Engine::Label* bomb;
+    Engine::Label* label_life;
+    Engine::Label* label_bomb;
+    Engine::Label* label_power;
     Engine::Label* label_graze;
 	
     Engine::Label* dialogueText;
@@ -75,8 +77,7 @@ public:
 
     void Draw() const override;
     void Terminate() override;
-    void SetScore(int delta_score);
-    void SetGraze();
+    void UpdateInfo();
 };
 
 

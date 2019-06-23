@@ -24,6 +24,9 @@ public:
     Animation animation;
     Animation animation_dot;
     
+    int hp = 3;
+    int power = 0;
+    
     Engine::Point velocity = Engine::Point(0, 0);
     float radius = 2;
     float grazeRadius = 16;
@@ -46,7 +49,7 @@ public:
 
     void checkWorldBound();
     void draw();
-    void Shot(int score, bool shift);
+    void Shot(bool shift);
 };
 
 #endif

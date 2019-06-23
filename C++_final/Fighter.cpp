@@ -16,9 +16,11 @@ Fighter::Fighter(MainScene* mainScene) {
 
     this->mainScene = mainScene;
     reset();
+    this->hp = 3;
 }
 
 void Fighter::reset() {
+	hp--;
     this->position.x = 300;
     this->position.y = 600;
 }
@@ -60,35 +62,12 @@ void Fighter::draw() {
     }
 }
 
-void Fighter::Shot( int score, bool shift ){
+void Fighter::Shot(bool shift ){
 	AudioHelper::PlayAudio("fire.ogg");
-	int side = 30;
-	int front= -25;
+	
 	if(!shift) {
-		if ( score >= 800 ) {
-		
-		} else if ( score >= 400 ) {
-		} else if ( score >= 200 ) {
-			mainScene->selfBulletManager->shot( position, 0, 0, 0, false, 3, 0, front );
-			mainScene->selfBulletManager->shot( position, 1, 0, 0, false, 3, 0, front );
-		} else if ( score >= 100 ) {
-			mainScene->selfBulletManager->shot( position, 0, 0, 0, false, 3, side, 0 );
-			mainScene->selfBulletManager->shot( position, 0, 0, 0, false, 3, -side, 0 );
-		} else {
-			mainScene->selfBulletManager->shot( position, 0, 0, 0, false, 3, 0, front );
-		}
+	
 	} else {
-		if ( score >= 800 ) {
-		
-		} else if ( score >= 400 ) {
-		} else if ( score >= 200 ) {
-			mainScene->selfBulletManager->shot( position, 0, 0, 0, false, 0, 0, -20 );
-			mainScene->selfBulletManager->shot( position, 1, 0, 0, false, 0, 0, -20 );
-		} else if ( score >= 100 ) {
-			mainScene->selfBulletManager->shot( position, 0, 0, 0, false, 0, 5, -20 );
-			mainScene->selfBulletManager->shot( position, 0, 0, 0, false, 0, -5, -20 );
-		} else {
-			mainScene->selfBulletManager->shot( position, 0, 0, 0, false, 1, 0, -20 );
-		}
+	
 	}
 }

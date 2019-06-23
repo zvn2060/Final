@@ -54,6 +54,7 @@ public:
     void checkWorldBound();
     void draw();
     void Shot(bool shift);
+    int GetPowerLevel();
 };
 
 #endif

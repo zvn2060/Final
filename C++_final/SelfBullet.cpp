@@ -5,6 +5,11 @@
 #include "LOG.hpp"
 #include <allegro5/allegro_primitives.h>
 
+int SelfBullet::rotate = 0;
+int SelfBullet::hitscore[9] = {
+		480, 600, 720, 800, 820, 840, 900, 1000, 1200
+};
+
 SelfBullet::SelfBullet(MainScene* mainScene):
 fighter(mainScene->fighter),
 mainScene(mainScene)
@@ -13,7 +18,11 @@ mainScene(mainScene)
 void SelfBullet::setGenre(int genre, int color) {
 	switch (genre) {
 		case 0:
-			bmp = Engine::Resources::GetInstance().GetBitmap("main/fighter_bullet-" + to_string(color) + ".png");
+			bmp = Engine::Resources::GetInstance().GetBitmap("main/fighter_bullet-" + to_string(color) + '-' + to_string(rotate % 5)  + ".png");
+			rotate++;
+			if(rotate == 4){
+				rotate = 0;
+			}
 			shape = SHAPE_CIRCLE;
 			radius = 4;
 			break;
@@ -105,6 +114,7 @@ void SelfBullet::update(float deltaTime) {
 				case SHAPE_CIRCLE:
 					if ( Collision::circleOverlap( position, radius, enemy->position, enemy->radius_fighterBullet) ) {
 						enemy->hp -= 40;
+						mainScene->score += hitscore[fighter->GetPowerLevel()];
 						alive = false;
 					}
 					break;

@@ -40,7 +40,7 @@ namespace Util {
     json readJsonData(const std::string& fileName);
     void writeJsonData(const std::string& filename, const json& js);
 
-    static std::set<std::string> movingVectorKeyword_bullet = { "count", "r", "aiming", "angle", "ra", "w", "raa", "offset_r", "offset_t" };
+    static std::set<std::string> movingVectorKeyword_bullet = { "count", "r", "aiming", "angle","random", "ra", "w", "raa", "offset_r", "offset_t" };
     static std::set<std::string> movingVectorKeyword_enemy = { "count", "r", "angle", "ra", "w", "raa" };
     static std::set<std::string> movingVectorKeyword_boss = { "count", "type", "x1", "x2", "y1", "y2", "index", "interval" };
     static std::set<std::string> shotDataKeyword = { "count", "genre", "color", "bullet", "aiming", "angle", "random", "offset_r", "offset_t" };

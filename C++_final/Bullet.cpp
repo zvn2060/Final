@@ -125,11 +125,17 @@ void Bullet::changeMovingVector(int index) {
     if (this->v[index]["aiming"]) {
         this->angle = Math::angleBetween(this->position.x, this->position.y, this->fighter->position.x, this->fighter->position.y);
     }
-    else if(this->v[index]["angle"] == 999) {  // inheritance current angle
-        this->angle = this->angle;
-    }
     else {
-        this->angle = this->v[index]["angle"];
+        if(this->v[index]["angle"] == 999) {  // inheritance current angle
+            this->angle = this->angle;
+        }
+        else {
+            this->angle += this->v[index]["angle"];
+        }
+    }
+    if (this->v[index]["random"]) {
+        float randomRange = this->v[index]["random"];
+        this->angle += Math::random(-randomRange, randomRange);
     }
 
     this->w = this->v[index]["w"];

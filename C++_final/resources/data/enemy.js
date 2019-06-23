@@ -18,14 +18,7 @@ var enemyData =
     y: -40,
     items: ["s", "s", "s", "s", "s", "P"],
     s: [
-      { count: 140, genre: 3, color: 2, bullet: 1, aiming: true, angle:    0, random: 0, offset_r: 0, offset_t: 0 },
-      { count: 160, genre: 3, color: 2, bullet: 1, aiming: true, angle:    0, random: 0, offset_r: 0, offset_t: 0 },
-      { count: 180, genre: 3, color: 2, bullet: 1, aiming: true, angle:    0, random: 0, offset_r: 0, offset_t: 0 },
-      { count: 200, genre: 3, color: 2, bullet: 1, aiming: true, angle:    0, random: 0, offset_r: 0, offset_t: 0 },
-      { count: 220, genre: 3, color: 2, bullet: 1, aiming: true, angle:    0, random: 0, offset_r: 0, offset_t: 0 },
-      { count: 240, genre: 3, color: 2, bullet: 1, aiming: true, angle:    0, random: 0, offset_r: 0, offset_t: 0 },
-      { count: 260, genre: 3, color: 2, bullet: 1, aiming: true, angle:    0, random: 0, offset_r: 0, offset_t: 0 },
-      { count: 280, genre: 3, color: 2, bullet: 1, aiming: true, angle:    0, random: 0, offset_r: 0, offset_t: 0 }
+      { count: 140, genre: 4, color: 5, bullet: 7, aiming: false, angle: 0, random: 180, offset_r: 0, offset_t: 0 }
     ],
     v: [
       { count:    0, r:  60, angle:   0, ra:   0, w:   0, raa:   0 },
@@ -113,7 +106,7 @@ var enemyData =
     bossStage: "end",
     sprite: "th10_momiji.png",
     hp: 500,
-    timeLimit: 600,
+    timeLimit: 3000,
     s: [
       { count:   50, genre: 8, color: 6, bullet: 1, aiming: true, angle:    0, random:  0, offset_r:    0, offset_t:    0 },
       { count:  150, genre: 8, color: 6, bullet: 1, aiming: true, angle:    0, random:  0, offset_r:    0, offset_t:    0 },
@@ -155,79 +148,87 @@ var enemyData =
 
 
 // wave 1
-for(let i = 0 ; i < 3 ; i++){
-  enemyData[2 * i] =
-      {
-        count: 100 + 40 * i, sprite: "yousei_1.png", hp: 100, x: 180, y: -40,
-        items: ["s", "s", "s", "s", "s"],
-        s: [
-          // boolean in s is now supported
-          { count: 100, genre: 0, color: 0, bullet: 4, aiming: true, angle:    0, random: 0, offset_r: 0, offset_t: 0 },
-          { count: 110, genre: 0, color: 0, bullet: 4, aiming: true, angle:    0, random: 0, offset_r: 0, offset_t: 0 },
-          { count: 120, genre: 0, color: 0, bullet: 4, aiming: true, angle:    0, random: 0, offset_r: 0, offset_t: 0 },
-          { count: 130, genre: 0, color: 0, bullet: 4, aiming: true, angle:    0, random: 0, offset_r: 0, offset_t: 0 },
-          { count: 140, genre: 0, color: 0, bullet: 4, aiming: true, angle:    0, random: 0, offset_r: 0, offset_t: 0 }
+enemyData[0] =
+    {
+      count: 100, sprite: "yousei_2.png", hp: 100, x: 180, y: -40,
+      items: ["s", "s", "s", "s", "s"],
+      s: [
+        // boolean in s is now supported
+        { count: 100, genre: 1, color: 6, bullet: 0, aiming: false, angle:    0, random: 20, offset_r: 0, offset_t: 0 }
 
-        ],
-        v: [
-          { count:    0, r:  60, angle:   0, ra:   0, w:   0, raa:   0 },
-          { count:  200, r:  60, angle:   0, ra:   0, w:  -1, raa:   0 },
-          { count:  300, r:  60, angle: 999, ra:   0, w:   0, raa:   0 }
-        ]
-      };
-  enemyData[2 * i + 1] =
-      {
-        count: 100 + 40 * i, sprite: "yousei_1.png", hp: 100, x: 300, y: -40,
-        items: ["s", "s", "s", "s", "s"],
-        s: [
-          // boolean in s is now supported
-          { count: 100, genre: 0, color: 0, bullet: 4, aiming: true, angle:    0, random: 0, offset_r: 0, offset_t: 0 },
-          { count: 110, genre: 0, color: 0, bullet: 4, aiming: true, angle:    0, random: 0, offset_r: 0, offset_t: 0 },
-          { count: 120, genre: 0, color: 0, bullet: 4, aiming: true, angle:    0, random: 0, offset_r: 0, offset_t: 0 },
-          { count: 130, genre: 0, color: 0, bullet: 4, aiming: true, angle:    0, random: 0, offset_r: 0, offset_t: 0 },
-          { count: 140, genre: 0, color: 0, bullet: 4, aiming: true, angle:    0, random: 0, offset_r: 0, offset_t: 0 }
-        ],
-        v: [
-          { count:    0, r:  60, angle:   0, ra:   0, w:   0, raa:   0 },
-          { count:  200, r:  60, angle:   0, ra:   0, w:   1, raa:   0 },
-          { count:  300, r:  60, angle: 999, ra:   0, w:   0, raa:   0 }
-        ]
-      };
-}
+      ],
+      v: [
+        { count:    0, r:  60, angle:   0, ra:   0, w:   0, raa:   0 },
+        { count:  200, r:  60, angle:   0, ra:   0, w:  -1, raa:   0 },
+        { count:  300, r:  60, angle: 999, ra:   0, w:   0, raa:   0 }
+      ]
+    };
+enemyData[1] =
+    {
+      count: 200, sprite: "yousei_2.png", hp: 100, x: 300, y: -40,
+      items: ["s", "s", "s", "s", "s"],
+      s: [
+        // boolean in s is now supported
+        { count: 100, genre: 1, color: 6, bullet: 1, aiming: false, angle:    0, random: 20, offset_r: 0, offset_t: 0 }
+
+      ],
+      v: [
+        { count:    0, r:  60, angle:   0, ra:   0, w:   0, raa:   0 },
+        { count:  200, r:  60, angle:   0, ra:   0, w:   1, raa:   0 },
+        { count:  300, r:  60, angle: 999, ra:   0, w:   0, raa:   0 }
+      ]
+    };
 
 
 // wave 2
-for(let c = 6; c <= 8;c++) {
-  enemyData[c] =
-      {
-        count: 400,
-        sprite: "yousei_1.png",
-        hp: 100,
-        x: 240 + 100 * ( c - 7 ),
-        y: -40,
-        items: ["p", "s", "p", "s", "s"],
-        s: [],
-        v: [
-          { count:    0, r:  60, angle:   0, ra:   0, w:   0, raa:   0 },
-          { count:  200, r:   0, angle:   0, ra:   0, w:   0, raa:   0 },
-          { count:  310, r:  60, angle: 180, ra:   0, w:   0, raa:   0 }
-        ]
-      };
-  for (let i = 0; i <= 18; i++) {
-    enemyData[c]["s"].push({
-      count: 210 + i * 5,
-      genre: 1,
-      color: i % 6,
-      bullet: 3,
-      aiming: true,
-      angle: 5 * i,
-      random: 0,
-      offset_r: 0,
-      offset_t: 0
-    });
-  }
-}
+enemyData[6] =
+    {
+      count: 400,
+      sprite: "yousei_1.png",
+      hp: 100,
+      x: 120,
+      y: -40,
+      items: ["p", "s", "p", "s", "s"],
+      s: [
+        { count: 220, genre: 6, color: 1, bullet: 2, aiming: true, angle: 0, random: 0, offset_r: 0, offset_t: 0 },
+        { count: 230, genre: 6, color: 1, bullet: 3, aiming: true, angle: 0, random: 0, offset_r: 0, offset_t: 0 },
+        { count: 240, genre: 6, color: 1, bullet: 4, aiming: true, angle: 0, random: 0, offset_r: 0, offset_t: 0 },
+        { count: 250, genre: 6, color: 1, bullet: 5, aiming: true, angle: 0, random: 0, offset_r: 0, offset_t: 0 },
+        { count: 260, genre: 6, color: 1, bullet: 6, aiming: true, angle: 0, random: 0, offset_r: 0, offset_t: 0 }
+      ],
+      v: [
+        { count:    0, r:  60, angle:   0, ra:   0, w:   0, raa:   0 },
+        { count:  200, r:   0, angle:   0, ra:   0, w:   0, raa:   0 },
+        { count:  310, r:  60, angle: 180, ra:   0, w:   0, raa:   0 }
+      ]
+    };
+enemyData[7] =
+    {
+      count: 400,
+      sprite: "yousei_1.png",
+      hp: 100,
+      x: 360,
+      y: -40,
+      items: ["p", "s", "p", "s", "s"],
+      s: [
+        { count: 220, genre: 6, color: 1, bullet: 2, aiming: true, angle: 0, random: 0, offset_r: 0, offset_t: 0 },
+        { count: 230, genre: 6, color: 1, bullet: 3, aiming: true, angle: 0, random: 0, offset_r: 0, offset_t: 0 },
+        { count: 240, genre: 6, color: 1, bullet: 4, aiming: true, angle: 0, random: 0, offset_r: 0, offset_t: 0 },
+        { count: 250, genre: 6, color: 1, bullet: 5, aiming: true, angle: 0, random: 0, offset_r: 0, offset_t: 0 },
+        { count: 260, genre: 6, color: 1, bullet: 6, aiming: true, angle: 0, random: 0, offset_r: 0, offset_t: 0 }
+      ],
+      v: [
+        { count:    0, r:  60, angle:   0, ra:   0, w:   0, raa:   0 },
+        { count:  200, r:   0, angle:   0, ra:   0, w:   0, raa:   0 },
+        { count:  310, r:  60, angle: 180, ra:   0, w:   0, raa:   0 }
+      ]
+    };
 
+for(let i = 0; i < 50; i++){
+  enemyData[9].s.push(
+    { count: 141 + i * 2, genre: 4, color: 5, bullet: 7, aiming: false, angle: 0, random: 180, offset_r: 0, offset_t: 0 }
+  )
+}
 
 console.log(JSON.stringify(enemyData, null, 0));
 

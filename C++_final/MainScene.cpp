@@ -20,7 +20,7 @@ void MainScene::Initialize() {
     enemyMgr = new EnemyManager();
     itemMgr = new ItemManager();
     flag = new Flag();
-    count = 1800;
+    count = 0;
     pauseOptionIndex = 0;
     isPaused = false;
     fighterFail = false;

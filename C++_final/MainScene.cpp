@@ -22,6 +22,8 @@ void MainScene::Initialize() {
     itemMgr = new ItemManager();
     flag = new Flag();
     count = 0;
+    pauseOptionIndex = 0;
+    isPaused = false;
 
     loadCompleted = false;
     bitmapConvertCompleted = false;
@@ -74,6 +76,9 @@ void MainScene::ConstructUI(){
  
 	dialogueText = new Engine::Label("", "FOT-SkipStd-B.otf", 20, 100, 500, 0xf0, 0xf0, 0xf0, 0xff, 0, 0);
     AddNewObject(dialogueText);
+
+    label_pauseOption[0] = new Engine::Label("continue", "FOT-SkipStd-B.otf", 22, (MainScene::fieldX1 + fieldX2) / 2, 250, 0xf0, 0xf0, 0xf0, 0xff, 0.5, 0);
+    label_pauseOption[1] = new Engine::Label("title", "FOT-SkipStd-B.otf", 22, (MainScene::fieldX1 + fieldX2) / 2, 300, 0xf0, 0xf0, 0xf0, 0x7f, 0.5, 0);
     
     img = new Engine::Image("battle/1.png", MainScene::fieldX1, MainScene::fieldY1, fieldX2 - fieldX1);
     img->Position.y = -1 * img->GetBitmapHeight() + Engine::LayoutHelper::AlignBottom() * 3.3;
@@ -107,14 +112,35 @@ void MainScene::OnKeyDown(int keycode) {
         fighter->velocity.x = fighter->velocity_normal;
     }
     if (keycode == ALLEGRO_KEY_DOWN) {
+        if (isPaused) {
+            label_pauseOption[pauseOptionIndex]->ChangeColor(0xf0, 0xf0, 0xf0, 0x7f);
+            pauseOptionIndex = (pauseOptionIndex + 1) % 2;
+            label_pauseOption[pauseOptionIndex]->ChangeColor(0xf0, 0xf0, 0xf0, 0xff);
+        }
         flag->setFlag(FLAG_KEY_DOWN);
         fighter->velocity.y = fighter->velocity_normal;
     }
     if (keycode == ALLEGRO_KEY_UP) {
+        if (isPaused) {
+            label_pauseOption[pauseOptionIndex]->ChangeColor(0xf0, 0xf0, 0xf0, 0x7f);
+            pauseOptionIndex = (pauseOptionIndex - 1) % 2;
+            if (pauseOptionIndex < 0) {
+                pauseOptionIndex += 2;
+            }
+            label_pauseOption[pauseOptionIndex]->ChangeColor(0xf0, 0xf0, 0xf0, 0xff);
+        }
         flag->setFlag(FLAG_KEY_UP);
         fighter->velocity.y = -fighter->velocity_normal;
     }
     if(keycode == ALLEGRO_KEY_Z){
+        if (isPaused) {
+            if (pauseOptionIndex == 0) {
+                isPaused = false;
+            }
+            else if (pauseOptionIndex == 1) {
+                Engine::GameEngine::GetInstance().ChangeScene("title");
+            }
+        }
     	flag->setFlag(FLAG_KEY_Z);
     }
 
@@ -122,6 +148,10 @@ void MainScene::OnKeyDown(int keycode) {
         flag->setFlag(FLAG_KEY_SHIFT);
         fighter->animation_dot.play("show", false, 2);
         fighter->slow = true;
+    }
+
+    if (keycode == ALLEGRO_KEY_ESCAPE) {
+        isPaused = !isPaused;
     }
 
     if (keycode == ALLEGRO_KEY_TAB) {
@@ -170,9 +200,11 @@ void MainScene::OnKeyUp(int keycode) {
         fighter->animation_dot.play("hidden");
         fighter->slow = false;
     }
+
 }
 
 void MainScene::Update(float deltaTime) {
+    if (isPaused) return;
 
 	UpdateInfo();
     if (count % 20 == 0) {
@@ -271,7 +303,12 @@ void MainScene::Draw() const {
     bulletMgr->draw();
     selfBulletManager->draw();
     itemMgr->draw();
+
     dialogueText->Draw();
+    if (isPaused) {
+        label_pauseOption[0]->Draw();
+        label_pauseOption[1]->Draw();
+    }
 }
 
 void MainScene::Terminate() {

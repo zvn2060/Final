@@ -45,6 +45,10 @@ public:
     const int FLAG_BOSS_DIALOG = 0x100;
     const int FLAG_BOSS_FIGHT = 0x200;
 
+    bool isPaused = false;
+    int pauseOptionIndex = 0;
+    Engine::Label* label_pauseOption[2];
+
     int count;
     Fighter* fighter;
     BulletManager* bulletMgr;

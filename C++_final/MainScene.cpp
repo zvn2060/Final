@@ -304,6 +304,11 @@ void MainScene::notifyItemCaught(Item* item) {
     }
 }
 
+void MainScene::notifyFighterExplosion() {
+    this->fighter->reset();
+    AudioHelper::PlayAudio("se_pldead00.wav");
+}
+
 void MainScene::Draw() const {
     IScene::Draw();
     img->Draw();

@@ -164,8 +164,7 @@ void Bullet::update(float deltaTime) {
                 }
             }
             if (Collision::circleOverlap(this->position, this->radius, this->fighter->position, this->fighter->radius) && !this->fighter->invincible) {
-                this->fighter->reset();
-                AudioHelper::PlayAudio("se_pldead00.wav");
+                this->mainScene->notifyFighterExplosion();
             }
             break;
         case SHAPE_POLYGON:
@@ -178,8 +177,7 @@ void Bullet::update(float deltaTime) {
                 }
             }
             if (Collision::overlap_circle_polygon(this->fighter->position, this->fighter->radius, this->polygon) && !this->fighter->invincible) {
-                this->fighter->reset();
-                AudioHelper::PlayAudio("se_pldead00.wav");
+                this->mainScene->notifyFighterExplosion();
             }
             break;
         default:

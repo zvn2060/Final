@@ -79,6 +79,7 @@ public:
     void dialogue(const string& text);
     void notifyEnemyVanished(Enemy* enemy);
     void notifyItemCaught(Item* item);
+    void notifyFighterExplosion();
 
     void Draw() const override;
     void Terminate() override;

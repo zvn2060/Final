@@ -94,7 +94,7 @@ void Boss::update(float deltaTime) {
 
     // check collision
     if (Collision::circleOverlap(this->position, this->radius_fighter, this->mainScene->fighter->position, this->mainScene->fighter->radius)) {
-        this->mainScene->fighter->reset();
+        this->mainScene->notifyFighterExplosion();
     }
     if (this->checkMovingVectorChange()) {
         this->changeMovingVector(this->vIndex + 1);

@@ -23,6 +23,7 @@ void MainScene::Initialize() {
     count = 0;
     pauseOptionIndex = 0;
     isPaused = false;
+    fighterFail = false;
 
 	ConstructUI();
 
@@ -86,8 +87,8 @@ void MainScene::ConstructUI(){
     dialogueBG = new Engine::Image("main/dialog_bg.png", 60, 480);
 	dialogueText = new Engine::Label("", "FOT-SkipStd-B.otf", 20, 100, 500, 0xf0, 0xf0, 0xf0, 0xff, 0, 0);
 
-    label_pauseOption[0] = new Engine::Label("continue", "FOT-SkipStd-B.otf", 22, (MainScene::fieldX1 + fieldX2) / 2, 250, 0xf0, 0xf0, 0xf0, 0xff, 0.5, 0);
-    label_pauseOption[1] = new Engine::Label("title", "FOT-SkipStd-B.otf", 22, (MainScene::fieldX1 + fieldX2) / 2, 300, 0xf0, 0xf0, 0xf0, 0x7f, 0.5, 0);
+    label_pauseOption[0] = new Engine::Label("continue", "FOT-SkipStd-B.otf", 22, (MainScene::fieldX1 + fieldX2) / 2, 270, 0xf0, 0xf0, 0xf0, 0xff, 0.5, 0);
+    label_pauseOption[1] = new Engine::Label("title", "FOT-SkipStd-B.otf", 22, (MainScene::fieldX1 + fieldX2) / 2, 320, 0xf0, 0xf0, 0xf0, 0x7f, 0.5, 0);
     
 }
 
@@ -132,7 +133,7 @@ void MainScene::OnKeyDown(int keycode) {
         fighter->velocity.x = fighter->velocity_normal;
     }
     if (keycode == ALLEGRO_KEY_DOWN) {
-        if (isPaused) {
+        if (isPaused || fighterFail) {
             label_pauseOption[pauseOptionIndex]->ChangeColor(0xf0, 0xf0, 0xf0, 0x7f);
             pauseOptionIndex = (pauseOptionIndex + 1) % 2;
             label_pauseOption[pauseOptionIndex]->ChangeColor(0xf0, 0xf0, 0xf0, 0xff);
@@ -141,7 +142,7 @@ void MainScene::OnKeyDown(int keycode) {
         fighter->velocity.y = fighter->velocity_normal;
     }
     if (keycode == ALLEGRO_KEY_UP) {
-        if (isPaused) {
+        if (isPaused || fighterFail) {
             label_pauseOption[pauseOptionIndex]->ChangeColor(0xf0, 0xf0, 0xf0, 0x7f);
             pauseOptionIndex = (pauseOptionIndex - 1) % 2;
             if (pauseOptionIndex < 0) {
@@ -153,9 +154,14 @@ void MainScene::OnKeyDown(int keycode) {
         fighter->velocity.y = -fighter->velocity_normal;
     }
     if(keycode == ALLEGRO_KEY_Z){
-        if (isPaused) {
+        if (isPaused || fighterFail) {
             if (pauseOptionIndex == 0) {
                 isPaused = false;
+                if (fighterFail) {
+                    fighterFail = false;
+                    fighter->hp = 2;
+                    fighter->reset();
+                }
             }
             else if (pauseOptionIndex == 1) {
                 Engine::GameEngine::GetInstance().ChangeScene("title");
@@ -224,7 +230,7 @@ void MainScene::OnKeyUp(int keycode) {
 }
 
 void MainScene::Update(float deltaTime) {
-    if (isPaused) return;
+    if (isPaused || fighterFail) return;
 
 	UpdateInfo();
     if (count % 20 == 0) {
@@ -232,7 +238,7 @@ void MainScene::Update(float deltaTime) {
         label_fps->Text = "fps: " + to_string(fps).substr(0, 5);
 
         if (flag->isFlagSet(FLAG_BOSS_STAGE)) {
-            count -= 20;  // -=
+            count -= 20;  // -= 19
         }
     }
     fighter->update(deltaTime);
@@ -321,8 +327,13 @@ void MainScene::notifyItemCaught(Item* item) {
 }
 
 void MainScene::notifyFighterExplosion() {
-    this->fighter->reset();
     AudioHelper::PlayAudio("se_pldead00.wav");
+    fighter->hp--;
+    if (fighter->hp < 0) {
+        fighterFail = true;
+        return;
+    }
+    fighter->reset();
 }
 
 void MainScene::Draw() const {
@@ -341,7 +352,7 @@ void MainScene::Draw() const {
         dialogueBG->Draw();
         dialogueText->Draw();
     }
-    if (isPaused) {
+    if (isPaused || fighterFail) {
         label_pauseOption[0]->Draw();
         label_pauseOption[1]->Draw();
     }

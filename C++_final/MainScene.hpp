@@ -48,6 +48,7 @@ public:
     const int FLAG_BOSS_FIGHT = 0x200;
 
     bool isPaused = false;
+    bool fighterFail = false;
     int pauseOptionIndex = 0;
     Engine::Label* label_pauseOption[2];
 

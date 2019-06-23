@@ -79,9 +79,3 @@ document.body.removeChild(t);
 
 
 // JSON.stringify(bulletData, null, 2);
-
-var c = 50;
-var r_0 = 370;
-var ra_0 = -12;
-var raa = 0.2;
-console.log(1/2*raa*Math.pow(c, 2) + ra_0*c);

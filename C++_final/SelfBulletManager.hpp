@@ -21,7 +21,7 @@ public:
 	SelfBullet* getFirstDead();
 	void next();
 	
-	void shot(Engine::Point& p, int data, int genre, int color, float aiming, float randomRange, float offset_r, float offset_t);
+	void shot(Engine::Point& p, int bullet, int genre, int color, float offset_x, float offset_y);
 	
 	void update(float deltaTime);
 	void _update(float deltaTime);

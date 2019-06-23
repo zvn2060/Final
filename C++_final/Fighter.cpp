@@ -3,7 +3,7 @@
 #include "AudioHelper.hpp"
 
 Fighter::Fighter(MainScene* mainScene) {
-
+	Power = Util::readJsonData("resources/data/power.json");
     animation = Animation();
     animation.add("stand", vector<string>{"main/reimu-1.png", "main/reimu-2.png", "main/reimu-3.png", "main/reimu-4.png", "main/reimu-5.png", "main/reimu-6.png", "main/reimu-7.png", "main/reimu-8.png"});
     animation.add("move_left", vector<string>{"main/reimu-9.png", "main/reimu-10.png", "main/reimu-11.png", "main/reimu-12.png", "main/reimu-13.png", "main/reimu-14.png", "main/reimu-15.png", "main/reimu-16.png"});
@@ -64,10 +64,29 @@ void Fighter::draw() {
 
 void Fighter::Shot(bool shift ){
 	AudioHelper::PlayAudio("fire.ogg");
-	
-	if(!shift) {
-	
+	int level = 0;
+	if(power == 128){
+		level = 8;
+	} else if (power >= 96){
+		level = 7;
+	} else if (power >= 80){
+		level = 6;
+	} else if (power >= 64){
+		level = 5;
+	} else if (power >= 48){
+		level = 4;
+	} else if (power >= 32){
+		level = 3;
+	} else if (power >= 16){
+		level = 2;
+	} else if (power >= 8){
+		level = 1;
 	} else {
+		level = 0;
+	}
 	
+	
+	for(auto blt : Power[shift][level]){
+		mainScene->selfBulletManager->shot(position, blt["bullet"], blt["genre"], blt["color"], blt["offset_x"], blt["offset_y"]);
 	}
 }

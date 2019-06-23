@@ -20,7 +20,7 @@ void MainScene::Initialize() {
     enemyMgr = new EnemyManager();
     itemMgr = new ItemManager();
     flag = new Flag();
-    count = 0;
+    count = 1800;
     pauseOptionIndex = 0;
     isPaused = false;
     fighterFail = false;
@@ -86,6 +86,7 @@ void MainScene::ConstructUI(){
  
     dialogueBG = new Engine::Image("main/dialog_bg.png", 60, 480);
 	dialogueText = new Engine::Label("", "FOT-SkipStd-B.otf", 20, 100, 500, 0xf0, 0xf0, 0xf0, 0xff, 0, 0);
+    bossTimeLimit = new Engine::Label("00", "FOT-SkipStd-B.otf", 20, MainScene::fieldX2 - 40, MainScene::fieldY1 + 5, 0xf0, 0xf0, 0xf0, 0xff, 0, 0);
 
     label_pauseOption[0] = new Engine::Label("continue", "FOT-SkipStd-B.otf", 22, (MainScene::fieldX1 + fieldX2) / 2, 270, 0xf0, 0xf0, 0xf0, 0xff, 0.5, 0);
     label_pauseOption[1] = new Engine::Label("title", "FOT-SkipStd-B.otf", 22, (MainScene::fieldX1 + fieldX2) / 2, 320, 0xf0, 0xf0, 0xf0, 0x7f, 0.5, 0);
@@ -347,6 +348,12 @@ void MainScene::Draw() const {
     bulletMgr->draw();
     selfBulletManager->draw();
     itemMgr->draw();
+
+    if (flag->isFlagSet(FLAG_BOSS_STAGE) && flag->isFlagSet(FLAG_BOSS_FIGHT)) {
+        //cout << (this->enemyMgr->currentBoss->timeLimit - this->enemyMgr->currentBoss->time) / 60 << endl;
+        bossTimeLimit->Text = to_string((this->enemyMgr->currentBoss->timeLimit - this->enemyMgr->currentBoss->time) / 60);
+        bossTimeLimit->Draw();
+    }
 
     if (flag->isFlagSet(FLAG_BOSS_DIALOG)) {
         dialogueBG->Draw();

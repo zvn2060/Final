@@ -32,6 +32,7 @@ private:
 	
     Engine::Image* dialogueBG;
     Engine::Label* dialogueText;
+    Engine::Label* bossTimeLimit;
 
     Engine::Image* img;
 public:

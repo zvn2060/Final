@@ -23,6 +23,8 @@ public:
     set<Enemy*> enemyArray;
     set<Enemy*> enemyVanished;  // enemies who ended their lifespan, need to be erased from enemyArray
 
+    Boss* currentBoss;
+
     EnemyManager() = default;
     ~EnemyManager() = default;
     void init(MainScene* mainScene);

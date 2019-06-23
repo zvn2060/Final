@@ -25,9 +25,11 @@ private:
     int score{};
     Engine::Label* life;
     Engine::Label* bomb;
+    Engine::Label* label_graze;
 	
     Engine::Label* dialogueText;
-    Animation* ground;
+
+    Engine::Image* img;
 public:
     Flag * flag;
     const int FLAG_KEY_LEFT = 0x1;
@@ -73,7 +75,8 @@ public:
 
     void Draw() const override;
     void Terminate() override;
-	void SetScore(int delta_score);
+    void SetScore(int delta_score);
+    void SetGraze();
 };
 
 

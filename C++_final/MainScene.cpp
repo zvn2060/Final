@@ -21,7 +21,7 @@ void MainScene::Initialize() {
     enemyMgr = new EnemyManager();
     itemMgr = new ItemManager();
     flag = new Flag();
-    count = 1850;
+    count = 0;
 
     loadCompleted = false;
     bitmapConvertCompleted = false;
@@ -42,10 +42,7 @@ void MainScene::Initialize() {
 }
 
 void MainScene::ConstructUI(){
-	ground = new Animation();
-	ground->addCircular(fieldX1 - 15, 0 ,fieldX2-fieldX1 + 30, Engine::LayoutHelper::AlignBottom(), "battle/1.png");
-	
-	label_record = new Engine::Label("ｒｅｃｏｒｄ　" + to_string(record), "FOT-SkipStd-B.otf", 30, fieldX2 + 100, Engine::LayoutHelper::VerticalRatio(0.15), 0xf0, 0xf0, 0xf0, 0xff, 0, 0);
+	label_record = new Engine::Label("Ｒｅｃｏｒｄ　" + to_string(record), "FOT-SkipStd-B.otf", 30, fieldX2 + 100, Engine::LayoutHelper::VerticalRatio(0.15), 0xf0, 0xf0, 0xf0, 0xff, 0, 0);
 	AddNewObject(label_record);
 	
 	label_score = new Engine::Label("Ｓｃｏｒｅ　　" + to_string(score), "FOT-SkipStd-B.otf", 30,fieldX2 + 100, Engine::LayoutHelper::VerticalRatio(0.20), 0xf0, 0xf0, 0xf0, 0xff, 0, 0);
@@ -57,11 +54,15 @@ void MainScene::ConstructUI(){
 	bomb = new Engine::Label("Ｂｏｍｂ　", "FOT-SkipStd-B.otf", 30, fieldX2 + 100, Engine::LayoutHelper::VerticalRatio(0.35), 0xf0, 0xf0, 0xf0, 0xff, 0, 0);
 	AddNewObject(bomb);
 	
+    label_graze = new Engine::Label("Ｇｒａｚｅ　0", "FOT-SkipStd-B.otf", 30, fieldX2 + 100, Engine::LayoutHelper::VerticalRatio(0.40), 0xf0, 0xf0, 0xf0, 0xff, 0, 0);
+    AddNewObject(label_graze);
 	label_fps = new Engine::Label("fps: " + to_string(fps), "FOT-SkipStd-B.otf", 20, MainScene::fieldX2 + 5, MainScene::fieldY2 - 20, 0xf0, 0xf0, 0xf0, 0xff, 0, 0);
 	AddNewObject(label_fps);
     dialogueText = new Engine::Label("", "FOT-SkipStd-B.otf", 20, 100, 500, 0xf0, 0xf0, 0xf0, 0xff, 0, 0);
     AddNewObject(dialogueText);
     
+    img = new Engine::Image("battle/1.png", MainScene::fieldX1, MainScene::fieldY1, fieldX2 - fieldX1);
+    img->Position.y = -1 * img->GetBitmapHeight() + 720 * 3.3;
     
 }
 
@@ -228,7 +229,11 @@ void MainScene::notifyItemCaught(Item* item) {
 
 void MainScene::Draw() const {
     IScene::Draw();
-    ground->circular();
+    img->Draw();
+    img->Position.y += 3;
+    if(img->Position.y >= 0){
+		img->Position.y = -1 * img->GetBitmapHeight() + 720 * 3.3;
+    }
     enemyMgr->draw();
     fighter->draw();
     bulletMgr->draw();
@@ -242,10 +247,13 @@ void MainScene::Terminate() {
     delete fighter;
     delete bulletMgr;
     delete selfBulletManager;
-    delete ground;
+    delete img;
     IScene::Terminate();
 }
 
 void MainScene::SetScore(int delta_score){
 	label_score->Text = "Ｓｃｏｒｅ　" + to_string(score += delta_score);
+}
+void MainScene::SetGraze() {
+    label_graze->Text = "Ｇｒａｚｅ　" + to_string(fighter->graze);
 }

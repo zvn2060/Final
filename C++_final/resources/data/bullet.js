@@ -6,19 +6,10 @@ var bulletData =
   [],
   // 2: showcase
   [],
-  // 3: testing for separate axis
-  [
-    [
-      { count:    0, r:  0, angle:  -10, ra:  0, w:   0, raa:  0, offset_r: 0, offset_t: 0 }
-    ],
-    [
-      { count:    0, r:  0, angle:  -10, ra:  0, w:   0, raa:  0, offset_r: 80, offset_t: -90 }
-    ],
-    [
-      { count:    0, r:  0, angle:  -10, ra:  0, w:   0, raa:  0, offset_r: 80, offset_t: 90 }
-    ]
-  ]
-
+  // 3: showcase flower
+  [],
+  // 4: showcase single line
+  []
 ];
 
 for(let i = 1; i <= 4; i++){
@@ -37,13 +28,14 @@ bulletData[1].push([
   { count:    0, r:  360, angle:      0, ra:   -4, w:    0, raa:    0 },
   { count:   50, r:    0, angle:    999, ra:    0, w:    0, raa:    0 },
   { count:   60, r:  140, aiming:  true, ra:    0, w:    0, raa:    0 }
-])
+]);
+
 for(let i = 1; i <= 5; i++){
   bulletData[1].push([
     { count:    0, r:  360 - i*10, angle:  10 * i, ra:   -4, w:    0, raa:    0 },
     { count:   50, r:           0, angle:     999, ra:    0, w:    0, raa:    0 },
     { count:   60, r:         140, aiming:   true, ra:    0, w:    0, raa:    0 }
-  ])
+  ]);
   bulletData[1].push([
     { count:    0, r:  360 - i*10, angle: -10 * i, ra:   -4, w:    0, raa:    0 },
     { count:   50, r:           0, angle:     999, ra:    0, w:    0, raa:    0 },
@@ -57,6 +49,24 @@ for(let i = 1; i <= 12; i++){
     { count:   70, r:  999, angle:  999, ra:    0, w:    0, raa:    0 }
   ])
 }
+
+for(let i = 0; i <= 3 ; i++){
+  bulletData[3].push(
+      [
+        {count:0, r:370, angle:90 * i, ra:-12, w:0, raa:0.2},
+        {count:50, r:50, angle:999, ra:0, w:0, raa:0},
+      ]
+  )
+}
+
+for(let i = 0; i <= 4 ; i++){
+  bulletData[4].push(
+      [
+        {count:0, r:120, angle:0, ra:0, w:0, raa:0},
+      ]
+  )
+}
+
 
 console.log(JSON.stringify(bulletData, null, 0));
 

@@ -26,7 +26,7 @@ public:
     
     Engine::Point velocity = Engine::Point(0, 0);
     float radius = 2;
-    float grazeRadius = 12;
+    float grazeRadius = 16;
     int graze = 0;
     const float velocity_normal = 280;
     const float velocity_slow_normal_ratio = 0.464;

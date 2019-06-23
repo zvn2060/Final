@@ -6,7 +6,7 @@
 void EnemyManager::init(MainScene* mainScene) {
     this->mainScene = mainScene;
     this->enemyNotDebut = Util::parseEnemyData("resources/data/enemy.json", mainScene);
-    this->eIndex = 3;
+    this->eIndex = -1;
 }
 
 void EnemyManager::checkAndSpawnEnemy() {

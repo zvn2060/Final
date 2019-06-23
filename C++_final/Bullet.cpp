@@ -58,7 +58,7 @@ void Bullet::setGenre(int genre, int color) {
     case 8:
     case 9:
         this->shape = SHAPE_POLYGON;
-        this->radius = 100;
+        this->radius = 10;
         this->polygon = this->polygonDB[genre];
         //this->polygon = new Polygon(this, {
         //    Engine::Point(-0.5, 4), Engine::Point(-2, 2), Engine::Point(-2, -2.5), Engine::Point(-0.5, -5), Engine::Point(1, -2.5), Engine::Point(1, 2)
@@ -154,21 +154,27 @@ void Bullet::update(float deltaTime) {
     if (Math::distanceBetween(this->position, this->fighter->position) < 80) {
         switch (this->shape) {
         case SHAPE_CIRCLE:
-            if (Collision::circleOverlap(this->position, this->radius, this->fighter->position, this->fighter->grazeRadius)) {
-                this->fighter->graze++;
-
-                if (Collision::circleOverlap(this->position, this->radius, this->fighter->position, this->fighter->radius)) {
-                    this->fighter->reset();
+            if (!this->grazed) {
+                if (Collision::circleOverlap(this->position, this->radius, this->fighter->position, this->fighter->grazeRadius)) {
+                    this->fighter->graze++;
+                    this->mainScene->SetGraze();
+                    this->grazed = true;
                 }
+            }
+            if (Collision::circleOverlap(this->position, this->radius, this->fighter->position, this->fighter->radius)) {
+                this->fighter->reset();
             }
             break;
         case SHAPE_POLYGON:
-            if (Collision::overlap_circle_polygon(this->fighter->position, this->fighter->grazeRadius, this->polygon)) {
-                this->fighter->graze++;
-
-                if (Collision::overlap_circle_polygon(this->fighter->position, this->fighter->radius, this->polygon)) {
-                    this->fighter->reset();
+            if (!this->grazed) {
+                if (Collision::circleOverlap(this->position, this->radius, this->fighter->position, this->fighter->grazeRadius)) {
+                    this->fighter->graze++;
+                    this->mainScene->SetGraze();
+                    this->grazed = true;
                 }
+            }
+            if (Collision::overlap_circle_polygon(this->fighter->position, this->fighter->radius, this->polygon)) {
+                this->fighter->reset();
             }
             break;
         default:
@@ -202,6 +208,7 @@ void Bullet::draw() {
             for (auto& it : this->polygon->vertex_real) {
                 al_draw_filled_circle(it.x, it.y, 2, al_map_rgb(49, 42, 252));
             }
+            //al_draw_circle(this->position.x, this->position.y, this->radius, al_map_rgb(42, 252, 49), 2);
         }
     }
 

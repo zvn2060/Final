@@ -210,6 +210,10 @@ void MainScene::Update(float deltaTime) {
     if (count % 20 == 0) {
         fps = 1.0 / deltaTime;
         label_fps->Text = "fps: " + to_string(fps).substr(0, 5);
+
+        if (flag->isFlagSet(FLAG_BOSS_STAGE)) {
+            count -= 20;  // -=
+        }
     }
     fighter->update(deltaTime);
 
@@ -230,9 +234,9 @@ void MainScene::Update(float deltaTime) {
     enemyMgr->update(deltaTime);
     itemMgr->update(deltaTime);
 
-    if (!flag->isFlagSet(FLAG_BOSS_STAGE)) {
+    //if (!flag->isFlagSet(FLAG_BOSS_STAGE)) {
         count++;
-    }
+    //}
 }
 void MainScene::notifyBossStage() {
     flag->setFlag(FLAG_BOSS_STAGE);

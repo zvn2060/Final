@@ -114,10 +114,7 @@ var enemyData =
     sprite: "th10_momiji.png",
     hp: 500,
     timeLimit: 600,
-    s: [
-      { count:   50, genre: 8, color: 6, bullet: 1, aiming: true, angle:    0, random:  0, offset_r:    0, offset_t:    0 },
-      { count:  150, genre: 8, color: 6, bullet: 1, aiming: true, angle:    0, random:  0, offset_r:    0, offset_t:    0 },
-    ],
+    s: [],
     v: [
       { count:    0, type: "linear", interval: 50, x1:  300, x2:    0, y1:  150, y2:    0 },
       { count:  200, type: "loop", index: 0 }
@@ -162,12 +159,6 @@ for(let i = 0 ; i < 3 ; i++){
         items: ["s", "s", "s", "s", "s"],
         s: [
           // boolean in s is now supported
-          { count: 100, genre: 0, color: 0, bullet: 4, aiming: true, angle:    0, random: 0, offset_r: 0, offset_t: 0 },
-          { count: 110, genre: 0, color: 0, bullet: 4, aiming: true, angle:    0, random: 0, offset_r: 0, offset_t: 0 },
-          { count: 120, genre: 0, color: 0, bullet: 4, aiming: true, angle:    0, random: 0, offset_r: 0, offset_t: 0 },
-          { count: 130, genre: 0, color: 0, bullet: 4, aiming: true, angle:    0, random: 0, offset_r: 0, offset_t: 0 },
-          { count: 140, genre: 0, color: 0, bullet: 4, aiming: true, angle:    0, random: 0, offset_r: 0, offset_t: 0 }
-
         ],
         v: [
           { count:    0, r:  60, angle:   0, ra:   0, w:   0, raa:   0 },
@@ -179,20 +170,23 @@ for(let i = 0 ; i < 3 ; i++){
       {
         count: 100 + 40 * i, sprite: "yousei_1.png", hp: 100, x: 300, y: -40,
         items: ["s", "s", "s", "s", "s"],
-        s: [
-          // boolean in s is now supported
-          { count: 100, genre: 0, color: 0, bullet: 4, aiming: true, angle:    0, random: 0, offset_r: 0, offset_t: 0 },
-          { count: 110, genre: 0, color: 0, bullet: 4, aiming: true, angle:    0, random: 0, offset_r: 0, offset_t: 0 },
-          { count: 120, genre: 0, color: 0, bullet: 4, aiming: true, angle:    0, random: 0, offset_r: 0, offset_t: 0 },
-          { count: 130, genre: 0, color: 0, bullet: 4, aiming: true, angle:    0, random: 0, offset_r: 0, offset_t: 0 },
-          { count: 140, genre: 0, color: 0, bullet: 4, aiming: true, angle:    0, random: 0, offset_r: 0, offset_t: 0 }
-        ],
+        s: [],
         v: [
           { count:    0, r:  60, angle:   0, ra:   0, w:   0, raa:   0 },
           { count:  200, r:  60, angle:   0, ra:   0, w:   1, raa:   0 },
           { count:  300, r:  60, angle: 999, ra:   0, w:   0, raa:   0 }
         ]
       };
+  for(let line = 1 ; line <= 5 ; line ++ ){
+    for(let wave = 0 ; wave < 5 ; wave++) {
+      enemyData[2 * i]["s"].push(
+          {count: 100 + 10 * wave, genre: 0, color: 0, bullet: 4, aiming: true, angle: 10 * (3 - line), random: 0, offset_r: 0, offset_t: 0}
+      );
+      enemyData[2 * i + 1]["s"].push(
+          {count: 100 + 10 * wave, genre: 0, color: 0, bullet: 4, aiming: true, angle: -10 * (3 - line), random: 0, offset_r: 0, offset_t: 0}
+      )
+    }
+  }
 }
 
 
@@ -201,7 +195,7 @@ for(let c = 6; c <= 8;c++) {
   enemyData[c] =
       {
         count: 400,
-        sprite: "yousei_1.png",
+        sprite: "yousei_2.png",
         hp: 100,
         x: 240 + 100 * ( c - 7 ),
         y: -40,
@@ -213,9 +207,9 @@ for(let c = 6; c <= 8;c++) {
           { count:  310, r:  60, angle: 180, ra:   0, w:   0, raa:   0 }
         ]
       };
-  for (let i = 0; i <= 18; i++) {
+  for (let i = 0; i <= 45; i++) {
     enemyData[c]["s"].push({
-      count: 210 + i * 5,
+      count: 210 + i * 2,
       genre: 1,
       color: i % 6,
       bullet: 3,
@@ -227,6 +221,27 @@ for(let c = 6; c <= 8;c++) {
     });
   }
 }
+
+// boss stage3 shot behavior
+
+let count = [
+    [],
+    [],
+    []
+
+]
+
+for(let big_wave = 0 ; big_wave < 4 ; big_wave++){
+  for(let small_wave = 0; small_wave < 3 ; small_wave++) {
+    enemyData[13]["s"].push(
+        {count: 50 + 100 * big_wave + 20 * small_wave, genre: 8, color: 6, bullet: 5, aiming: false, angle: 0, random: 0, offset_r: 30, offset_t: 60},
+    )
+  }
+}
+
+  50    70   90
+  140   160  180
+  230   250  270
 
 
 console.log(JSON.stringify(enemyData, null, 0));

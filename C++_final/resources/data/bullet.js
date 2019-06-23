@@ -9,6 +9,8 @@ var bulletData =
   // 3: showcase flower
   [],
   // 4: showcase single line
+  [],
+  // 5: offset circle wave
   []
 ];
 
@@ -59,6 +61,7 @@ for(let i = 0; i <= 3 ; i++){
   )
 }
 
+
 for(let i = 0; i <= 4 ; i++){
   bulletData[4].push(
       [
@@ -67,6 +70,18 @@ for(let i = 0; i <= 4 ; i++){
   )
 }
 
+for(let angle = 0 ; angle <= 360 ; angle += 5){
+  bulletData[5].push(
+      [
+          {count:0, r:400, angle:angle, ra:-12, w:0, raa:0.3},
+          {count:50, r:180, angle:999, ra:0, w:0, raa:0}
+      ],
+      [
+        {count:0, r:400, angle:angle, ra:-8, w:0, raa:0.3},
+        {count:80, r:120, angle:999, ra:0, w:0, raa:0}
+      ]
+  )
+}
 
 console.log(JSON.stringify(bulletData, null, 0));
 

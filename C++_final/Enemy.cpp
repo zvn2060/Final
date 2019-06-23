@@ -96,6 +96,7 @@ void Enemy::update(float deltaTime) {
 
     if (Collision::circleOverlap(position, radius_fighter, mainScene->fighter->position, mainScene->fighter->radius)) {
         mainScene->fighter->reset();
+        AudioHelper::PlayAudio("se_pldead00.wav");
     }
     
     if (checkMovingVectorChange()) {

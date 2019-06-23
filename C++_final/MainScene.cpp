@@ -229,7 +229,7 @@ void MainScene::Update(float deltaTime) {
         return;
     }
 
-    if (flag->isFlagSet(FLAG_KEY_Z) && count % 10 == 0) {
+    if (flag->isFlagSet(FLAG_KEY_Z) && count % 5 == 0) {
     	fighter->Shot(flag->isFlagSet(FLAG_KEY_SHIFT));
     }
 

@@ -14,6 +14,7 @@
 
 class MainScene : public Engine::IScene {
 	friend Bullet;
+	friend SelfBullet;
 private:
 	int cnt = 0;
 	

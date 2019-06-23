@@ -73,6 +73,21 @@ void Fighter::draw() {
 
 void Fighter::Shot(bool shift ){
 	AudioHelper::PlayAudio("se_plst00.wav");
+	
+	int level = GetPowerLevel();
+	
+	for(auto blt : Power[shift][level]){
+		mainScene->selfBulletManager->shot(position, blt["bullet"], blt["genre"], blt["color"], blt["angle"], blt["offset_x"], blt["offset_y"]);
+	}
+}
+
+void Fighter::enterInvincible() {
+    invincibleCount = 150;
+    invincible = true;
+    this->animation.setAlpha(0x7f);
+}
+
+int Fighter::GetPowerLevel(){
 	int level = 0;
 	if(power == 128){
 		level = 8;
@@ -93,14 +108,5 @@ void Fighter::Shot(bool shift ){
 	} else {
 		level = 0;
 	}
-	
-	for(auto blt : Power[shift][level]){
-		mainScene->selfBulletManager->shot(position, blt["bullet"], blt["genre"], blt["color"], blt["angle"], blt["offset_x"], blt["offset_y"]);
-	}
-}
-
-void Fighter::enterInvincible() {
-    invincibleCount = 150;
-    invincible = true;
-    this->animation.setAlpha(0x7f);
+	return level;
 }

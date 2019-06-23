@@ -7,7 +7,9 @@
 #include "Polygon.hpp"
 class SelfBullet{
 private:
+	static int rotate;
 	enum{ SHAPE_CIRCLE, SHAPE_POLYGON };
+	static int hitscore[9];
 public:
 	shared_ptr<ALLEGRO_BITMAP> bmp;
 	int bitmapWidth{}; // only for anchor

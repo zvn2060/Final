@@ -161,7 +161,7 @@ void Bullet::update(float deltaTime) {
                     this->grazed = true;
                 }
             }
-            if (Collision::circleOverlap(this->position, this->radius, this->fighter->position, this->fighter->radius)) {
+            if (Collision::circleOverlap(this->position, this->radius, this->fighter->position, this->fighter->radius) && !this->fighter->invincible) {
                 this->fighter->reset();
             }
             break;
@@ -173,7 +173,7 @@ void Bullet::update(float deltaTime) {
                     this->grazed = true;
                 }
             }
-            if (Collision::overlap_circle_polygon(this->fighter->position, this->fighter->radius, this->polygon)) {
+            if (Collision::overlap_circle_polygon(this->fighter->position, this->fighter->radius, this->polygon) && !this->fighter->invincible) {
                 this->fighter->reset();
             }
             break;

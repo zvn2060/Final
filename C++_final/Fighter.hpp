@@ -8,7 +8,6 @@
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_primitives.h>
 #include <nlohmann/json.hpp>
-#include "Flag.hpp"
 #include "Point.hpp"
 #include "Resources.hpp"
 #include "Animation.hpp"
@@ -20,7 +19,6 @@ class Fighter {
 private:
 	json Power{};
 public:
-    Flag flag;
     Engine::Point position = Engine::Point(300, 600);
     Engine::Point anchor = Engine::Point(0.5, 0.5);
     Animation animation;
@@ -37,6 +35,10 @@ public:
     const float velocity_slow_normal_ratio = 0.464;
     //const float velocity_slow_normal_ratio = 0.05;  // for testing bullet's collision shape accurately
     bool slow = false;
+
+    bool invincible = false;
+    int invincibleCount;
+    void enterInvincible();
 
     // link
     MainScene* mainScene;

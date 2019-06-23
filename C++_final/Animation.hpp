@@ -18,6 +18,7 @@ private:
     unsigned int count = 0;
     int framerate;
     bool loop;
+    int alpha;
 public:
     Animation() {
         this->bmps.push_back(Engine::Resources::GetInstance().GetBitmap("main/animation_not_loaded.png"));
@@ -26,6 +27,7 @@ public:
         this->count = 0;
         this->framerate = 4;
         this->loop = true;
+        this->alpha = 0xff;
     }
     ~Animation(){
     	for(auto img : imgs){
@@ -41,8 +43,9 @@ public:
     }
 
     void draw(Engine::Point position, Engine::Point anchor) {
-        al_draw_bitmap(
+        al_draw_tinted_bitmap(
         	this->bmps[this->frame].get(),
+            al_map_rgba(0xff, 0xff, 0xff, this->alpha),
             position.x - anchor.x * al_get_bitmap_width(bmps[this->frame].get()),
             position.y - anchor.y * al_get_bitmap_height(bmps[this->frame].get()),
             0
@@ -94,6 +97,10 @@ public:
     	}
     	imgs.at(count)->Draw();
     	count++;
+    }
+
+    void setAlpha(int a){
+        this->alpha = a;
     }
     
 };

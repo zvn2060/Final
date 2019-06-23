@@ -23,6 +23,7 @@ void Fighter::reset() {
 	hp--;
     this->position.x = 300;
     this->position.y = 600;
+    this->enterInvincible();
 }
 
 void Fighter::update(float deltaTime) {
@@ -39,6 +40,14 @@ void Fighter::_update(float deltaTime) {
     this->position.x += this->slow ? this->velocity.x * deltaTime * this->velocity_slow_normal_ratio : this->velocity.x * deltaTime;
     this->position.y += this->slow ? this->velocity.y * deltaTime * this->velocity_slow_normal_ratio : this->velocity.y * deltaTime;
     checkWorldBound();
+
+    if (invincibleCount > 0) {
+        invincibleCount--;
+        if (invincibleCount == 0) {
+            this->animation.setAlpha(0xff);
+            invincible = false;
+        }
+    }
 }
 
 void Fighter::checkWorldBound() {
@@ -88,4 +97,10 @@ void Fighter::Shot(bool shift ){
 	for(auto blt : Power[shift][level]){
 		mainScene->selfBulletManager->shot(position, blt["bullet"], blt["genre"], blt["color"], blt["angle"], blt["offset_x"], blt["offset_y"]);
 	}
+}
+
+void Fighter::enterInvincible() {
+    invincibleCount = 150;
+    invincible = true;
+    this->animation.setAlpha(0x7f);
 }

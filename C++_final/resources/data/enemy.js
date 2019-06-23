@@ -113,17 +113,17 @@ var enemyData =
     bossStage: "end",
     sprite: "th10_momiji.png",
     hp: 500,
-    timeLimit: 2250,
+    timeLimit: 2700,
     s: [],
     v: [
       { count:    0, type: "linear", interval: 50, x1:  300, x2:    0, y1:  150, y2:    0 },
-      { count:  750, type: "loop", index: 0 }
+      { count:  900, type: "loop", index: 0 }
     ]
   },
 
-  // 14 2150 enemy after boss
+  // 14 3000 enemy after boss
   {
-    count: 2150,
+    count: 3000,
     sprite: "yousei_1.png",
     hp: 100,
     x: 400,

@@ -285,8 +285,7 @@ void MainScene::notifyItemCaught(Item* item) {
     	}
 		break;
     case 2:  // POWER
-		fighter->power += 8;
-    	if( fighter->power > 128){
+    	if( (fighter->power += 8) > 128){
 			fighter->power = 128;
 			score += 40000;
             AudioHelper::PlayAudio("se_powerup.wav");
@@ -295,7 +294,7 @@ void MainScene::notifyItemCaught(Item* item) {
 		}
 		break;
     case 3:  // Live
-    	if(fighter->hp++ > 9){
+    	if( (fighter->hp++) > 9){
     		fighter->hp = 9;
     	}
         AudioHelper::PlayAudio("se_powerup.wav");

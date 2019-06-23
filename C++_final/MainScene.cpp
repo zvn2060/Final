@@ -278,8 +278,7 @@ void MainScene::notifyItemCaught(Item* item) {
     	}
 		break;
     case 2:  // POWER
-		fighter->power += 8;
-    	if( fighter->power > 128){
+    	if( (fighter->power += 8) > 128){
 			fighter->power = 128;
 			score += 40000;
 		}else{
@@ -287,7 +286,7 @@ void MainScene::notifyItemCaught(Item* item) {
 		}
 		break;
     case 3:  // Live
-    	if(fighter->hp++ > 9){
+    	if( (fighter->hp++) > 9){
     		fighter->hp = 9;
     	}
     	break;

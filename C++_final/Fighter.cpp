@@ -20,7 +20,6 @@ Fighter::Fighter(MainScene* mainScene) {
 }
 
 void Fighter::reset() {
-	hp--;
     this->position.x = 300;
     this->position.y = 600;
     this->enterInvincible();

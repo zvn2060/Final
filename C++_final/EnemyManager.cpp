@@ -24,7 +24,8 @@ void EnemyManager::checkAndSpawnEnemy() {
         this->enemyArray.insert(this->enemyNotDebut[this->eIndex]);
     }
     else if (this->enemyNotDebut[this->eIndex]->typeForEnemyManager_testing == 1) {  // boss
-        this->enemyArray.insert(this->enemyNotDebut[this->eIndex]);
+        this->currentBoss = (Boss*)this->enemyNotDebut[this->eIndex];
+        this->enemyArray.insert(currentBoss);
         this->mainScene->notifyBossStage();
     }
 }
@@ -38,14 +39,14 @@ void EnemyManager::nextBossStage(Boss* previousStage) {
 
     cout << this->enemyNotDebut[this->eIndex + 1]->debutCount;
     if (this->enemyNotDebut[this->eIndex + 1]->typeForEnemyManager_testing == 0) {  // normal enemy
-        cout << 123;
         this->mainScene->notifyBossStageEnd();
-
+        this->currentBoss = nullptr;
         AudioHelper::PlayAudio("se_enep01.wav");
     }
     else if (this->enemyNotDebut[this->eIndex + 1]->typeForEnemyManager_testing == 1) {  // boss
         this->eIndex++;
-        this->enemyArray.insert(this->enemyNotDebut[this->eIndex]);
+        this->currentBoss = (Boss*)this->enemyNotDebut[this->eIndex];
+        this->enemyArray.insert(this->currentBoss);
         this->enemyNotDebut[this->eIndex]->position = previousStage->position;
 
         AudioHelper::PlayAudio("se_ch00.wav");

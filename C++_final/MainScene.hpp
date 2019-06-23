@@ -30,7 +30,9 @@ private:
     Engine::Label* label_power;
     Engine::Label* label_graze;
 	
+    Engine::Image* dialogueBG;
     Engine::Label* dialogueText;
+    Engine::Label* bossTimeLimit;
 
     Engine::Image* img;
 public:
@@ -47,6 +49,7 @@ public:
     const int FLAG_BOSS_FIGHT = 0x200;
 
     bool isPaused = false;
+    bool fighterFail = false;
     int pauseOptionIndex = 0;
     Engine::Label* label_pauseOption[2];
 

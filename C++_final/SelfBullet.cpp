@@ -13,14 +13,7 @@ mainScene(mainScene)
 void SelfBullet::setGenre(int genre, int color) {
 	switch (genre) {
 		case 0:
-			bmp = Engine::Resources::GetInstance().GetBitmap(
-						"main/bullet0-" + to_string(color) + ".png"
-						);
-			shape = SHAPE_CIRCLE;
-			radius = 2;
-			break;
-		case 1:
-			bmp = Engine::Resources::GetInstance().GetBitmap("main/bullet1-" + to_string(color) + ".png");
+			bmp = Engine::Resources::GetInstance().GetBitmap("main/fighter_bullet-" + to_string(color) + ".png");
 			shape = SHAPE_CIRCLE;
 			radius = 4;
 			break;

@@ -81,7 +81,7 @@ namespace Engine {
 
         // sleep for nothing but you can observe multi-thread preload more obviously
         std::chrono::milliseconds timespan(80);
-        std::this_thread::sleep_for(timespan);
+        //std::this_thread::sleep_for(timespan);
     }
     void Resources::convertBitmap(bool* bitmapConvertCompleted) {
         // method 1

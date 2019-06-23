@@ -7,6 +7,7 @@
 #include <string>
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_primitives.h>
+#include <nlohmann/json.hpp>
 #include "Flag.hpp"
 #include "Point.hpp"
 #include "Resources.hpp"
@@ -14,9 +15,10 @@
 
 class MainScene;
 using namespace std;
-
+using json = nlohmann::json;
 class Fighter {
 private:
+	json Power{};
 public:
     Flag flag;
     Engine::Point position = Engine::Point(300, 600);

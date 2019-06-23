@@ -1,0 +1,104 @@
+@startuml
+class Allegro5Exception
+class Resources
+class GameEngine
+
+class IScene
+class MainScene
+IScene --|> MainScene
+class TitleScene
+IScene --|> TitleScene
+class SettingScene
+IScene --|> SettingScene
+
+interface AudioHelper
+AudioHelper <|--|> Allegro5
+
+interface LayoutHelper
+LayoutHelper <|--|> Window
+
+interface FileHelper
+FileHelper <|--|> Files
+
+class IControl
+class IObject
+
+interface SelfBulletManager
+MainScene <|--|> SelfBulletManager
+SelfBulletManager <|--|> SelfBullet
+
+interface Itemmanager
+MainScene <|--|> Itemmanager
+Itemmanager <|--|> Item
+
+interface EnemyManager
+MainScene <|--|> EnemyManager
+EnemyManager <|--|> Enemy
+
+interface BulletManager
+MainScene <|--|> BulletManager
+BulletManager <|--|> Bullet
+
+class Animation
+
+class Boss
+Enemy --|> Boss
+
+class Bullet
+
+class Collider
+class Enemy
+
+class Fighter
+
+class Flag
+class Fragment
+
+class Group
+IControl --|> Group
+IObject --|> Group
+
+class Image
+IObject --|> Image
+
+class ImageButton
+IObject --|> ImageButton
+IControl --|> ImageButton
+
+class Item
+
+class Label
+IObject --|> Label
+
+
+enum LOG{
+   VERBOSE,
+   DEBUG,
+   INFO
+}
+
+
+class MuitiLang
+
+class OptionSwitch
+IObject --|> OptionSwitch
+IControl --|> OptionSwitch
+
+class Point
+class Polygon
+
+class SelfBullet
+
+class Slider
+ImageButton --|> Slider
+
+class Sprite
+Image --|> Sprite
+
+class TextButton
+Label --|> TextButton
+IControl --|> TextButton
+
+class Util
+
+@enduml

@@ -94,9 +94,8 @@ void Fighter::Shot(bool shift ){
 		level = 0;
 	}
 	
-	
 	for(auto blt : Power[shift][level]){
-		mainScene->selfBulletManager->shot(position, blt["bullet"], blt["genre"], blt["color"], blt["offset_x"], blt["offset_y"]);
+		mainScene->selfBulletManager->shot(position, blt["bullet"], blt["genre"], blt["color"], blt["angle"], blt["offset_x"], blt["offset_y"]);
 	}
 }
 

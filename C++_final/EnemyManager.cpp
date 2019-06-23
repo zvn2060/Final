@@ -2,6 +2,7 @@
 #include "Util.hpp"
 #include "MainScene.hpp"
 #include "LOG.hpp"
+#include "AudioHelper.hpp"
 
 void EnemyManager::init(MainScene* mainScene) {
     this->mainScene = mainScene;
@@ -31,6 +32,7 @@ void EnemyManager::nextBossStage(Boss* previousStage) {
     if (this->eIndex >= (int)this->enemyNotDebut.size() - 1) {
         // last enemy, notify game end
 
+        AudioHelper::PlayAudio("se_enep01.wav");
         return;
     }
 
@@ -38,11 +40,15 @@ void EnemyManager::nextBossStage(Boss* previousStage) {
     if (this->enemyNotDebut[this->eIndex + 1]->typeForEnemyManager_testing == 0) {  // normal enemy
         cout << 123;
         this->mainScene->notifyBossStageEnd();
+
+        AudioHelper::PlayAudio("se_enep01.wav");
     }
     else if (this->enemyNotDebut[this->eIndex + 1]->typeForEnemyManager_testing == 1) {  // boss
         this->eIndex++;
         this->enemyArray.insert(this->enemyNotDebut[this->eIndex]);
         this->enemyNotDebut[this->eIndex]->position = previousStage->position;
+
+        AudioHelper::PlayAudio("se_ch00.wav");
     }
 }
 

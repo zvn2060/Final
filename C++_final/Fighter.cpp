@@ -72,7 +72,7 @@ void Fighter::draw() {
 }
 
 void Fighter::Shot(bool shift ){
-	AudioHelper::PlayAudio("fire.ogg");
+	AudioHelper::PlayAudio("se_plst00.wav");
 	int level = 0;
 	if(power == 128){
 		level = 8;

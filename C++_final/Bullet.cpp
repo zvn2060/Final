@@ -5,6 +5,7 @@
 #include "MainScene.hpp"
 #include "LOG.hpp"
 #include <allegro5/allegro_primitives.h>
+#include "AudioHelper.hpp"
 
 
 Bullet::Bullet(MainScene* mainScene):fighter(mainScene->fighter), mainScene(mainScene){
@@ -159,10 +160,12 @@ void Bullet::update(float deltaTime) {
                     this->fighter->graze++;
                     mainScene->score += 500;
                     this->grazed = true;
+                    AudioHelper::PlayAudio("se_graze.wav");
                 }
             }
             if (Collision::circleOverlap(this->position, this->radius, this->fighter->position, this->fighter->radius) && !this->fighter->invincible) {
                 this->fighter->reset();
+                AudioHelper::PlayAudio("se_pldead00.wav");
             }
             break;
         case SHAPE_POLYGON:
@@ -171,10 +174,12 @@ void Bullet::update(float deltaTime) {
                     this->fighter->graze++;
 					mainScene->score += 500;
                     this->grazed = true;
+                    AudioHelper::PlayAudio("se_graze.wav");
                 }
             }
             if (Collision::overlap_circle_polygon(this->fighter->position, this->fighter->radius, this->polygon) && !this->fighter->invincible) {
                 this->fighter->reset();
+                AudioHelper::PlayAudio("se_pldead00.wav");
             }
             break;
         default:

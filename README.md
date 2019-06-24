@@ -61,15 +61,15 @@ Final Project Note
 - [X] Animation, Partcle effects
 - [X] File save/read (高分榜...)
 - [ ] Two Player/Split screens
-- [ ] Special level design (Super Boss)
-- [ ] AI of enemy(Hard-coded rules, Q-learning)
+- [X] Special level design (Super Boss)
+- [X] AI of enemy(Hard-coded rules, Q-learning)
 - [ ] Physical engine
 - [ ] Fun, Creative, Peformace
 * Code Bonus
 - [X] Git
 - [ ] Smart Pointer
 - [X] Multi-thread smooth loading (pthread, std::thread…)
-- [X] Online Multiplayer (sockets…)
+- [ ] Online Multiplayer (sockets…)
 - [ ] Elegant Coding Style (OOP, Design Patterns…)
 - [ ] Try-catch and Lambda function
 - [X] Algorithms not covered in this course (A* path finding, Separate-Axis Theorem…)

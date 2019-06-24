@@ -68,9 +68,26 @@ var enemyData =
     sprite: "th10_momiji.png",
     hp: 400,
     dialogueA: [
-      "???： 「發財」",
-      "???： 「發大財」",
-      "???： 「糕熊發大財」"
+      "X吉： 「如果我到了那個深山裡面去」",
+      "X吉： 「明明前面都很有禮貌」",
+      "X吉： 「但是突然之間」",
+      "X吉： 「左邊來一個大漢 拿出一根棒子」",
+      "X吉： 「右邊也來一根大漢 拿出一根棒子」",
+      "X吉： 「我左右兩根棒子」",
+      "X吉： 「然後我就只好說出像這樣的話」",
+      "X吉： 「(北京腔)大家好」",
+      "XX： 「我是來自清大資工的學生 XXX」",
+      "XX： 「我想要跟您demo一下 final雜亂的code」",
+      "...",
+      "XX： 「老實講」",
+      "XX： 「並不是修了課」",
+      "XX： 「就一定要爆肝寫final」",
+      "XX： 「.....」",
+      "XX： 「我又不是卷哥卷姊」",
+      "XX： 「我怎麼寫得完」",
+      "....",
+      "...............",
+      "嗯 根本沒在認真想台詞"
     ],
 
     timeLimit: 600,
@@ -123,7 +140,7 @@ var enemyData =
 
   // 14 15 wave 1 after boss
   {
-    count: 3000,
+    count: 2200,
     sprite: "yousei_2.png",
     hp: 100,
     x: 90,
@@ -143,7 +160,7 @@ var enemyData =
     ]
   },
   {
-    count: 3100,
+    count: 2300,
     sprite: "yousei_2.png",
     hp: 100,
     x: 390,
@@ -165,7 +182,7 @@ var enemyData =
 
   // 16 17 wave 2 after boss
   {
-    count: 3250,
+    count: 2450,
     sprite: "yousei_2.png",
     hp: 100,
     x: 240,
@@ -180,7 +197,7 @@ var enemyData =
     ]
   },
   {
-    count: 3350,
+    count: 2550,
     sprite: "yousei_2.png",
     hp: 100,
     x: 240,
@@ -197,7 +214,7 @@ var enemyData =
 
   // 18 wave 3 after boss
   {
-    count: 3450,
+    count: 2650,
     sprite: "yousei_3.png",
     hp: 100,
     x: 240,
@@ -214,7 +231,7 @@ var enemyData =
 
   // 19 wave 4 after boss
   {
-    count: 3700,
+    count: 2900,
     sprite: "yousei_4.png",
     hp: 100,
     x: 520,

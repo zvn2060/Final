@@ -1,4 +1,9 @@
-var bulletData = 
+// bulletData
+// [# of bullet form]
+// [# of bullets per shot]
+// {per bullet define by count}
+
+var bulletData =
 [
   // 0: showcase
   [],
@@ -93,11 +98,6 @@ for(let angle = 0 ; angle <= 360 ; angle += 5){
       ]
   )
 }
-
-
-
-
-
 
 ///////////////////////////////////////////////////////////
 // after boss

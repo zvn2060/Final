@@ -70,7 +70,7 @@ void MainScene::ConstructUI(){
 	AddNewObject(label_life);
 	
 	//label_bomb = new Engine::Label("Ｂｏｍｂ　", "FOT-SkipStd-B.otf", 30, fieldX2 + 100, Engine::LayoutHelper::VerticalRatio(0.35), 0xf0, 0xf0, 0xf0, 0xff, 0, 0);
-	AddNewObject(new Engine::Label("Ｂｏｍｂ", "FOT-SkipStd-B.otf", font_size, fieldX2 + 100, Engine::LayoutHelper::VerticalRatio(0.35), 0xf0, 0xf0, 0xf0, 0xff, 0, 0));
+	//AddNewObject(new Engine::Label("Ｂｏｍｂ", "FOT-SkipStd-B.otf", font_size, fieldX2 + 100, Engine::LayoutHelper::VerticalRatio(0.35), 0xf0, 0xf0, 0xf0, 0xff, 0, 0));
 	//AddNewObject(label_bomb);
 	
 	label_power = new Engine::Label(to_string(fighter->power) ,"FOT-SkipStd-B.otf", font_size, fieldX2 + 300, Engine::LayoutHelper::VerticalRatio(0.45), 0xf0, 0xf0, 0xf0, 0xff, 0, 0);
@@ -332,6 +332,8 @@ void MainScene::notifyFighterExplosion() {
     fighter->hp--;
     if (fighter->hp < 0) {
         fighterFail = true;
+        score = 0;
+        fighter->power /= 2;
         return;
     }
     fighter->reset();
